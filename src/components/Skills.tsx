@@ -5,7 +5,7 @@ import { useRef } from "react";
 
 const categories = [
   {
-    name: "Data & Analyse",
+    label: "Data & Analyse",
     skills: [
       { name: "Python", level: 88 },
       { name: "SQL", level: 82 },
@@ -15,7 +15,7 @@ const categories = [
     ],
   },
   {
-    name: "IA & NLP",
+    label: "IA & NLP",
     skills: [
       { name: "NLP", level: 80 },
       { name: "Deep Learning", level: 73 },
@@ -24,7 +24,7 @@ const categories = [
     ],
   },
   {
-    name: "Data Engineering",
+    label: "Data Engineering",
     skills: [
       { name: "PySpark / Spark", level: 75 },
       { name: "Apache Airflow", level: 72 },
@@ -33,10 +33,10 @@ const categories = [
     ],
   },
   {
-    name: "Automatisation",
+    label: "Automatisation",
     skills: [
       { name: "n8n", level: 75 },
-      { name: "Automatisation processus", level: 82 },
+      { name: "Processus", level: 82 },
       { name: "Transformation digitale", level: 85 },
     ],
   },
@@ -44,51 +44,62 @@ const categories = [
 
 export default function Skills() {
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-100px" });
-  let globalIndex = 0;
+  const inView = useInView(ref, { once: true, margin: "-80px" });
+  let idx = 0;
 
   return (
-    <section id="skills" ref={ref} className="py-32 px-6">
+    <section id="skills" ref={ref} className="py-24 md:py-36 px-5 md:px-10">
       <div className="max-w-6xl mx-auto">
+
         <motion.div
+          initial={{ opacity: 0 }}
+          animate={inView ? { opacity: 1 } : {}}
+          transition={{ duration: 0.5 }}
+          className="flex items-center gap-4 mb-12"
+        >
+          <span className="text-[10px] tracking-[0.3em] uppercase text-white/20">02</span>
+          <div className="flex-1 rule" />
+          <span className="text-[10px] tracking-[0.3em] uppercase text-white/20">Skills</span>
+        </motion.div>
+
+        <motion.h2
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="mb-16"
+          className="font-bold text-white mb-12"
+          style={{ fontSize: "clamp(2rem, 4.5vw, 3rem)" }}
         >
-          <p className="text-xs tracking-[0.3em] uppercase text-white/30 mb-4">Skills</p>
-          <h2 className="text-4xl md:text-5xl font-bold text-white">
-            Ce que je maîtrise.
-          </h2>
-        </motion.div>
+          Ce que je maîtrise.
+        </motion.h2>
 
-        <div className="grid md:grid-cols-2 gap-6">
+        {/* Mobile: scroll horizontal */}
+        <div className="flex md:grid md:grid-cols-2 gap-4 overflow-x-auto md:overflow-visible pb-2 md:pb-0 -mx-5 md:mx-0 px-5 md:px-0 snap-x snap-mandatory md:snap-none">
           {categories.map((cat) => (
             <motion.div
-              key={cat.name}
-              initial={{ opacity: 0, y: 24 }}
+              key={cat.label}
+              initial={{ opacity: 0, y: 20 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className="glass rounded-2xl p-6"
+              transition={{ duration: 0.55, delay: 0.1 }}
+              className="glass rounded-2xl p-6 min-w-[78vw] md:min-w-0 snap-start"
             >
-              <p className="text-xs tracking-[0.25em] uppercase text-white/30 mb-5">
-                {cat.name}
+              <p className="text-[10px] tracking-[0.25em] uppercase text-white/25 mb-5">
+                {cat.label}
               </p>
               <div className="space-y-4">
-                {cat.skills.map((skill) => {
-                  const delay = 0.3 + globalIndex++ * 0.04;
+                {cat.skills.map((s) => {
+                  const delay = 0.25 + idx++ * 0.035;
                   return (
-                    <div key={skill.name}>
-                      <div className="flex items-center justify-between mb-1.5">
-                        <span className="text-white/80 text-sm">{skill.name}</span>
-                        <span className="text-white/25 text-xs">{skill.level}%</span>
+                    <div key={s.name}>
+                      <div className="flex justify-between mb-1.5">
+                        <span className="text-white/70 text-sm">{s.name}</span>
+                        <span className="text-white/20 text-xs tabular-nums">{s.level}%</span>
                       </div>
-                      <div className="h-px bg-white/[0.06] rounded-full overflow-hidden">
+                      <div className="h-px bg-white/[0.05] rounded-full overflow-hidden">
                         <motion.div
                           initial={{ width: 0 }}
-                          animate={inView ? { width: `${skill.level}%` } : {}}
-                          transition={{ duration: 0.9, delay, ease: "easeOut" }}
-                          className="h-full bg-white/25 rounded-full"
+                          animate={inView ? { width: `${s.level}%` } : {}}
+                          transition={{ duration: 1, delay, ease: "easeOut" }}
+                          className="h-full bg-white/20 rounded-full"
                         />
                       </div>
                     </div>
