@@ -10,7 +10,17 @@ interface Skill {
   order?: number;
 }
 
-const empty: Omit<Skill, "$id"> = { name: "", category: "", level: 80, order: 0 };
+const CATEGORIES = [
+  "Data & Analyse",
+  "IA & NLP",
+  "Data Engineering",
+  "Automatisation",
+  "Soft Skills",
+  "Langues",
+  "Autre",
+];
+
+const empty: Omit<Skill, "$id"> = { name: "", category: "Data & Analyse", level: 80, order: 0 };
 
 export default function SkillsPage() {
   const [skills, setSkills] = useState<Skill[]>([]);
@@ -62,7 +72,9 @@ export default function SkillsPage() {
         <div className="glass rounded-2xl p-6 mb-6 space-y-3">
           <div className="grid grid-cols-2 gap-3">
             <input value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} placeholder="Nom du skill *" className="glass rounded-xl px-4 py-3 text-sm text-white placeholder:text-white/25 outline-none" />
-            <input value={form.category} onChange={(e) => setForm({ ...form, category: e.target.value })} placeholder="Catégorie *" className="glass rounded-xl px-4 py-3 text-sm text-white placeholder:text-white/25 outline-none" />
+            <select value={form.category} onChange={(e) => setForm({ ...form, category: e.target.value })} className="glass rounded-xl px-4 py-3 text-sm text-white outline-none bg-transparent">
+              {CATEGORIES.map((c) => <option key={c} value={c} className="bg-[#0C0B0E]">{c}</option>)}
+            </select>
           </div>
           <div>
             <label className="text-xs text-white/35 mb-2 block">Niveau : {form.level}%</label>

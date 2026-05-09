@@ -1,27 +1,25 @@
-import Navbar from "@/components/Navbar";
-import Hero from "@/components/Hero";
-import About from "@/components/About";
-import Skills from "@/components/Skills";
-import Projects from "@/components/Projects";
-import Experience from "@/components/Experience";
-import Education from "@/components/Education";
-import Articles from "@/components/Articles";
-import Contact from "@/components/Contact";
+import { databases, DB_ID, COLLECTIONS } from "@/lib/appwrite-server";
+import { Query } from "node-appwrite";
+import PortfolioClient from "@/components/PortfolioClient";
+import type { ProjectDoc, SkillDoc, ExperienceDoc, ArticleDoc } from "@/types/portfolio";
 
-export default function Home() {
-  return (
-    <>
-      <Navbar />
-      <main>
-        <Hero />
-        <About />
-        <Skills />
-        <Projects />
-        <Experience />
-        <Education />
-        <Articles />
-        <Contact />
-      </main>
-    </>
-  );
+async function fetchAll() {
+  const [projectsRes, skillsRes, experienceRes, articlesRes] = await Promise.allSettled([
+    databases.listDocuments(DB_ID, COLLECTIONS.PROJECTS, [Query.orderAsc("order"), Query.limit(20)]),
+    databases.listDocuments(DB_ID, COLLECTIONS.SKILLS, [Query.orderAsc("order"), Query.limit(50)]),
+    databases.listDocuments(DB_ID, COLLECTIONS.EXPERIENCE, [Query.orderAsc("order"), Query.limit(10)]),
+    databases.listDocuments(DB_ID, COLLECTIONS.ARTICLES, [Query.orderDesc("$createdAt"), Query.limit(10)]),
+  ]);
+
+  return {
+    projects: projectsRes.status === "fulfilled" ? (projectsRes.value.documents as unknown as ProjectDoc[]) : [],
+    skills:   skillsRes.status   === "fulfilled" ? (skillsRes.value.documents   as unknown as SkillDoc[])   : [],
+    experience: experienceRes.status === "fulfilled" ? (experienceRes.value.documents as unknown as ExperienceDoc[]) : [],
+    articles: articlesRes.status === "fulfilled" ? (articlesRes.value.documents as unknown as ArticleDoc[]) : [],
+  };
+}
+
+export default async function Home() {
+  const data = await fetchAll();
+  return <PortfolioClient {...data} />;
 }

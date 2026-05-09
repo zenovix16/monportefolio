@@ -1,114 +1,78 @@
 "use client";
 
-import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { motion } from "framer-motion";
+import type { SkillDoc } from "@/types/portfolio";
 
-const categories = [
-  {
-    label: "Data & Analyse",
-    skills: [
-      { name: "Python", level: 88 },
-      { name: "SQL", level: 82 },
-      { name: "Power BI", level: 85 },
-      { name: "Excel", level: 80 },
-      { name: "KPI & Reporting", level: 88 },
-    ],
-  },
-  {
-    label: "IA & NLP",
-    skills: [
-      { name: "NLP", level: 80 },
-      { name: "Deep Learning", level: 73 },
-      { name: "RASA", level: 70 },
-      { name: "REST APIs", level: 82 },
-    ],
-  },
-  {
-    label: "Data Engineering",
-    skills: [
-      { name: "PySpark / Spark", level: 75 },
-      { name: "Apache Airflow", level: 72 },
-      { name: "Minio", level: 68 },
-      { name: "Nessie", level: 68 },
-    ],
-  },
-  {
-    label: "Automatisation",
-    skills: [
-      { name: "n8n", level: 75 },
-      { name: "Processus", level: 82 },
-      { name: "Transformation digitale", level: 85 },
-    ],
-  },
+// Données de secours si Appwrite est vide
+const FALLBACK: SkillDoc[] = [
+  { $id: "1", name: "Python",               category: "Data & Analyse",    level: 88 },
+  { $id: "2", name: "SQL",                  category: "Data & Analyse",    level: 82 },
+  { $id: "3", name: "Power BI",             category: "Data & Analyse",    level: 85 },
+  { $id: "4", name: "Excel",                category: "Data & Analyse",    level: 80 },
+  { $id: "5", name: "KPI & Reporting",      category: "Data & Analyse",    level: 88 },
+  { $id: "6", name: "NLP",                  category: "IA & NLP",          level: 80 },
+  { $id: "7", name: "Deep Learning",        category: "IA & NLP",          level: 73 },
+  { $id: "8", name: "RASA",                 category: "IA & NLP",          level: 70 },
+  { $id: "9", name: "REST APIs",            category: "IA & NLP",          level: 82 },
+  { $id:"10", name: "PySpark / Spark",      category: "Data Engineering",  level: 75 },
+  { $id:"11", name: "Apache Airflow",       category: "Data Engineering",  level: 72 },
+  { $id:"12", name: "Minio",               category: "Data Engineering",  level: 68 },
+  { $id:"13", name: "Nessie",              category: "Data Engineering",  level: 68 },
+  { $id:"14", name: "n8n",                 category: "Automatisation",    level: 75 },
+  { $id:"15", name: "Transformation digitale", category: "Automatisation",level: 85 },
 ];
 
-export default function Skills() {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
-  let idx = 0;
+interface Props { skills: SkillDoc[] }
+
+export default function Skills({ skills }: Props) {
+  const data = skills.length > 0 ? skills : FALLBACK;
+
+  const byCategory = data.reduce<Record<string, SkillDoc[]>>((acc, s) => {
+    (acc[s.category] = acc[s.category] || []).push(s);
+    return acc;
+  }, {});
+
+  let globalIdx = 0;
 
   return (
-    <section id="skills" ref={ref} className="py-24 md:py-36 px-5 md:px-10">
-      <div className="max-w-6xl mx-auto">
+    <section className="px-5 md:px-10 py-10 md:py-14 max-w-6xl mx-auto">
+      <div className="flex items-center gap-4 mb-8">
+        <span className="text-[10px] tracking-[0.3em] uppercase text-white/20">02</span>
+        <div className="flex-1 rule" />
+        <span className="text-[10px] tracking-[0.3em] uppercase text-white/20">Skills</span>
+      </div>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={inView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.5 }}
-          className="flex items-center gap-4 mb-12"
-        >
-          <span className="text-[10px] tracking-[0.3em] uppercase text-white/20">02</span>
-          <div className="flex-1 rule" />
-          <span className="text-[10px] tracking-[0.3em] uppercase text-white/20">Skills</span>
-        </motion.div>
+      <h2 className="font-bold text-white mb-8" style={{ fontSize: "clamp(1.8rem, 4vw, 2.8rem)" }}>
+        Ce que je maîtrise.
+      </h2>
 
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="font-bold text-white mb-12"
-          style={{ fontSize: "clamp(2rem, 4.5vw, 3rem)" }}
-        >
-          Ce que je maîtrise.
-        </motion.h2>
-
-        {/* Mobile: scroll horizontal */}
-        <div className="flex md:grid md:grid-cols-2 gap-4 overflow-x-auto md:overflow-visible pb-2 md:pb-0 -mx-5 md:mx-0 px-5 md:px-0 snap-x snap-mandatory md:snap-none">
-          {categories.map((cat) => (
-            <motion.div
-              key={cat.label}
-              initial={{ opacity: 0, y: 20 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.55, delay: 0.1 }}
-              className="glass rounded-2xl p-6 min-w-[78vw] md:min-w-0 snap-start"
-            >
-              <p className="text-[10px] tracking-[0.25em] uppercase text-white/25 mb-5">
-                {cat.label}
-              </p>
-              <div className="space-y-4">
-                {cat.skills.map((s) => {
-                  const delay = 0.25 + idx++ * 0.035;
-                  return (
-                    <div key={s.name}>
-                      <div className="flex justify-between mb-1.5">
-                        <span className="text-white/70 text-sm">{s.name}</span>
-                        <span className="text-white/20 text-xs tabular-nums">{s.level}%</span>
-                      </div>
-                      <div className="h-px bg-white/[0.05] rounded-full overflow-hidden">
-                        <motion.div
-                          initial={{ width: 0 }}
-                          animate={inView ? { width: `${s.level}%` } : {}}
-                          transition={{ duration: 1, delay, ease: "easeOut" }}
-                          className="h-full bg-white/20 rounded-full"
-                        />
-                      </div>
+      <div className="grid md:grid-cols-2 gap-4">
+        {Object.entries(byCategory).map(([cat, catSkills]) => (
+          <div key={cat} className="glass rounded-2xl p-5">
+            <p className="text-[10px] tracking-[0.25em] uppercase text-white/22 mb-4">{cat}</p>
+            <div className="space-y-3.5">
+              {catSkills.map((s) => {
+                const delay = 0.05 + globalIdx++ * 0.03;
+                return (
+                  <div key={s.$id}>
+                    <div className="flex justify-between mb-1.5">
+                      <span className="text-white/65 text-sm">{s.name}</span>
+                      <span className="text-white/20 text-xs tabular-nums">{s.level ?? 80}%</span>
                     </div>
-                  );
-                })}
-              </div>
-            </motion.div>
-          ))}
-        </div>
+                    <div className="h-px bg-white/[0.05] rounded-full overflow-hidden">
+                      <motion.div
+                        initial={{ width: 0 }}
+                        animate={{ width: `${s.level ?? 80}%` }}
+                        transition={{ duration: 0.9, delay, ease: "easeOut" }}
+                        className="h-full bg-white/18 rounded-full"
+                      />
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        ))}
       </div>
     </section>
   );
