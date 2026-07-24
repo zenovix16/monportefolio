@@ -28,8 +28,8 @@ export default function AdminDashboard() {
   return (
     <div>
       <div className="mb-10">
-        <p className="text-xs tracking-[0.3em] uppercase text-white/25 mb-2">Vue d&apos;ensemble</p>
-        <h1 className="text-3xl font-bold text-white">Dashboard</h1>
+        <p className="text-xs tracking-[0.3em] uppercase text-black/40 mb-2">Vue d&apos;ensemble</p>
+        <h1 className="text-3xl font-bold text-[#14141A]">Dashboard</h1>
       </div>
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
@@ -38,11 +38,11 @@ export default function AdminDashboard() {
               <a
                 key={c.label}
                 href={c.href}
-                className="glass rounded-2xl p-6 hover:border-white/15 transition-all"
+                className="glass rounded-2xl p-6 hover:border-black/20 transition-all"
               >
                 <p className="text-2xl mb-1">{c.icon}</p>
-                <p className="text-3xl font-bold text-white mb-1">{c.value}</p>
-                <p className="text-xs text-white/35">{c.label}</p>
+                <p className="text-3xl font-bold text-[#14141A] mb-1">{c.value}</p>
+                <p className="text-xs text-black/50">{c.label}</p>
               </a>
             ))
           : Array.from({ length: 4 }).map((_, i) => (
@@ -51,7 +51,7 @@ export default function AdminDashboard() {
       </div>
 
       <div className="glass rounded-2xl p-6">
-        <p className="text-xs tracking-[0.3em] uppercase text-white/25 mb-4">Accès rapide</p>
+        <p className="text-xs tracking-[0.3em] uppercase text-black/40 mb-4">Accès rapide</p>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
           {[
             { label: "Voir les messages", href: "/admin/messages" },
@@ -64,7 +64,7 @@ export default function AdminDashboard() {
             <a
               key={link.label}
               href={link.href}
-              className="text-sm text-white/40 hover:text-white border border-white/[0.06] hover:border-white/[0.15] rounded-xl px-4 py-3 transition-all"
+              className="text-sm text-black/55 hover:text-black border border-black/[0.07] hover:border-black/[0.2] rounded-xl px-4 py-3 transition-all"
             >
               {link.label} →
             </a>

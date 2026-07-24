@@ -1,12 +1,12 @@
 @import "tailwindcss";
 
 :root {
-  --bg: #0C0B0E;
-  --surface: rgba(255, 255, 255, 0.035);
-  --surface-hover: rgba(255, 255, 255, 0.06);
-  --border: rgba(255, 255, 255, 0.07);
-  --border-hover: rgba(255, 255, 255, 0.16);
-  --fg: #EFEFEF;
+  --bg: #FAFAF9;
+  --surface: rgba(0, 0, 0, 0.02);
+  --surface-hover: rgba(0, 0, 0, 0.04);
+  --border: rgba(0, 0, 0, 0.08);
+  --border-hover: rgba(0, 0, 0, 0.18);
+  --fg: #14141A;
 }
 
 * { box-sizing: border-box; }
@@ -15,32 +15,11 @@ html, body { height: 100%; }
 
 body {
   background-color: var(--bg);
-  background-image: radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px);
+  background-image: radial-gradient(rgba(0,0,0,0.05) 1px, transparent 1px);
   background-size: 28px 28px;
   color: var(--fg);
   font-family: var(--font-geist-sans), system-ui, sans-serif;
   overflow: hidden; /* le scroll est géré par les sections */
-}
-
-/* Vignette */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  background: radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.5) 100%);
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* Noise */
-body::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  opacity: 0.016;
-  pointer-events: none;
-  z-index: 0;
 }
 
 /* Stacking */
@@ -66,14 +45,14 @@ main, [class*="section"] { position: relative; z-index: 2; }
 /* Scrollbar dans les sections */
 * {
   scrollbar-width: thin;
-  scrollbar-color: rgba(255,255,255,0.08) transparent;
+  scrollbar-color: rgba(0,0,0,0.15) transparent;
 }
 ::-webkit-scrollbar { width: 3px; height: 3px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.07); border-radius: 2px; }
+::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.15); border-radius: 2px; }
 
 /* Cacher scrollbar nav mobile */
 .scrollbar-none { scrollbar-width: none; }
 .scrollbar-none::-webkit-scrollbar { display: none; }
 
-::selection { background: rgba(255,255,255,0.12); color: #fff; }
+::selection { background: rgba(0,0,0,0.08); color: #000; }

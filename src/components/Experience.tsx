@@ -41,12 +41,12 @@ export default function Experience({ experience }: Props) {
   return (
     <section className="px-5 md:px-10 py-10 md:py-14 max-w-6xl mx-auto">
       <div className="flex items-center gap-4 mb-8">
-        <span className="text-[10px] tracking-[0.3em] uppercase text-white/20">04</span>
+        <span className="text-[10px] tracking-[0.3em] uppercase text-black/35">04</span>
         <div className="flex-1 rule" />
-        <span className="text-[10px] tracking-[0.3em] uppercase text-white/20">Experience</span>
+        <span className="text-[10px] tracking-[0.3em] uppercase text-black/35">Experience</span>
       </div>
 
-      <h2 className="font-bold text-white mb-8" style={{ fontSize: "clamp(1.8rem, 4vw, 2.8rem)" }}>
+      <h2 className="font-bold text-[#14141A] mb-8" style={{ fontSize: "clamp(1.8rem, 4vw, 2.8rem)" }}>
         Mon parcours.
       </h2>
 
@@ -62,20 +62,20 @@ export default function Experience({ experience }: Props) {
             <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-4">
               <div>
                 <div className="flex items-center gap-2 flex-wrap mb-0.5">
-                  <h3 className="text-white font-semibold text-sm">{e.role}</h3>
+                  <h3 className="text-[#14141A] font-semibold text-sm">{e.role}</h3>
                   {e.current && (
-                    <span className="text-[9px] tracking-[0.25em] uppercase text-white/28 border border-white/[0.07] rounded-full px-2 py-0.5">
+                    <span className="text-[9px] tracking-[0.25em] uppercase text-black/45 border border-black/[0.09] rounded-full px-2 py-0.5">
                       Actuel
                     </span>
                   )}
                 </div>
-                <p className="text-white/35 text-xs">{e.company} · {e.location}</p>
+                <p className="text-black/50 text-xs">{e.company} · {e.location}</p>
               </div>
-              <p className="text-white/20 text-xs sm:text-right shrink-0">
+              <p className="text-black/35 text-xs sm:text-right shrink-0">
                 {e.startDate}{e.endDate ? ` — ${e.endDate}` : e.current ? " — Présent" : ""}
               </p>
             </div>
-            <p className="text-white/35 text-sm leading-relaxed border-t border-white/[0.05] pt-3">
+            <p className="text-black/50 text-sm leading-relaxed border-t border-black/[0.07] pt-3">
               {e.description}
             </p>
           </motion.div>

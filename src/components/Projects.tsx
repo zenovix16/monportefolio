@@ -49,7 +49,7 @@ function Card({ p, i }: { p: ProjectDoc; i: number }) {
         p.featured ? "md:col-span-2" : ""
       }`}
     >
-      <div className={`relative w-full ${p.featured ? "h-48 md:h-56" : "h-40"} bg-white/[0.015] border-b border-white/[0.04] overflow-hidden`}>
+      <div className={`relative w-full ${p.featured ? "h-48 md:h-56" : "h-40"} bg-black/[0.02] border-b border-black/[0.06] overflow-hidden`}>
         {p.imageId && !imgError ? (
           <>
             <Image
@@ -63,29 +63,29 @@ function Card({ p, i }: { p: ProjectDoc; i: number }) {
           </>
         ) : (
           <div className="w-full h-full flex items-center justify-center">
-            <span className="text-[10px] tracking-widest uppercase text-white/[0.07]">image</span>
+            <span className="text-[10px] tracking-widest uppercase text-black/[0.15]">image</span>
           </div>
         )}
       </div>
 
       <div className="p-5">
         {p.featured && (
-          <span className="inline-block text-[9px] tracking-[0.3em] uppercase text-white/22 border border-white/[0.06] rounded-full px-2.5 py-1 mb-3">
+          <span className="inline-block text-[9px] tracking-[0.3em] uppercase text-black/40 border border-black/[0.08] rounded-full px-2.5 py-1 mb-3">
             Projet phare
           </span>
         )}
-        <h3 className="text-white font-semibold text-sm mb-1.5 leading-snug">{p.title}</h3>
-        <p className="text-white/35 text-xs leading-relaxed mb-4">{p.description}</p>
+        <h3 className="text-[#14141A] font-semibold text-sm mb-1.5 leading-snug">{p.title}</h3>
+        <p className="text-black/50 text-xs leading-relaxed mb-4">{p.description}</p>
 
         <div className="flex items-end justify-between gap-2">
           <div className="flex flex-wrap gap-1.5">
             {(p.tags ?? []).map((t) => (
-              <span key={t} className="text-[10px] text-white/25 border border-white/[0.05] rounded-full px-2.5 py-1">{t}</span>
+              <span key={t} className="text-[10px] text-black/40 border border-black/[0.07] rounded-full px-2.5 py-1">{t}</span>
             ))}
           </div>
           <div className="flex gap-3 shrink-0">
-            {p.githubUrl && <a href={p.githubUrl} target="_blank" rel="noopener noreferrer" className="text-[11px] text-white/25 hover:text-white transition-colors">GitHub ↗</a>}
-            {p.liveUrl   && <a href={p.liveUrl}   target="_blank" rel="noopener noreferrer" className="text-[11px] text-white/25 hover:text-white transition-colors">Live ↗</a>}
+            {p.githubUrl && <a href={p.githubUrl} target="_blank" rel="noopener noreferrer" className="text-[11px] text-black/40 hover:text-black transition-colors">GitHub ↗</a>}
+            {p.liveUrl   && <a href={p.liveUrl}   target="_blank" rel="noopener noreferrer" className="text-[11px] text-black/40 hover:text-black transition-colors">Live ↗</a>}
           </div>
         </div>
       </div>
@@ -101,12 +101,12 @@ export default function Projects({ projects }: Props) {
   return (
     <section className="px-5 md:px-10 py-10 md:py-14 max-w-6xl mx-auto">
       <div className="flex items-center gap-4 mb-8">
-        <span className="text-[10px] tracking-[0.3em] uppercase text-white/20">03</span>
+        <span className="text-[10px] tracking-[0.3em] uppercase text-black/35">03</span>
         <div className="flex-1 rule" />
-        <span className="text-[10px] tracking-[0.3em] uppercase text-white/20">Projects</span>
+        <span className="text-[10px] tracking-[0.3em] uppercase text-black/35">Projects</span>
       </div>
 
-      <h2 className="font-bold text-white mb-8" style={{ fontSize: "clamp(1.8rem, 4vw, 2.8rem)" }}>
+      <h2 className="font-bold text-[#14141A] mb-8" style={{ fontSize: "clamp(1.8rem, 4vw, 2.8rem)" }}>
         Ce que j&apos;ai construit.
       </h2>
 

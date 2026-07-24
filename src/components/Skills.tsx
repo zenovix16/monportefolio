@@ -37,34 +37,34 @@ export default function Skills({ skills }: Props) {
   return (
     <section className="px-5 md:px-10 py-10 md:py-14 max-w-6xl mx-auto">
       <div className="flex items-center gap-4 mb-8">
-        <span className="text-[10px] tracking-[0.3em] uppercase text-white/20">02</span>
+        <span className="text-[10px] tracking-[0.3em] uppercase text-black/35">02</span>
         <div className="flex-1 rule" />
-        <span className="text-[10px] tracking-[0.3em] uppercase text-white/20">Skills</span>
+        <span className="text-[10px] tracking-[0.3em] uppercase text-black/35">Skills</span>
       </div>
 
-      <h2 className="font-bold text-white mb-8" style={{ fontSize: "clamp(1.8rem, 4vw, 2.8rem)" }}>
+      <h2 className="font-bold text-[#14141A] mb-8" style={{ fontSize: "clamp(1.8rem, 4vw, 2.8rem)" }}>
         Ce que je maîtrise.
       </h2>
 
       <div className="grid md:grid-cols-2 gap-4">
         {Object.entries(byCategory).map(([cat, catSkills]) => (
           <div key={cat} className="glass rounded-2xl p-5">
-            <p className="text-[10px] tracking-[0.25em] uppercase text-white/22 mb-4">{cat}</p>
+            <p className="text-[10px] tracking-[0.25em] uppercase text-black/40 mb-4">{cat}</p>
             <div className="space-y-3.5">
               {catSkills.map((s) => {
                 const delay = 0.05 + globalIdx++ * 0.03;
                 return (
                   <div key={s.$id}>
                     <div className="flex justify-between mb-1.5">
-                      <span className="text-white/65 text-sm">{s.name}</span>
-                      <span className="text-white/20 text-xs tabular-nums">{s.level ?? 80}%</span>
+                      <span className="text-black/75 text-sm">{s.name}</span>
+                      <span className="text-black/35 text-xs tabular-nums">{s.level ?? 80}%</span>
                     </div>
-                    <div className="h-px bg-white/[0.05] rounded-full overflow-hidden">
+                    <div className="h-px bg-black/[0.08] rounded-full overflow-hidden">
                       <motion.div
                         initial={{ width: 0 }}
                         animate={{ width: `${s.level ?? 80}%` }}
                         transition={{ duration: 0.9, delay, ease: "easeOut" }}
-                        className="h-full bg-white/18 rounded-full"
+                        className="h-full bg-black/45 rounded-full"
                       />
                     </div>
                   </div>
