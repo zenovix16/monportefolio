@@ -1,7 +1,6 @@
 "use client";
 
-import { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { useEffect, useState } from "react";
 import Navbar from "./Navbar";
 import Hero from "./Hero";
 import About from "./About";
@@ -17,6 +16,10 @@ export type SectionId =
   | "hero" | "about" | "skills" | "projects"
   | "experience" | "education" | "articles" | "contact";
 
+const SECTION_IDS: SectionId[] = [
+  "hero", "about", "skills", "projects", "experience", "education", "articles", "contact",
+];
+
 interface Props {
   projects: ProjectDoc[];
   skills: SkillDoc[];
@@ -24,35 +27,46 @@ interface Props {
   articles: ArticleDoc[];
 }
 
-const pageVariants = {
-  initial: { opacity: 0, y: 16 },
-  animate: { opacity: 1, y: 0, transition: { duration: 0.35, ease: "easeOut" as const } },
-  exit:    { opacity: 0, y: -10, transition: { duration: 0.2 } },
-};
-
 export default function PortfolioClient({ projects, skills, experience, articles }: Props) {
   const [active, setActive] = useState<SectionId>("hero");
 
-  const navigate = (id: SectionId) => setActive(id);
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActive(entry.target.id as SectionId);
+          }
+        });
+      },
+      { rootMargin: "-45% 0px -45% 0px", threshold: 0 }
+    );
+
+    SECTION_IDS.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+  const navigate = (id: SectionId) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+  };
 
   return (
-    <div className="flex flex-col h-[100dvh] overflow-hidden">
+    <>
       <Navbar active={active} onNavigate={navigate} />
-
-      <div className="flex-1 overflow-y-auto overflow-x-hidden">
-        <AnimatePresence mode="wait">
-          <motion.div key={active} variants={pageVariants} initial="initial" animate="animate" exit="exit">
-            {active === "hero"       && <Hero       onNavigate={navigate} />}
-            {active === "about"      && <About />}
-            {active === "skills"     && <Skills     skills={skills} />}
-            {active === "projects"   && <Projects   projects={projects} />}
-            {active === "experience" && <Experience experience={experience} />}
-            {active === "education"  && <Education />}
-            {active === "articles"   && <Articles   articles={articles} />}
-            {active === "contact"    && <Contact />}
-          </motion.div>
-        </AnimatePresence>
-      </div>
-    </div>
+      <main>
+        <Hero onNavigate={navigate} />
+        <About />
+        <Skills skills={skills} />
+        <Projects projects={projects} />
+        <Experience experience={experience} />
+        <Education />
+        <Articles articles={articles} />
+        <Contact />
+      </main>
+    </>
   );
 }

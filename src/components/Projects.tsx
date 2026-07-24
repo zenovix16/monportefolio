@@ -43,8 +43,9 @@ function Card({ p, i }: { p: ProjectDoc; i: number }) {
   return (
     <motion.article
       initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: i * 0.08 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.5, delay: (i % 3) * 0.08 }}
       className={`glass rounded-2xl overflow-hidden group hover:scale-[1.01] transition-transform duration-300 ${
         p.featured ? "md:col-span-2" : ""
       }`}
@@ -99,7 +100,7 @@ export default function Projects({ projects }: Props) {
   const data = projects.length > 0 ? projects : FALLBACK;
 
   return (
-    <section className="px-5 md:px-10 py-10 md:py-14 max-w-6xl mx-auto">
+    <section id="projects" className="px-5 md:px-10 py-16 md:py-24 max-w-6xl mx-auto">
       <div className="flex items-center gap-4 mb-8">
         <span className="text-[10px] tracking-[0.3em] uppercase text-black/35">03</span>
         <div className="flex-1 rule" />

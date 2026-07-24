@@ -26,7 +26,7 @@ const data = [
 
 export default function Education() {
   return (
-    <section className="px-5 md:px-10 py-10 md:py-14 max-w-6xl mx-auto">
+    <section id="education" className="px-5 md:px-10 py-16 md:py-24 max-w-6xl mx-auto">
       <div className="flex items-center gap-4 mb-8">
         <span className="text-[10px] tracking-[0.3em] uppercase text-black/35">05</span>
         <div className="flex-1 rule" />
@@ -42,7 +42,8 @@ export default function Education() {
           <motion.div
             key={i}
             initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.45, delay: i * 0.1 }}
             className="glass rounded-2xl p-6"
           >

@@ -15,7 +15,7 @@ export default function Hero({ onNavigate }: Props) {
   const avatarSrc = PROFILE_FILE_ID ? getFilePreviewUrl(PROFILE_FILE_ID, 300, 300) : null;
 
   return (
-    <section className="min-h-[calc(100dvh-49px)] flex flex-col justify-between px-5 md:px-10 pt-10 pb-8 md:pt-16">
+    <section id="hero" className="min-h-[90svh] flex flex-col justify-between px-5 md:px-10 pt-8 pb-6 md:pt-14">
 
       {/* Top */}
       <motion.div
@@ -114,6 +114,21 @@ export default function Hero({ onNavigate }: Props) {
               LinkedIn ↗
             </a>
           </div>
+        </div>
+
+        {/* Scroll cue */}
+        <div className="flex justify-center mt-8">
+          <motion.button
+            onClick={() => onNavigate("about")}
+            aria-label="Défiler vers la section suivante"
+            animate={{ y: [0, 6, 0] }}
+            transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+            className="text-black/25 hover:text-black/50 transition-colors"
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+              <path d="M6 9l6 6 6-6" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </motion.button>
         </div>
       </motion.div>
     </section>

@@ -13,13 +13,23 @@
 
 html, body { height: 100%; }
 
+html {
+  scroll-behavior: smooth;
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
 body {
   background-color: var(--bg);
   background-image: radial-gradient(rgba(0,0,0,0.05) 1px, transparent 1px);
   background-size: 28px 28px;
   color: var(--fg);
   font-family: var(--font-geist-sans), system-ui, sans-serif;
-  overflow: hidden; /* le scroll est géré par les sections */
+}
+
+section[id] {
+  scroll-margin-top: 4rem;
 }
 
 /* Stacking */

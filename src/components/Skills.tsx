@@ -35,7 +35,7 @@ export default function Skills({ skills }: Props) {
   let globalIdx = 0;
 
   return (
-    <section className="px-5 md:px-10 py-10 md:py-14 max-w-6xl mx-auto">
+    <section id="skills" className="px-5 md:px-10 py-16 md:py-24 max-w-6xl mx-auto">
       <div className="flex items-center gap-4 mb-8">
         <span className="text-[10px] tracking-[0.3em] uppercase text-black/35">02</span>
         <div className="flex-1 rule" />
@@ -48,7 +48,7 @@ export default function Skills({ skills }: Props) {
 
       <div className="grid md:grid-cols-2 gap-4">
         {Object.entries(byCategory).map(([cat, catSkills]) => (
-          <div key={cat} className="glass rounded-2xl p-5">
+          <div key={cat} className="glass rounded-2xl p-5 hover:border-black/20 transition-colors">
             <p className="text-[10px] tracking-[0.25em] uppercase text-black/40 mb-4">{cat}</p>
             <div className="space-y-3.5">
               {catSkills.map((s) => {
@@ -62,7 +62,8 @@ export default function Skills({ skills }: Props) {
                     <div className="h-px bg-black/[0.08] rounded-full overflow-hidden">
                       <motion.div
                         initial={{ width: 0 }}
-                        animate={{ width: `${s.level ?? 80}%` }}
+                        whileInView={{ width: `${s.level ?? 80}%` }}
+                        viewport={{ once: true, amount: 0.4 }}
                         transition={{ duration: 0.9, delay, ease: "easeOut" }}
                         className="h-full bg-black/45 rounded-full"
                       />

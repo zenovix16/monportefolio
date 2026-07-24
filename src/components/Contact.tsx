@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { motion } from "framer-motion";
 
 export default function Contact() {
   const [status, setStatus] = useState<"idle"|"loading"|"success"|"error">("idle");
@@ -24,14 +25,20 @@ export default function Contact() {
   };
 
   return (
-    <section className="px-5 md:px-10 py-10 md:py-14 max-w-6xl mx-auto">
+    <section id="contact" className="px-5 md:px-10 py-16 md:py-24 max-w-6xl mx-auto">
       <div className="flex items-center gap-4 mb-8">
-        <span className="text-[10px] tracking-[0.3em] uppercase text-black/35">06</span>
+        <span className="text-[10px] tracking-[0.3em] uppercase text-black/35">07</span>
         <div className="flex-1 rule" />
         <span className="text-[10px] tracking-[0.3em] uppercase text-black/35">Contact</span>
       </div>
 
-      <div className="grid md:grid-cols-2 gap-8 md:gap-16 items-start">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.5 }}
+        className="grid md:grid-cols-2 gap-8 md:gap-16 items-start"
+      >
         <div>
           <h2 className="font-bold text-[#14141A] mb-4" style={{ fontSize: "clamp(1.8rem, 4vw, 2.8rem)" }}>
             Travaillons ensemble.
@@ -88,10 +95,10 @@ export default function Contact() {
           </button>
           {status === "error" && <p className="text-center text-xs text-red-600/80">Une erreur s&apos;est produite.</p>}
         </form>
-      </div>
+      </motion.div>
 
       <div className="mt-12 pt-5 rule flex items-center justify-between">
-        <p className="text-black/30 text-xs">© 2025 Soumaïla Niampa</p>
+        <p className="text-black/30 text-xs">© 2026 Soumaïla Niampa</p>
       </div>
     </section>
   );

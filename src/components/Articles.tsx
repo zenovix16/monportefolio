@@ -8,9 +8,9 @@ interface Props { articles: ArticleDoc[] }
 export default function Articles({ articles }: Props) {
   if (articles.length === 0) {
     return (
-      <section className="px-5 md:px-10 py-10 md:py-14 max-w-6xl mx-auto">
+      <section id="articles" className="px-5 md:px-10 py-16 md:py-24 max-w-6xl mx-auto">
         <div className="flex items-center gap-4 mb-8">
-          <span className="text-[10px] tracking-[0.3em] uppercase text-black/35">07</span>
+          <span className="text-[10px] tracking-[0.3em] uppercase text-black/35">06</span>
           <div className="flex-1 rule" />
           <span className="text-[10px] tracking-[0.3em] uppercase text-black/35">Articles</span>
         </div>
@@ -22,9 +22,9 @@ export default function Articles({ articles }: Props) {
   }
 
   return (
-    <section className="px-5 md:px-10 py-10 md:py-14 max-w-6xl mx-auto">
+    <section id="articles" className="px-5 md:px-10 py-16 md:py-24 max-w-6xl mx-auto">
       <div className="flex items-center gap-4 mb-8">
-        <span className="text-[10px] tracking-[0.3em] uppercase text-black/35">07</span>
+        <span className="text-[10px] tracking-[0.3em] uppercase text-black/35">06</span>
         <div className="flex-1 rule" />
         <span className="text-[10px] tracking-[0.3em] uppercase text-black/35">Publications</span>
       </div>
@@ -38,7 +38,8 @@ export default function Articles({ articles }: Props) {
           <motion.div
             key={a.$id}
             initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.45, delay: i * 0.08 }}
             className="glass rounded-2xl p-5 md:p-6"
           >
