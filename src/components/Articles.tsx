@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import type { ArticleDoc } from "@/types/portfolio";
+import SectionHeading from "./SectionHeading";
 
 interface Props { articles: ArticleDoc[] }
 
@@ -9,12 +10,8 @@ export default function Articles({ articles }: Props) {
   if (articles.length === 0) {
     return (
       <section id="articles" className="px-5 md:px-10 py-16 md:py-24 max-w-6xl mx-auto">
-        <div className="flex items-center gap-4 mb-8">
-          <span className="text-[10px] tracking-[0.3em] uppercase text-black/35">06</span>
-          <div className="flex-1 rule" />
-          <span className="text-[10px] tracking-[0.3em] uppercase text-black/35">Articles</span>
-        </div>
-        <div className="glass rounded-2xl p-10 text-center text-black/35 text-sm">
+        <SectionHeading number="06" label="Articles" />
+        <div className="glass rounded-2xl p-10 text-center text-white/35 text-sm">
           Aucun article publié pour le moment.
         </div>
       </section>
@@ -23,13 +20,9 @@ export default function Articles({ articles }: Props) {
 
   return (
     <section id="articles" className="px-5 md:px-10 py-16 md:py-24 max-w-6xl mx-auto">
-      <div className="flex items-center gap-4 mb-8">
-        <span className="text-[10px] tracking-[0.3em] uppercase text-black/35">06</span>
-        <div className="flex-1 rule" />
-        <span className="text-[10px] tracking-[0.3em] uppercase text-black/35">Publications</span>
-      </div>
+      <SectionHeading number="06" label="Publications" />
 
-      <h2 className="font-bold text-[#14141A] mb-8" style={{ fontSize: "clamp(1.8rem, 4vw, 2.8rem)" }}>
+      <h2 className="font-bold text-[#F4F5F7] mb-8" style={{ fontSize: "clamp(1.8rem, 4vw, 2.8rem)" }}>
         Articles scientifiques.
       </h2>
 
@@ -47,20 +40,20 @@ export default function Articles({ articles }: Props) {
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2.5 mb-1.5 flex-wrap">
                   {a.featured && (
-                    <span className="text-[9px] tracking-[0.25em] uppercase text-black/40 border border-black/[0.09] rounded-full px-2 py-0.5">Featured</span>
+                    <span className="text-[9px] tracking-[0.25em] uppercase text-[var(--accent-light)] border border-[var(--accent)]/40 rounded-full px-2 py-0.5">Featured</span>
                   )}
-                  {a.publishedDate && <span className="text-black/35 text-xs">{a.publishedDate}</span>}
+                  {a.publishedDate && <span className="text-white/35 text-xs">{a.publishedDate}</span>}
                 </div>
-                <h3 className="text-[#14141A] font-semibold text-sm mb-1 leading-snug">{a.title}</h3>
-                {a.journal && <p className="text-black/50 text-xs italic mb-2">{a.journal}</p>}
+                <h3 className="text-[#F4F5F7] font-semibold text-sm mb-1 leading-snug">{a.title}</h3>
+                {a.journal && <p className="text-white/50 text-xs italic mb-2">{a.journal}</p>}
                 {a.authors && a.authors.length > 0 && (
-                  <p className="text-black/40 text-xs mb-2">{a.authors.join(", ")}</p>
+                  <p className="text-white/40 text-xs mb-2">{a.authors.join(", ")}</p>
                 )}
-                <p className="text-black/50 text-xs leading-relaxed line-clamp-3">{a.abstract}</p>
+                <p className="text-white/50 text-xs leading-relaxed line-clamp-3">{a.abstract}</p>
                 {a.tags && a.tags.length > 0 && (
                   <div className="flex flex-wrap gap-1.5 mt-3">
                     {a.tags.map((t) => (
-                      <span key={t} className="text-[10px] text-black/40 border border-black/[0.07] rounded-full px-2.5 py-1">{t}</span>
+                      <span key={t} className="text-[10px] text-white/40 border border-white/[0.09] rounded-full px-2.5 py-1">{t}</span>
                     ))}
                   </div>
                 )}
@@ -68,13 +61,13 @@ export default function Articles({ articles }: Props) {
               <div className="flex flex-col gap-2 shrink-0">
                 {a.doi && (
                   <a href={`https://doi.org/${a.doi}`} target="_blank" rel="noopener noreferrer"
-                    className="text-xs text-black/45 hover:text-black border border-black/[0.09] rounded-lg px-3 py-1.5 transition-colors whitespace-nowrap">
+                    className="text-xs text-white/50 hover:text-[var(--accent-light)] border border-white/[0.1] rounded-lg px-3 py-1.5 transition-colors whitespace-nowrap">
                     DOI ↗
                   </a>
                 )}
                 {a.pdfUrl && (
                   <a href={a.pdfUrl} target="_blank" rel="noopener noreferrer"
-                    className="text-xs text-black/45 hover:text-black border border-black/[0.09] rounded-lg px-3 py-1.5 transition-colors whitespace-nowrap">
+                    className="text-xs text-white/50 hover:text-[var(--accent-light)] border border-white/[0.1] rounded-lg px-3 py-1.5 transition-colors whitespace-nowrap">
                     PDF ↓
                   </a>
                 )}

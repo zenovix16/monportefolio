@@ -24,11 +24,11 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FAFAF9] flex items-center justify-center px-4">
+    <div className="min-h-screen bg-[#0A0A0F] flex items-center justify-center px-4">
       <div className="w-full max-w-sm">
         <div className="text-center mb-10">
-          <p className="text-xs tracking-[0.3em] uppercase text-black/40 mb-3">Admin</p>
-          <h1 className="text-2xl font-bold text-[#14141A]">Connexion</h1>
+          <p className="text-xs tracking-[0.3em] uppercase text-white/40 mb-3">Admin</p>
+          <h1 className="text-2xl font-bold text-[#F4F5F7]">Connexion</h1>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-3">
@@ -38,7 +38,7 @@ export default function LoginPage() {
             required
             value={form.email}
             onChange={(e) => setForm({ ...form, email: e.target.value })}
-            className="w-full glass rounded-xl px-4 py-3.5 text-sm text-[#14141A] placeholder:text-black/30 outline-none"
+            className="w-full glass rounded-xl px-4 py-3.5 text-sm text-[#F4F5F7] placeholder:text-white/30 outline-none"
           />
           <input
             type="password"
@@ -46,17 +46,17 @@ export default function LoginPage() {
             required
             value={form.password}
             onChange={(e) => setForm({ ...form, password: e.target.value })}
-            className="w-full glass rounded-xl px-4 py-3.5 text-sm text-[#14141A] placeholder:text-black/30 outline-none"
+            className="w-full glass rounded-xl px-4 py-3.5 text-sm text-[#F4F5F7] placeholder:text-white/30 outline-none"
           />
           <button
             type="submit"
             disabled={status === "loading"}
-            className="w-full py-3.5 bg-black text-white text-sm font-medium rounded-xl hover:bg-black/85 transition-all disabled:opacity-50"
+            className="glow w-full py-3.5 bg-[var(--accent)] text-white text-sm font-medium rounded-xl hover:bg-[var(--accent-light)] transition-colors disabled:opacity-50"
           >
             {status === "loading" ? "Connexion..." : "Se connecter"}
           </button>
           {status === "error" && (
-            <p className="text-center text-sm text-red-600/80">Identifiants incorrects.</p>
+            <p className="text-center text-sm text-red-400/80">Identifiants incorrects.</p>
           )}
         </form>
       </div>

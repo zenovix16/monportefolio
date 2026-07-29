@@ -36,12 +36,12 @@ export default function MessagesPage() {
     <div>
       <div className="flex items-center justify-between mb-10">
         <div>
-          <p className="text-xs tracking-[0.3em] uppercase text-black/40 mb-2">Boîte de réception</p>
-          <h1 className="text-3xl font-bold text-[#14141A]">Messages</h1>
+          <p className="text-xs tracking-[0.3em] uppercase text-white/40 mb-2">Boîte de réception</p>
+          <h1 className="text-3xl font-bold text-[#F4F5F7]">Messages</h1>
         </div>
         <button
           onClick={exportExcel}
-          className="px-4 py-2.5 glass text-black/60 text-sm rounded-xl hover:text-black transition-colors"
+          className="px-4 py-2.5 glass text-white/65 text-sm rounded-xl hover:text-[var(--accent-light)] transition-colors"
         >
           ↓ Export Excel
         </button>
@@ -54,7 +54,7 @@ export default function MessagesPage() {
           ))}
         </div>
       ) : messages.length === 0 ? (
-        <div className="glass rounded-2xl p-10 text-center text-black/40 text-sm">
+        <div className="glass rounded-2xl p-10 text-center text-white/40 text-sm">
           Aucun message pour le moment.
         </div>
       ) : (
@@ -66,19 +66,19 @@ export default function MessagesPage() {
                 key={msg.$id}
                 onClick={() => setSelected(msg)}
                 className={`glass rounded-xl p-4 cursor-pointer transition-all ${
-                  selected?.$id === msg.$id ? "border-black/25" : "hover:border-black/15"
+                  selected?.$id === msg.$id ? "border-[var(--accent)]/50" : "hover:border-white/20"
                 }`}
               >
                 <div className="flex items-start justify-between gap-2">
                   <div className="min-w-0">
-                    <p className="text-[#14141A] text-sm font-medium truncate">{msg.name}</p>
-                    <p className="text-black/50 text-xs truncate">{msg.email}</p>
+                    <p className="text-[#F4F5F7] text-sm font-medium truncate">{msg.name}</p>
+                    <p className="text-white/50 text-xs truncate">{msg.email}</p>
                   </div>
-                  <p className="text-black/35 text-xs shrink-0">
+                  <p className="text-white/35 text-xs shrink-0">
                     {new Date(msg.$createdAt).toLocaleDateString("fr-FR")}
                   </p>
                 </div>
-                <p className="text-black/55 text-xs mt-2 line-clamp-1">{msg.message}</p>
+                <p className="text-white/55 text-xs mt-2 line-clamp-1">{msg.message}</p>
               </div>
             ))}
           </div>
@@ -89,33 +89,33 @@ export default function MessagesPage() {
               <>
                 <div className="flex items-start justify-between mb-6">
                   <div>
-                    <p className="text-[#14141A] font-semibold">{selected.name}</p>
-                    <a href={`mailto:${selected.email}`} className="text-black/55 text-sm hover:text-black transition-colors">
+                    <p className="text-[#F4F5F7] font-semibold">{selected.name}</p>
+                    <a href={`mailto:${selected.email}`} className="text-white/55 text-sm hover:text-[var(--accent-light)] transition-colors">
                       {selected.email}
                     </a>
-                    <p className="text-black/40 text-xs mt-1">
+                    <p className="text-white/40 text-xs mt-1">
                       {new Date(selected.$createdAt).toLocaleString("fr-FR")}
                     </p>
                   </div>
                   <button
                     onClick={() => deleteMsg(selected.$id)}
-                    className="text-xs text-red-600/65 hover:text-red-600 border border-red-400/30 rounded-lg px-3 py-1.5 transition-colors"
+                    className="text-xs text-red-400/75 hover:text-red-400 border border-red-400/35 rounded-lg px-3 py-1.5 transition-colors"
                   >
                     Supprimer
                   </button>
                 </div>
-                <p className="text-black/70 text-sm leading-relaxed whitespace-pre-wrap">
+                <p className="text-white/70 text-sm leading-relaxed whitespace-pre-wrap">
                   {selected.message}
                 </p>
                 <a
                   href={`mailto:${selected.email}?subject=Re: Votre message`}
-                  className="mt-6 inline-block text-sm text-black/55 hover:text-black border border-black/[0.09] rounded-lg px-4 py-2 transition-colors"
+                  className="mt-6 inline-block text-sm text-white/55 hover:text-[var(--accent-light)] border border-white/[0.1] rounded-lg px-4 py-2 transition-colors"
                 >
                   Répondre par email →
                 </a>
               </>
             ) : (
-              <p className="text-black/40 text-sm text-center py-8">
+              <p className="text-white/40 text-sm text-center py-8">
                 Clique sur un message pour le lire.
               </p>
             )}

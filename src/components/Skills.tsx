@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import type { SkillDoc } from "@/types/portfolio";
+import SectionHeading from "./SectionHeading";
 
 // Données de secours si Appwrite est vide
 const FALLBACK: SkillDoc[] = [
@@ -36,36 +37,37 @@ export default function Skills({ skills }: Props) {
 
   return (
     <section id="skills" className="px-5 md:px-10 py-16 md:py-24 max-w-6xl mx-auto">
-      <div className="flex items-center gap-4 mb-8">
-        <span className="text-[10px] tracking-[0.3em] uppercase text-black/35">02</span>
-        <div className="flex-1 rule" />
-        <span className="text-[10px] tracking-[0.3em] uppercase text-black/35">Skills</span>
-      </div>
+      <SectionHeading number="02" label="Skills" />
 
-      <h2 className="font-bold text-[#14141A] mb-8" style={{ fontSize: "clamp(1.8rem, 4vw, 2.8rem)" }}>
+      <h2 className="font-bold text-[#F4F5F7] mb-8" style={{ fontSize: "clamp(1.8rem, 4vw, 2.8rem)" }}>
         Ce que je maîtrise.
       </h2>
 
-      <div className="grid md:grid-cols-2 gap-4">
-        {Object.entries(byCategory).map(([cat, catSkills]) => (
-          <div key={cat} className="glass rounded-2xl p-5 hover:border-black/20 transition-colors">
-            <p className="text-[10px] tracking-[0.25em] uppercase text-black/40 mb-4">{cat}</p>
+      <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4" style={{ gridAutoFlow: "dense" }}>
+        {Object.entries(byCategory).map(([cat, catSkills], catIdx) => (
+          <div
+            key={cat}
+            className={`glass rounded-2xl p-5 hover:border-[var(--accent)]/40 transition-colors ${
+              catIdx === 0 ? "lg:col-span-2" : ""
+            }`}
+          >
+            <p className="text-[10px] tracking-[0.25em] uppercase text-[var(--accent-light)] mb-4">{cat}</p>
             <div className="space-y-3.5">
               {catSkills.map((s) => {
                 const delay = 0.05 + globalIdx++ * 0.03;
                 return (
                   <div key={s.$id}>
                     <div className="flex justify-between mb-1.5">
-                      <span className="text-black/75 text-sm">{s.name}</span>
-                      <span className="text-black/35 text-xs tabular-nums">{s.level ?? 80}%</span>
+                      <span className="text-white/80 text-sm">{s.name}</span>
+                      <span className="text-white/35 text-xs tabular-nums">{s.level ?? 80}%</span>
                     </div>
-                    <div className="h-px bg-black/[0.08] rounded-full overflow-hidden">
+                    <div className="h-px bg-white/10 rounded-full overflow-hidden">
                       <motion.div
                         initial={{ width: 0 }}
                         whileInView={{ width: `${s.level ?? 80}%` }}
                         viewport={{ once: true, amount: 0.4 }}
                         transition={{ duration: 0.9, delay, ease: "easeOut" }}
-                        className="h-full bg-black/45 rounded-full"
+                        className="h-full bg-[var(--accent)] rounded-full"
                       />
                     </div>
                   </div>

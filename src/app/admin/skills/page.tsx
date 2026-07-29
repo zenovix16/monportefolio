@@ -60,10 +60,10 @@ export default function SkillsPage() {
     <div>
       <div className="flex items-center justify-between mb-10">
         <div>
-          <p className="text-xs tracking-[0.3em] uppercase text-black/40 mb-2">Contenu</p>
-          <h1 className="text-3xl font-bold text-[#14141A]">Skills</h1>
+          <p className="text-xs tracking-[0.3em] uppercase text-white/40 mb-2">Contenu</p>
+          <h1 className="text-3xl font-bold text-[#F4F5F7]">Skills</h1>
         </div>
-        <button onClick={() => { setForm(empty); setEditing(null); setShowForm(!showForm); }} className="px-4 py-2.5 bg-black text-white text-sm font-medium rounded-xl hover:bg-black/85 transition-all">
+        <button onClick={() => { setForm(empty); setEditing(null); setShowForm(!showForm); }} className="glow px-4 py-2.5 bg-[var(--accent)] text-white text-sm font-medium rounded-xl hover:bg-[var(--accent-light)] transition-colors">
           {showForm ? "Annuler" : "+ Ajouter"}
         </button>
       </div>
@@ -71,16 +71,16 @@ export default function SkillsPage() {
       {showForm && (
         <div className="glass rounded-2xl p-6 mb-6 space-y-3">
           <div className="grid grid-cols-2 gap-3">
-            <input value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} placeholder="Nom du skill *" className="glass rounded-xl px-4 py-3 text-sm text-[#14141A] placeholder:text-black/30 outline-none" />
-            <select value={form.category} onChange={(e) => setForm({ ...form, category: e.target.value })} className="glass rounded-xl px-4 py-3 text-sm text-[#14141A] outline-none bg-transparent">
-              {CATEGORIES.map((c) => <option key={c} value={c} className="bg-[#FAFAF9]">{c}</option>)}
+            <input value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} placeholder="Nom du skill *" className="glass rounded-xl px-4 py-3 text-sm text-[#F4F5F7] placeholder:text-white/30 outline-none" />
+            <select value={form.category} onChange={(e) => setForm({ ...form, category: e.target.value })} className="glass rounded-xl px-4 py-3 text-sm text-[#F4F5F7] outline-none bg-transparent">
+              {CATEGORIES.map((c) => <option key={c} value={c} className="bg-[#0A0A0F]">{c}</option>)}
             </select>
           </div>
           <div>
-            <label className="text-xs text-black/50 mb-2 block">Niveau : {form.level}%</label>
-            <input type="range" min={0} max={100} value={form.level} onChange={(e) => setForm({ ...form, level: Number(e.target.value) })} className="w-full accent-black" />
+            <label className="text-xs text-white/50 mb-2 block">Niveau : {form.level}%</label>
+            <input type="range" min={0} max={100} value={form.level} onChange={(e) => setForm({ ...form, level: Number(e.target.value) })} className="w-full accent-[var(--accent)]" />
           </div>
-          <button onClick={save} className="w-full py-3 bg-black text-white text-sm font-medium rounded-xl hover:bg-black/85 transition-all">
+          <button onClick={save} className="glow w-full py-3 bg-[var(--accent)] text-white text-sm font-medium rounded-xl hover:bg-[var(--accent-light)] transition-colors">
             {editing ? "Enregistrer" : "Ajouter"}
           </button>
         </div>
@@ -89,22 +89,22 @@ export default function SkillsPage() {
       <div className="space-y-6">
         {Object.entries(byCategory).map(([cat, catSkills]) => (
           <div key={cat}>
-            <p className="text-xs tracking-widest uppercase text-black/40 mb-3">{cat}</p>
+            <p className="text-xs tracking-widest uppercase text-white/40 mb-3">{cat}</p>
             <div className="space-y-2">
               {catSkills.map((s) => (
                 <div key={s.$id} className="glass rounded-xl p-4 flex items-center gap-4">
                   <div className="flex-1">
                     <div className="flex items-center justify-between mb-1.5">
-                      <span className="text-[#14141A] text-sm">{s.name}</span>
-                      <span className="text-black/45 text-xs">{s.level}%</span>
+                      <span className="text-[#F4F5F7] text-sm">{s.name}</span>
+                      <span className="text-white/45 text-xs">{s.level}%</span>
                     </div>
-                    <div className="h-px bg-black/[0.08] rounded-full overflow-hidden">
-                      <div className="h-full bg-black/45 rounded-full" style={{ width: `${s.level}%` }} />
+                    <div className="h-px bg-white/10 rounded-full overflow-hidden">
+                      <div className="h-full bg-[var(--accent)] rounded-full" style={{ width: `${s.level}%` }} />
                     </div>
                   </div>
                   <div className="flex gap-2 shrink-0">
-                    <button onClick={() => edit(s)} className="text-xs text-black/45 hover:text-black border border-black/[0.09] rounded-lg px-2.5 py-1 transition-colors">Modifier</button>
-                    <button onClick={() => del(s.$id)} className="text-xs text-red-600/60 hover:text-red-600 border border-red-400/25 rounded-lg px-2.5 py-1 transition-colors">×</button>
+                    <button onClick={() => edit(s)} className="text-xs text-white/50 hover:text-[var(--accent-light)] border border-white/[0.1] rounded-lg px-2.5 py-1 transition-colors">Modifier</button>
+                    <button onClick={() => del(s.$id)} className="text-xs text-red-400/70 hover:text-red-400 border border-red-400/30 rounded-lg px-2.5 py-1 transition-colors">×</button>
                   </div>
                 </div>
               ))}

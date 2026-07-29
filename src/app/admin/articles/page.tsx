@@ -59,37 +59,37 @@ export default function ArticlesPage() {
     <div>
       <div className="flex items-center justify-between mb-10">
         <div>
-          <p className="text-xs tracking-[0.3em] uppercase text-black/40 mb-2">Publications</p>
-          <h1 className="text-3xl font-bold text-[#14141A]">Articles scientifiques</h1>
+          <p className="text-xs tracking-[0.3em] uppercase text-white/40 mb-2">Publications</p>
+          <h1 className="text-3xl font-bold text-[#F4F5F7]">Articles scientifiques</h1>
         </div>
-        <button onClick={() => { setForm(empty); setEditing(null); setShowForm(!showForm); }} className="px-4 py-2.5 bg-black text-white text-sm font-medium rounded-xl hover:bg-black/85 transition-all">
+        <button onClick={() => { setForm(empty); setEditing(null); setShowForm(!showForm); }} className="glow px-4 py-2.5 bg-[var(--accent)] text-white text-sm font-medium rounded-xl hover:bg-[var(--accent-light)] transition-colors">
           {showForm ? "Annuler" : "+ Nouvel article"}
         </button>
       </div>
 
       {showForm && (
         <div className="glass rounded-2xl p-6 mb-6">
-          <p className="text-sm font-medium text-[#14141A] mb-5">{editing ? "Modifier l'article" : "Ajouter un article"}</p>
+          <p className="text-sm font-medium text-[#F4F5F7] mb-5">{editing ? "Modifier l'article" : "Ajouter un article"}</p>
           <div className="space-y-3">
-            <input value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} placeholder="Titre *" className="w-full glass rounded-xl px-4 py-3 text-sm text-[#14141A] placeholder:text-black/30 outline-none" />
-            <textarea value={form.abstract} onChange={(e) => setForm({ ...form, abstract: e.target.value })} placeholder="Résumé / Abstract *" rows={4} className="w-full glass rounded-xl px-4 py-3 text-sm text-[#14141A] placeholder:text-black/30 outline-none resize-none" />
+            <input value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} placeholder="Titre *" className="w-full glass rounded-xl px-4 py-3 text-sm text-[#F4F5F7] placeholder:text-white/30 outline-none" />
+            <textarea value={form.abstract} onChange={(e) => setForm({ ...form, abstract: e.target.value })} placeholder="Résumé / Abstract *" rows={4} className="w-full glass rounded-xl px-4 py-3 text-sm text-[#F4F5F7] placeholder:text-white/30 outline-none resize-none" />
             <div className="grid grid-cols-2 gap-3">
-              <input value={form.journal} onChange={(e) => setForm({ ...form, journal: e.target.value })} placeholder="Journal / Conférence" className="glass rounded-xl px-4 py-3 text-sm text-[#14141A] placeholder:text-black/30 outline-none" />
-              <input value={form.publishedDate} onChange={(e) => setForm({ ...form, publishedDate: e.target.value })} placeholder="Date (ex: 2024-03)" className="glass rounded-xl px-4 py-3 text-sm text-[#14141A] placeholder:text-black/30 outline-none" />
+              <input value={form.journal} onChange={(e) => setForm({ ...form, journal: e.target.value })} placeholder="Journal / Conférence" className="glass rounded-xl px-4 py-3 text-sm text-[#F4F5F7] placeholder:text-white/30 outline-none" />
+              <input value={form.publishedDate} onChange={(e) => setForm({ ...form, publishedDate: e.target.value })} placeholder="Date (ex: 2024-03)" className="glass rounded-xl px-4 py-3 text-sm text-[#F4F5F7] placeholder:text-white/30 outline-none" />
             </div>
             <div className="grid grid-cols-2 gap-3">
-              <input value={Array.isArray(form.authors) ? form.authors.join(", ") : form.authors} onChange={(e) => setForm({ ...form, authors: e.target.value.split(",").map(s => s.trim()) })} placeholder="Auteurs (séparés par virgule)" className="glass rounded-xl px-4 py-3 text-sm text-[#14141A] placeholder:text-black/30 outline-none" />
-              <input value={Array.isArray(form.tags) ? form.tags.join(", ") : form.tags} onChange={(e) => setForm({ ...form, tags: e.target.value.split(",").map(s => s.trim()) })} placeholder="Tags (séparés par virgule)" className="glass rounded-xl px-4 py-3 text-sm text-[#14141A] placeholder:text-black/30 outline-none" />
+              <input value={Array.isArray(form.authors) ? form.authors.join(", ") : form.authors} onChange={(e) => setForm({ ...form, authors: e.target.value.split(",").map(s => s.trim()) })} placeholder="Auteurs (séparés par virgule)" className="glass rounded-xl px-4 py-3 text-sm text-[#F4F5F7] placeholder:text-white/30 outline-none" />
+              <input value={Array.isArray(form.tags) ? form.tags.join(", ") : form.tags} onChange={(e) => setForm({ ...form, tags: e.target.value.split(",").map(s => s.trim()) })} placeholder="Tags (séparés par virgule)" className="glass rounded-xl px-4 py-3 text-sm text-[#F4F5F7] placeholder:text-white/30 outline-none" />
             </div>
             <div className="grid grid-cols-2 gap-3">
-              <input value={form.doi} onChange={(e) => setForm({ ...form, doi: e.target.value })} placeholder="DOI" className="glass rounded-xl px-4 py-3 text-sm text-[#14141A] placeholder:text-black/30 outline-none" />
-              <input value={form.pdfUrl} onChange={(e) => setForm({ ...form, pdfUrl: e.target.value })} placeholder="URL du PDF" className="glass rounded-xl px-4 py-3 text-sm text-[#14141A] placeholder:text-black/30 outline-none" />
+              <input value={form.doi} onChange={(e) => setForm({ ...form, doi: e.target.value })} placeholder="DOI" className="glass rounded-xl px-4 py-3 text-sm text-[#F4F5F7] placeholder:text-white/30 outline-none" />
+              <input value={form.pdfUrl} onChange={(e) => setForm({ ...form, pdfUrl: e.target.value })} placeholder="URL du PDF" className="glass rounded-xl px-4 py-3 text-sm text-[#F4F5F7] placeholder:text-white/30 outline-none" />
             </div>
-            <label className="flex items-center gap-3 text-sm text-black/60 cursor-pointer">
-              <input type="checkbox" checked={form.featured} onChange={(e) => setForm({ ...form, featured: e.target.checked })} className="w-4 h-4" />
+            <label className="flex items-center gap-3 text-sm text-white/60 cursor-pointer">
+              <input type="checkbox" checked={form.featured} onChange={(e) => setForm({ ...form, featured: e.target.checked })} className="w-4 h-4 accent-[var(--accent)]" />
               Mettre en avant (featured)
             </label>
-            <button onClick={save} className="w-full py-3 bg-black text-white text-sm font-medium rounded-xl hover:bg-black/85 transition-all">
+            <button onClick={save} className="glow w-full py-3 bg-[var(--accent)] text-white text-sm font-medium rounded-xl hover:bg-[var(--accent-light)] transition-colors">
               {editing ? "Enregistrer" : "Publier l'article"}
             </button>
           </div>
@@ -102,26 +102,26 @@ export default function ArticlesPage() {
             <div className="flex items-start justify-between gap-4">
               <div className="min-w-0">
                 <div className="flex items-center gap-2 mb-1">
-                  {a.featured && <span className="text-[10px] border border-black/15 text-black/45 rounded-full px-2 py-0.5 uppercase tracking-widest">Featured</span>}
-                  <p className="text-[#14141A] font-medium text-sm">{a.title}</p>
+                  {a.featured && <span className="text-[10px] border border-[var(--accent)]/40 text-[var(--accent-light)] rounded-full px-2 py-0.5 uppercase tracking-widest">Featured</span>}
+                  <p className="text-[#F4F5F7] font-medium text-sm">{a.title}</p>
                 </div>
-                {a.journal && <p className="text-black/50 text-xs mb-1">{a.journal} {a.publishedDate && `· ${a.publishedDate}`}</p>}
-                <p className="text-black/55 text-xs line-clamp-2">{a.abstract}</p>
+                {a.journal && <p className="text-white/50 text-xs mb-1">{a.journal} {a.publishedDate && `· ${a.publishedDate}`}</p>}
+                <p className="text-white/55 text-xs line-clamp-2">{a.abstract}</p>
                 {a.tags && a.tags.length > 0 && (
                   <div className="flex flex-wrap gap-1.5 mt-2">
-                    {a.tags.map((t) => <span key={t} className="text-[10px] text-black/40 border border-black/[0.08] rounded-full px-2 py-0.5">{t}</span>)}
+                    {a.tags.map((t) => <span key={t} className="text-[10px] text-white/40 border border-white/[0.08] rounded-full px-2 py-0.5">{t}</span>)}
                   </div>
                 )}
               </div>
               <div className="flex gap-2 shrink-0">
-                <button onClick={() => edit(a)} className="text-xs text-black/45 hover:text-black border border-black/[0.09] rounded-lg px-3 py-1.5 transition-colors">Modifier</button>
-                <button onClick={() => del(a.$id)} className="text-xs text-red-600/60 hover:text-red-600 border border-red-400/25 rounded-lg px-3 py-1.5 transition-colors">Supprimer</button>
+                <button onClick={() => edit(a)} className="text-xs text-white/50 hover:text-[var(--accent-light)] border border-white/[0.1] rounded-lg px-3 py-1.5 transition-colors">Modifier</button>
+                <button onClick={() => del(a.$id)} className="text-xs text-red-400/70 hover:text-red-400 border border-red-400/30 rounded-lg px-3 py-1.5 transition-colors">Supprimer</button>
               </div>
             </div>
           </div>
         ))}
         {articles.length === 0 && !showForm && (
-          <div className="glass rounded-2xl p-10 text-center text-black/40 text-sm">
+          <div className="glass rounded-2xl p-10 text-center text-white/40 text-sm">
             Aucun article. Clique sur &quot;+ Nouvel article&quot; pour commencer.
           </div>
         )}
