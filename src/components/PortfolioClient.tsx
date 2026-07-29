@@ -25,9 +25,11 @@ interface Props {
   skills: SkillDoc[];
   experience: ExperienceDoc[];
   articles: ArticleDoc[];
+  profilePhotoUrl: string | null;
+  cvUrl: string | null;
 }
 
-export default function PortfolioClient({ projects, skills, experience, articles }: Props) {
+export default function PortfolioClient({ projects, skills, experience, articles, profilePhotoUrl, cvUrl }: Props) {
   const [active, setActive] = useState<SectionId>("hero");
 
   useEffect(() => {
@@ -58,14 +60,14 @@ export default function PortfolioClient({ projects, skills, experience, articles
     <>
       <Navbar active={active} onNavigate={navigate} />
       <main>
-        <Hero onNavigate={navigate} />
+        <Hero onNavigate={navigate} profilePhotoUrl={profilePhotoUrl} cvUrl={cvUrl} />
         <About />
         <Skills skills={skills} />
         <Projects projects={projects} />
         <Experience experience={experience} />
         <Education />
         <Articles articles={articles} />
-        <Contact />
+        <Contact cvUrl={cvUrl} />
       </main>
     </>
   );

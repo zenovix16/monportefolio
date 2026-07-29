@@ -4,7 +4,11 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import SectionHeading from "./SectionHeading";
 
-export default function Contact() {
+interface Props {
+  cvUrl: string | null;
+}
+
+export default function Contact({ cvUrl }: Props) {
   const [status, setStatus] = useState<"idle"|"loading"|"success"|"error">("idle");
   const [form, setForm] = useState({ name: "", email: "", message: "" });
 
@@ -71,6 +75,16 @@ export default function Contact() {
               </div>
               <span className="text-white/30 group-hover:text-[var(--accent-light)] transition-colors ml-3">↗</span>
             </a>
+            {cvUrl && (
+              <a href={cvUrl} download
+                className="glass rounded-xl p-4 flex items-center justify-between group hover:border-[var(--accent)]/40 transition-all">
+                <div>
+                  <p className="text-[10px] tracking-widest uppercase text-white/35 mb-0.5">CV</p>
+                  <p className="text-white/60 text-xs group-hover:text-[var(--accent-light)] transition-colors">Télécharger le CV complet</p>
+                </div>
+                <span className="text-white/30 group-hover:text-[var(--accent-light)] transition-colors ml-3">↓</span>
+              </a>
+            )}
           </div>
         </div>
 

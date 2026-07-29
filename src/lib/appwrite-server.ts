@@ -15,4 +15,5 @@ export const COLLECTIONS = {
   EXPERIENCE: "experience",
   MESSAGES: "messages",
   ARTICLES: "articles",
+  SETTINGS: "settings",
 };

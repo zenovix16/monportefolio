@@ -30,6 +30,12 @@ export interface ExperienceDoc {
   order?: number;
 }
 
+export interface SettingsDoc {
+  $id?: string;
+  profileFileId?: string;
+  cvFileId?: string;
+}
+
 export interface ArticleDoc {
   $id: string;
   title: string;

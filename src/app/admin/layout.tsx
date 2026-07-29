@@ -9,6 +9,7 @@ const navItems = [
   { label: "Articles", href: "/admin/articles", icon: "◇" },
   { label: "Expérience", href: "/admin/experience", icon: "◆" },
   { label: "Skills", href: "/admin/skills", icon: "◎" },
+  { label: "Réglages", href: "/admin/settings", icon: "⚙" },
 ];
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
