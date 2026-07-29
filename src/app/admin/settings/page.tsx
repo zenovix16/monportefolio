@@ -57,26 +57,26 @@ export default function SettingsPage() {
   return (
     <div>
       <div className="mb-10">
-        <p className="text-xs tracking-[0.3em] uppercase text-white/40 mb-2">Site public</p>
-        <h1 className="text-3xl font-bold text-[#F4F5F7]">Réglages</h1>
+        <p className="text-xs tracking-[0.3em] uppercase text-black/45 mb-2">Site public</p>
+        <h1 className="text-3xl font-bold text-[#14161A]">Réglages</h1>
       </div>
 
       <div className="space-y-4 max-w-xl">
         {/* Photo */}
         <div className="glass rounded-2xl p-6">
-          <p className="text-sm font-medium text-[#F4F5F7] mb-1">Portrait (Hero)</p>
-          <p className="text-xs text-white/45 mb-4">
+          <p className="text-sm font-medium text-[#14161A] mb-1">Portrait (Hero)</p>
+          <p className="text-xs text-black/50 mb-4">
             Image affichée en arrière-plan de l&apos;accueil, à côté du nom. Idéalement une photo détourée (fond transparent).
           </p>
           {settings.profileFileId && (
             <img
               src={getFileViewUrl(settings.profileFileId)}
               alt="Portrait actuel"
-              className="h-32 w-auto rounded-lg border border-white/10 mb-4 object-contain bg-black/20"
+              className="h-32 w-auto rounded-lg border border-black/10 mb-4 object-contain bg-black/[0.04]"
             />
           )}
           <label className="cursor-pointer inline-flex items-center gap-3">
-            <span className="text-xs text-white/55 border border-white/[0.1] rounded-lg px-3 py-2 hover:border-[var(--accent)]/50 transition-colors">
+            <span className="text-xs text-black/60 border border-black/[0.1] rounded-lg px-3 py-2 hover:border-[var(--accent)]/50 transition-colors">
               {uploadingPhoto ? "Upload en cours..." : "Changer la photo"}
             </span>
             <input type="file" accept="image/*" className="hidden"
@@ -87,8 +87,8 @@ export default function SettingsPage() {
 
         {/* CV */}
         <div className="glass rounded-2xl p-6">
-          <p className="text-sm font-medium text-[#F4F5F7] mb-1">CV (PDF)</p>
-          <p className="text-xs text-white/45 mb-4">
+          <p className="text-sm font-medium text-[#14161A] mb-1">CV (PDF)</p>
+          <p className="text-xs text-black/50 mb-4">
             Fichier proposé au téléchargement depuis l&apos;accueil et la section Contact.
           </p>
           {settings.cvFileId ? (
@@ -97,11 +97,11 @@ export default function SettingsPage() {
               Voir le CV actuel ↗
             </a>
           ) : (
-            <p className="text-xs text-white/35 mb-4">Aucun CV en ligne pour le moment.</p>
+            <p className="text-xs text-black/40 mb-4">Aucun CV en ligne pour le moment.</p>
           )}
           <div>
             <label className="cursor-pointer inline-flex items-center gap-3">
-              <span className="text-xs text-white/55 border border-white/[0.1] rounded-lg px-3 py-2 hover:border-[var(--accent)]/50 transition-colors">
+              <span className="text-xs text-black/60 border border-black/[0.1] rounded-lg px-3 py-2 hover:border-[var(--accent)]/50 transition-colors">
                 {uploadingCv ? "Upload en cours..." : "Changer le CV"}
               </span>
               <input type="file" accept="application/pdf" className="hidden"

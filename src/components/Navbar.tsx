@@ -40,12 +40,12 @@ export default function Navbar({ active, onNavigate }: Props) {
   };
 
   return (
-    <header className="sticky top-0 border-b border-white/[0.06] bg-[#0A0A0F]/80 backdrop-blur-lg z-50">
+    <header className="sticky top-0 border-b border-black/[0.08] bg-[#F1F2F4]/80 backdrop-blur-lg z-50">
       {/* Desktop */}
       <nav className="hidden md:flex items-center justify-between px-10 py-3">
         <button
           onClick={() => go("hero")}
-          className="text-[11px] tracking-[0.3em] uppercase text-white/40 hover:text-white/70 transition-colors font-medium"
+          className="text-[11px] tracking-[0.3em] uppercase text-black/45 hover:text-black/75 transition-colors font-medium"
         >
           SN
         </button>
@@ -58,7 +58,7 @@ export default function Navbar({ active, onNavigate }: Props) {
                 className={`px-3.5 py-1.5 rounded-lg text-xs tracking-wide transition-all duration-200 ${
                   active === l.id
                     ? "bg-[var(--accent-soft)] text-[var(--accent-light)]"
-                    : "text-white/40 hover:text-white/70"
+                    : "text-black/45 hover:text-black/75"
                 }`}
               >
                 {l.label}
@@ -67,14 +67,14 @@ export default function Navbar({ active, onNavigate }: Props) {
           ))}
         </ul>
 
-        <span className="text-[11px] text-white/30">Casablanca, Maroc</span>
+        <span className="text-[11px] text-black/40">Casablanca, Maroc</span>
       </nav>
 
       {/* Mobile bar */}
       <nav className="md:hidden flex items-center justify-between px-5 py-3">
         <button
           onClick={() => go("hero")}
-          className="text-[11px] tracking-[0.3em] uppercase text-white/40 font-medium"
+          className="text-[11px] tracking-[0.3em] uppercase text-black/45 font-medium"
         >
           SN
         </button>
@@ -86,15 +86,15 @@ export default function Navbar({ active, onNavigate }: Props) {
         >
           <motion.span
             animate={open ? { rotate: 45, y: 3 } : { rotate: 0, y: 0 }}
-            className="w-5 h-px bg-white block"
+            className="w-5 h-px bg-black block"
           />
           <motion.span
             animate={open ? { opacity: 0 } : { opacity: 1 }}
-            className="w-5 h-px bg-white block"
+            className="w-5 h-px bg-black block"
           />
           <motion.span
             animate={open ? { rotate: -45, y: -3 } : { rotate: 0, y: 0 }}
-            className="w-5 h-px bg-white block"
+            className="w-5 h-px bg-black block"
           />
         </button>
       </nav>
@@ -107,7 +107,7 @@ export default function Navbar({ active, onNavigate }: Props) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
-            className="md:hidden fixed inset-0 bg-[#0A0A0F] z-40 flex flex-col items-center justify-center gap-3"
+            className="md:hidden fixed inset-0 bg-[#F1F2F4] z-40 flex flex-col items-center justify-center gap-3"
           >
             {LINKS.map((l, i) => (
               <motion.button
@@ -117,7 +117,7 @@ export default function Navbar({ active, onNavigate }: Props) {
                 transition={{ delay: 0.05 + i * 0.04 }}
                 onClick={() => go(l.id)}
                 className={`text-3xl font-bold tracking-tight transition-colors ${
-                  active === l.id ? "text-[var(--accent-light)]" : "text-white/30"
+                  active === l.id ? "text-[var(--accent-light)]" : "text-black/35"
                 }`}
               >
                 {l.label}

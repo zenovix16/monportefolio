@@ -22,12 +22,12 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   };
 
   return (
-    <div className="min-h-screen bg-[#0A0A0F] flex">
+    <div className="min-h-screen bg-[#F1F2F4] flex">
       {/* Sidebar */}
-      <aside className="w-56 shrink-0 border-r border-white/[0.08] flex flex-col py-8 px-4">
+      <aside className="w-56 shrink-0 border-r border-black/[0.08] flex flex-col py-8 px-4">
         <div className="mb-10 px-2">
-          <p className="text-xs tracking-[0.3em] uppercase text-white/40 mb-1">Portfolio</p>
-          <p className="text-sm font-bold text-[#F4F5F7]">Admin</p>
+          <p className="text-xs tracking-[0.3em] uppercase text-black/45 mb-1">Portfolio</p>
+          <p className="text-sm font-bold text-[#14161A]">Admin</p>
         </div>
 
         <nav className="flex-1 space-y-1">
@@ -40,7 +40,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                 className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-all duration-200 ${
                   active
                     ? "bg-[var(--accent-soft)] text-[var(--accent-light)]"
-                    : "text-white/45 hover:text-white/80 hover:bg-white/[0.04]"
+                    : "text-black/50 hover:text-black/80 hover:bg-black/[0.04]"
                 }`}
               >
                 <span className="text-xs">{item.icon}</span>
@@ -50,16 +50,16 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           })}
         </nav>
 
-        <div className="border-t border-white/[0.08] pt-4 mt-4">
+        <div className="border-t border-black/[0.08] pt-4 mt-4">
           <a
             href="/"
-            className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-white/40 hover:text-white/70 transition-colors"
+            className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-black/45 hover:text-black/75 transition-colors"
           >
             ← Portfolio
           </a>
           <button
             onClick={logout}
-            className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-white/40 hover:text-red-400/70 transition-colors"
+            className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-black/45 hover:text-red-600/80 transition-colors"
           >
             ⊗ Déconnexion
           </button>

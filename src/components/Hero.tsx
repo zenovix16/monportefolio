@@ -18,7 +18,7 @@ export default function Hero({ onNavigate, profilePhotoUrl, cvUrl }: Props) {
       <motion.div
         aria-hidden
         initial={{ opacity: 0, scale: 0.85 }}
-        animate={{ opacity: 0.35, scale: 1 }}
+        animate={{ opacity: 0.28, scale: 1 }}
         transition={{ duration: 2.5, ease: "easeOut" }}
         className="pointer-events-none absolute top-1/3 right-[10%] w-[55vw] h-[55vw] max-w-[650px] max-h-[650px] rounded-full blur-3xl"
         style={{ background: "radial-gradient(circle, var(--accent-glow) 0%, transparent 70%)" }}
@@ -39,7 +39,7 @@ export default function Hero({ onNavigate, profilePhotoUrl, cvUrl }: Props) {
             alt=""
             fill
             priority
-            className="object-contain object-bottom opacity-[0.35] md:opacity-90"
+            className="object-contain object-bottom opacity-[0.4] md:opacity-95"
           />
         </div>
       )}
@@ -52,12 +52,12 @@ export default function Hero({ onNavigate, profilePhotoUrl, cvUrl }: Props) {
         className="relative z-10 flex items-center justify-between"
       >
         <div>
-          <p className="text-white/65 text-xs font-medium">Soumaïla Niampa</p>
-          <p className="text-white/35 text-[11px]">Casablanca · Maroc</p>
+          <p className="text-black/70 text-xs font-medium">Soumaïla Niampa</p>
+          <p className="text-black/40 text-[11px]">Casablanca · Maroc</p>
         </div>
         <div className="flex items-center gap-2">
           <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent)] animate-pulse" />
-          <span className="text-white/40 text-xs">Disponible</span>
+          <span className="text-black/45 text-xs">Disponible</span>
         </div>
       </motion.div>
 
@@ -68,7 +68,7 @@ export default function Hero({ onNavigate, profilePhotoUrl, cvUrl }: Props) {
             initial={{ y: "105%" }}
             animate={{ y: 0 }}
             transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
-            className="font-bold leading-[0.88] tracking-tighter text-[#F4F5F7]"
+            className="font-bold leading-[0.88] tracking-tighter text-[#14161A]"
             style={{ fontSize: "clamp(3.5rem, 13vw, 10rem)" }}
           >
             SOUMAÏLA
@@ -101,10 +101,10 @@ export default function Hero({ onNavigate, profilePhotoUrl, cvUrl }: Props) {
         <div className="rule mb-5" />
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-5">
           <div className="max-w-xs">
-            <p className="text-[10px] tracking-[0.25em] uppercase text-white/40 mb-1.5">
+            <p className="text-[10px] tracking-[0.25em] uppercase text-black/45 mb-1.5">
               Consultant Data & Transformation Digitale
             </p>
-            <p className="text-white/55 text-sm leading-relaxed">
+            <p className="text-black/60 text-sm leading-relaxed">
               Ingénieur École Centrale Casablanca · Data Analyst chez Attijariwafa Bank.
             </p>
           </div>
@@ -120,14 +120,14 @@ export default function Hero({ onNavigate, profilePhotoUrl, cvUrl }: Props) {
               <a
                 href={cvUrl}
                 download
-                className="px-5 py-2.5 glass text-white/55 text-xs rounded-full hover:text-white transition-all"
+                className="px-5 py-2.5 glass text-black/60 text-xs rounded-full hover:text-black transition-all"
               >
                 Télécharger le CV ↓
               </a>
             )}
             <button
               onClick={() => onNavigate("contact")}
-              className="px-5 py-2.5 glass text-white/55 text-xs rounded-full hover:text-white transition-all"
+              className="px-5 py-2.5 glass text-black/60 text-xs rounded-full hover:text-black transition-all"
             >
               Me contacter
             </button>
@@ -135,7 +135,7 @@ export default function Hero({ onNavigate, profilePhotoUrl, cvUrl }: Props) {
               href="https://linkedin.com/in/souma%C3%AFla-niampa"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-5 py-2.5 glass text-white/55 text-xs rounded-full hover:text-white transition-all"
+              className="px-5 py-2.5 glass text-black/60 text-xs rounded-full hover:text-black transition-all"
             >
               LinkedIn ↗
             </a>
@@ -149,7 +149,7 @@ export default function Hero({ onNavigate, profilePhotoUrl, cvUrl }: Props) {
             aria-label="Défiler vers la section suivante"
             animate={{ y: [0, 6, 0] }}
             transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
-            className="text-[var(--accent-light)]/60 hover:text-[var(--accent-light)] transition-colors"
+            className="text-[var(--accent-light)]/70 hover:text-[var(--accent-light)] transition-colors"
           >
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
               <path d="M6 9l6 6 6-6" strokeLinecap="round" strokeLinejoin="round" />

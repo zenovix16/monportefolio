@@ -67,8 +67,8 @@ export default function ProjectsPage() {
     <div>
       <div className="flex items-center justify-between mb-10">
         <div>
-          <p className="text-xs tracking-[0.3em] uppercase text-white/40 mb-2">Contenu</p>
-          <h1 className="text-3xl font-bold text-[#F4F5F7]">Projets</h1>
+          <p className="text-xs tracking-[0.3em] uppercase text-black/45 mb-2">Contenu</p>
+          <h1 className="text-3xl font-bold text-[#14161A]">Projets</h1>
         </div>
         <button onClick={() => { setForm(empty); setEditing(null); setShowForm(!showForm); }} className="glow px-4 py-2.5 bg-[var(--accent)] text-white text-sm font-medium rounded-xl hover:bg-[var(--accent-light)] transition-colors">
           {showForm ? "Annuler" : "+ Nouveau projet"}
@@ -77,22 +77,22 @@ export default function ProjectsPage() {
 
       {showForm && (
         <div className="glass rounded-2xl p-6 mb-6">
-          <p className="text-sm font-medium text-[#F4F5F7] mb-5">{editing ? "Modifier le projet" : "Ajouter un projet"}</p>
+          <p className="text-sm font-medium text-[#14161A] mb-5">{editing ? "Modifier le projet" : "Ajouter un projet"}</p>
           <div className="space-y-3">
-            <input value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} placeholder="Titre *" className="w-full glass rounded-xl px-4 py-3 text-sm text-[#F4F5F7] placeholder:text-white/30 outline-none" />
-            <textarea value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} placeholder="Description *" rows={3} className="w-full glass rounded-xl px-4 py-3 text-sm text-[#F4F5F7] placeholder:text-white/30 outline-none resize-none" />
-            <input value={Array.isArray(form.tags) ? form.tags.join(", ") : form.tags} onChange={(e) => setForm({ ...form, tags: e.target.value.split(",").map(s => s.trim()) })} placeholder="Tags (séparés par virgule)" className="w-full glass rounded-xl px-4 py-3 text-sm text-[#F4F5F7] placeholder:text-white/30 outline-none" />
+            <input value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} placeholder="Titre *" className="w-full glass rounded-xl px-4 py-3 text-sm text-[#14161A] placeholder:text-black/35 outline-none" />
+            <textarea value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} placeholder="Description *" rows={3} className="w-full glass rounded-xl px-4 py-3 text-sm text-[#14161A] placeholder:text-black/35 outline-none resize-none" />
+            <input value={Array.isArray(form.tags) ? form.tags.join(", ") : form.tags} onChange={(e) => setForm({ ...form, tags: e.target.value.split(",").map(s => s.trim()) })} placeholder="Tags (séparés par virgule)" className="w-full glass rounded-xl px-4 py-3 text-sm text-[#14161A] placeholder:text-black/35 outline-none" />
             <div className="grid grid-cols-2 gap-3">
-              <input value={form.githubUrl} onChange={(e) => setForm({ ...form, githubUrl: e.target.value })} placeholder="URL GitHub" className="glass rounded-xl px-4 py-3 text-sm text-[#F4F5F7] placeholder:text-white/30 outline-none" />
-              <input value={form.liveUrl} onChange={(e) => setForm({ ...form, liveUrl: e.target.value })} placeholder="URL Live" className="glass rounded-xl px-4 py-3 text-sm text-[#F4F5F7] placeholder:text-white/30 outline-none" />
+              <input value={form.githubUrl} onChange={(e) => setForm({ ...form, githubUrl: e.target.value })} placeholder="URL GitHub" className="glass rounded-xl px-4 py-3 text-sm text-[#14161A] placeholder:text-black/35 outline-none" />
+              <input value={form.liveUrl} onChange={(e) => setForm({ ...form, liveUrl: e.target.value })} placeholder="URL Live" className="glass rounded-xl px-4 py-3 text-sm text-[#14161A] placeholder:text-black/35 outline-none" />
             </div>
 
             {/* Upload image */}
             <div className="glass rounded-xl p-4">
-              <p className="text-xs text-white/45 mb-3">Image du projet</p>
-              {form.imageId && <p className="text-xs text-white/55 mb-2">ID actuel : {form.imageId}</p>}
+              <p className="text-xs text-black/50 mb-3">Image du projet</p>
+              {form.imageId && <p className="text-xs text-black/60 mb-2">ID actuel : {form.imageId}</p>}
               <label className="cursor-pointer flex items-center gap-3">
-                <span className="text-xs text-white/55 border border-white/[0.1] rounded-lg px-3 py-2 hover:border-[var(--accent)]/50 transition-colors">
+                <span className="text-xs text-black/60 border border-black/[0.1] rounded-lg px-3 py-2 hover:border-[var(--accent)]/50 transition-colors">
                   {uploading ? "Upload en cours..." : "Choisir une image"}
                 </span>
                 <input type="file" accept="image/*" className="hidden" onChange={(e) => e.target.files?.[0] && uploadImage(e.target.files[0])} disabled={uploading} />
@@ -100,11 +100,11 @@ export default function ProjectsPage() {
             </div>
 
             <div className="flex items-center justify-between">
-              <label className="flex items-center gap-3 text-sm text-white/60 cursor-pointer">
+              <label className="flex items-center gap-3 text-sm text-black/65 cursor-pointer">
                 <input type="checkbox" checked={form.featured} onChange={(e) => setForm({ ...form, featured: e.target.checked })} className="accent-[var(--accent)]" />
                 Featured
               </label>
-              <input type="number" value={form.order} onChange={(e) => setForm({ ...form, order: Number(e.target.value) })} placeholder="Ordre" className="w-24 glass rounded-xl px-3 py-2 text-sm text-[#F4F5F7] outline-none" />
+              <input type="number" value={form.order} onChange={(e) => setForm({ ...form, order: Number(e.target.value) })} placeholder="Ordre" className="w-24 glass rounded-xl px-3 py-2 text-sm text-[#14161A] outline-none" />
             </div>
 
             <button onClick={save} className="glow w-full py-3 bg-[var(--accent)] text-white text-sm font-medium rounded-xl hover:bg-[var(--accent-light)] transition-colors">
@@ -120,18 +120,18 @@ export default function ProjectsPage() {
             <div className="min-w-0">
               <div className="flex items-center gap-2 mb-1">
                 {p.featured && <span className="text-[10px] border border-[var(--accent)]/40 text-[var(--accent-light)] rounded-full px-2 py-0.5 uppercase tracking-widest">Featured</span>}
-                <p className="text-[#F4F5F7] font-medium text-sm">{p.title}</p>
+                <p className="text-[#14161A] font-medium text-sm">{p.title}</p>
               </div>
-              <p className="text-white/50 text-xs line-clamp-1">{p.description}</p>
+              <p className="text-black/55 text-xs line-clamp-1">{p.description}</p>
               {p.tags && p.tags.length > 0 && (
                 <div className="flex flex-wrap gap-1.5 mt-2">
-                  {p.tags.map((t) => <span key={t} className="text-[10px] text-white/40 border border-white/[0.08] rounded-full px-2 py-0.5">{t}</span>)}
+                  {p.tags.map((t) => <span key={t} className="text-[10px] text-black/45 border border-black/[0.08] rounded-full px-2 py-0.5">{t}</span>)}
                 </div>
               )}
             </div>
             <div className="flex gap-2 shrink-0">
-              <button onClick={() => edit(p)} className="text-xs text-white/50 hover:text-[var(--accent-light)] border border-white/[0.1] rounded-lg px-3 py-1.5 transition-colors">Modifier</button>
-              <button onClick={() => del(p.$id)} className="text-xs text-red-400/70 hover:text-red-400 border border-red-400/30 rounded-lg px-3 py-1.5 transition-colors">Supprimer</button>
+              <button onClick={() => edit(p)} className="text-xs text-black/55 hover:text-[var(--accent-light)] border border-black/[0.1] rounded-lg px-3 py-1.5 transition-colors">Modifier</button>
+              <button onClick={() => del(p.$id)} className="text-xs text-red-600/70 hover:text-red-600 border border-red-400/35 rounded-lg px-3 py-1.5 transition-colors">Supprimer</button>
             </div>
           </div>
         ))}

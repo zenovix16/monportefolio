@@ -30,7 +30,7 @@ export default function Education() {
     <section id="education" className="px-5 md:px-10 py-16 md:py-24 max-w-6xl mx-auto">
       <SectionHeading number="05" label="Formation" />
 
-      <h2 className="font-bold text-[#F4F5F7] mb-8" style={{ fontSize: "clamp(1.8rem, 4vw, 2.8rem)" }}>
+      <h2 className="font-bold text-[#14161A] mb-8" style={{ fontSize: "clamp(1.8rem, 4vw, 2.8rem)" }}>
         Parcours académique.
       </h2>
 
@@ -44,18 +44,18 @@ export default function Education() {
             transition={{ duration: 0.45, delay: i * 0.1 }}
             className="glass rounded-2xl p-6"
           >
-            <div className="flex justify-between text-[10px] tracking-widest uppercase text-white/35 mb-4">
+            <div className="flex justify-between text-[10px] tracking-widest uppercase text-black/40 mb-4">
               <span>{e.period}</span>
               <span className="text-right">{e.location}</span>
             </div>
-            <h3 className="text-[#F4F5F7] font-bold mb-0.5">{e.school}</h3>
-            <p className="text-white/55 text-sm font-medium mb-0.5">{e.degree}</p>
+            <h3 className="text-[#14161A] font-bold mb-0.5">{e.school}</h3>
+            <p className="text-black/60 text-sm font-medium mb-0.5">{e.degree}</p>
             <p className="text-[var(--accent-light)] text-sm mb-4">{e.speciality}</p>
             {e.highlights.length > 0 && (
-              <ul className="space-y-1.5 border-t border-white/[0.08] pt-4">
+              <ul className="space-y-1.5 border-t border-black/[0.08] pt-4">
                 {e.highlights.map((h, j) => (
-                  <li key={j} className="flex gap-2.5 text-white/45 text-xs leading-relaxed">
-                    <span className="text-white/25 mt-0.5 shrink-0">—</span>{h}
+                  <li key={j} className="flex gap-2.5 text-black/50 text-xs leading-relaxed">
+                    <span className="text-black/30 mt-0.5 shrink-0">—</span>{h}
                   </li>
                 ))}
               </ul>

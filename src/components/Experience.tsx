@@ -54,15 +54,15 @@ export default function Experience({ experience }: Props) {
             >
               04
             </span>
-            <p className="text-[10px] tracking-[0.3em] uppercase text-white/35 mt-2 mb-6">Experience</p>
-            <h2 className="font-bold text-[#F4F5F7] leading-tight hidden lg:block" style={{ fontSize: "clamp(1.6rem, 3vw, 2.2rem)" }}>
+            <p className="text-[10px] tracking-[0.3em] uppercase text-black/40 mt-2 mb-6">Experience</p>
+            <h2 className="font-bold text-[#14161A] leading-tight hidden lg:block" style={{ fontSize: "clamp(1.6rem, 3vw, 2.2rem)" }}>
               Mon parcours.
             </h2>
           </div>
 
           {/* Timeline */}
           <div className="space-y-3">
-            <h2 className="font-bold text-[#F4F5F7] mb-2 lg:hidden" style={{ fontSize: "clamp(1.8rem, 4vw, 2.8rem)" }}>
+            <h2 className="font-bold text-[#14161A] mb-2 lg:hidden" style={{ fontSize: "clamp(1.8rem, 4vw, 2.8rem)" }}>
               Mon parcours.
             </h2>
             {data.map((e, i) => (
@@ -77,20 +77,20 @@ export default function Experience({ experience }: Props) {
                 <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-4">
                   <div>
                     <div className="flex items-center gap-2 flex-wrap mb-0.5">
-                      <h3 className="text-[#F4F5F7] font-semibold text-sm">{e.role}</h3>
+                      <h3 className="text-[#14161A] font-semibold text-sm">{e.role}</h3>
                       {e.current && (
                         <span className="text-[9px] tracking-[0.25em] uppercase text-[var(--accent-light)] border border-[var(--accent)]/40 rounded-full px-2 py-0.5">
                           Actuel
                         </span>
                       )}
                     </div>
-                    <p className="text-white/50 text-xs">{e.company} · {e.location}</p>
+                    <p className="text-black/55 text-xs">{e.company} · {e.location}</p>
                   </div>
-                  <p className="text-white/35 text-xs sm:text-right shrink-0">
+                  <p className="text-black/40 text-xs sm:text-right shrink-0">
                     {e.startDate}{e.endDate ? ` — ${e.endDate}` : e.current ? " — Présent" : ""}
                   </p>
                 </div>
-                <p className="text-white/50 text-sm leading-relaxed border-t border-white/[0.08] pt-3">
+                <p className="text-black/55 text-sm leading-relaxed border-t border-black/[0.08] pt-3">
                   {e.description}
                 </p>
               </motion.div>

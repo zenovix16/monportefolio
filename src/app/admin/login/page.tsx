@@ -24,11 +24,11 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0A0A0F] flex items-center justify-center px-4">
+    <div className="min-h-screen bg-[#F1F2F4] flex items-center justify-center px-4">
       <div className="w-full max-w-sm">
         <div className="text-center mb-10">
-          <p className="text-xs tracking-[0.3em] uppercase text-white/40 mb-3">Admin</p>
-          <h1 className="text-2xl font-bold text-[#F4F5F7]">Connexion</h1>
+          <p className="text-xs tracking-[0.3em] uppercase text-black/45 mb-3">Admin</p>
+          <h1 className="text-2xl font-bold text-[#14161A]">Connexion</h1>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-3">
@@ -38,7 +38,7 @@ export default function LoginPage() {
             required
             value={form.email}
             onChange={(e) => setForm({ ...form, email: e.target.value })}
-            className="w-full glass rounded-xl px-4 py-3.5 text-sm text-[#F4F5F7] placeholder:text-white/30 outline-none"
+            className="w-full glass rounded-xl px-4 py-3.5 text-sm text-[#14161A] placeholder:text-black/35 outline-none"
           />
           <input
             type="password"
@@ -46,7 +46,7 @@ export default function LoginPage() {
             required
             value={form.password}
             onChange={(e) => setForm({ ...form, password: e.target.value })}
-            className="w-full glass rounded-xl px-4 py-3.5 text-sm text-[#F4F5F7] placeholder:text-white/30 outline-none"
+            className="w-full glass rounded-xl px-4 py-3.5 text-sm text-[#14161A] placeholder:text-black/35 outline-none"
           />
           <button
             type="submit"
@@ -56,7 +56,7 @@ export default function LoginPage() {
             {status === "loading" ? "Connexion..." : "Se connecter"}
           </button>
           {status === "error" && (
-            <p className="text-center text-sm text-red-400/80">Identifiants incorrects.</p>
+            <p className="text-center text-sm text-red-600/80">Identifiants incorrects.</p>
           )}
         </form>
       </div>

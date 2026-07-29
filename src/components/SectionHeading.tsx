@@ -10,8 +10,8 @@ interface Props {
 export default function SectionHeading({ number, label }: Props) {
   return (
     <div className="flex items-center gap-4 mb-8">
-      <span className="text-[10px] tracking-[0.3em] uppercase text-white/35 shrink-0">{number}</span>
-      <div className="flex-1 h-px bg-white/10 overflow-hidden">
+      <span className="text-[10px] tracking-[0.3em] uppercase text-black/40 shrink-0">{number}</span>
+      <div className="flex-1 h-px bg-black/10 overflow-hidden">
         <motion.div
           initial={{ scaleX: 0 }}
           whileInView={{ scaleX: 1 }}
@@ -20,7 +20,7 @@ export default function SectionHeading({ number, label }: Props) {
           className="h-full w-full bg-[var(--accent)] origin-left"
         />
       </div>
-      <span className="text-[10px] tracking-[0.3em] uppercase text-white/35 shrink-0">{label}</span>
+      <span className="text-[10px] tracking-[0.3em] uppercase text-black/40 shrink-0">{label}</span>
     </div>
   );
 }

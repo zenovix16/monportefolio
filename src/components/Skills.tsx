@@ -39,7 +39,7 @@ export default function Skills({ skills }: Props) {
     <section id="skills" className="px-5 md:px-10 py-16 md:py-24 max-w-6xl mx-auto">
       <SectionHeading number="02" label="Skills" />
 
-      <h2 className="font-bold text-[#F4F5F7] mb-8" style={{ fontSize: "clamp(1.8rem, 4vw, 2.8rem)" }}>
+      <h2 className="font-bold text-[#14161A] mb-8" style={{ fontSize: "clamp(1.8rem, 4vw, 2.8rem)" }}>
         Ce que je maîtrise.
       </h2>
 
@@ -58,10 +58,10 @@ export default function Skills({ skills }: Props) {
                 return (
                   <div key={s.$id}>
                     <div className="flex justify-between mb-1.5">
-                      <span className="text-white/80 text-sm">{s.name}</span>
-                      <span className="text-white/35 text-xs tabular-nums">{s.level ?? 80}%</span>
+                      <span className="text-black/80 text-sm">{s.name}</span>
+                      <span className="text-black/40 text-xs tabular-nums">{s.level ?? 80}%</span>
                     </div>
-                    <div className="h-px bg-white/10 rounded-full overflow-hidden">
+                    <div className="h-px bg-black/10 rounded-full overflow-hidden">
                       <motion.div
                         initial={{ width: 0 }}
                         whileInView={{ width: `${s.level ?? 80}%` }}
