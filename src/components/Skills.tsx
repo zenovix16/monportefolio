@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import type { SkillDoc } from "@/types/portfolio";
 import SectionHeading from "./SectionHeading";
+import SectionTitle from "./SectionTitle";
 
 // Données de secours si Appwrite est vide
 const FALLBACK: SkillDoc[] = [
@@ -23,6 +24,15 @@ const FALLBACK: SkillDoc[] = [
   { $id:"15", name: "Transformation digitale", category: "Automatisation",level: 85 },
 ];
 
+const container = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.08 } },
+};
+const item = {
+  hidden: { opacity: 0 },
+  show: { opacity: 1, transition: { duration: 0.5 } },
+};
+
 interface Props { skills: SkillDoc[] }
 
 export default function Skills({ skills }: Props) {
@@ -36,20 +46,24 @@ export default function Skills({ skills }: Props) {
   let globalIdx = 0;
 
   return (
-    <section id="skills" className="px-5 md:px-10 py-16 md:py-24 max-w-6xl mx-auto">
+    <section id="skills" className="px-5 md:px-10 py-14 md:py-20 max-w-6xl mx-auto">
       <SectionHeading number="02" label="Skills" />
 
-      <h2 className="font-bold text-[#14161A] mb-8" style={{ fontSize: "clamp(1.8rem, 4vw, 2.8rem)" }}>
-        Ce que je maîtrise.
-      </h2>
+      <SectionTitle>Ce que je maîtrise.</SectionTitle>
 
-      <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4" style={{ gridAutoFlow: "dense" }}>
+      <motion.div
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.15 }}
+        variants={container}
+        className="grid sm:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-5"
+        style={{ gridAutoFlow: "dense" }}
+      >
         {Object.entries(byCategory).map(([cat, catSkills], catIdx) => (
-          <div
+          <motion.div
             key={cat}
-            className={`glass rounded-2xl p-5 hover:border-[var(--accent)]/40 transition-colors ${
-              catIdx === 0 ? "lg:col-span-2" : ""
-            }`}
+            variants={item}
+            className={`border-t border-black/[0.08] pt-4 ${catIdx === 0 ? "lg:col-span-2" : ""}`}
           >
             <p className="text-[10px] tracking-[0.25em] uppercase text-[var(--accent-light)] mb-4">{cat}</p>
             <div className="space-y-3.5">
@@ -59,7 +73,7 @@ export default function Skills({ skills }: Props) {
                   <div key={s.$id}>
                     <div className="flex justify-between mb-1.5">
                       <span className="text-black/80 text-sm">{s.name}</span>
-                      <span className="text-black/40 text-xs tabular-nums">{s.level ?? 80}%</span>
+                      <span className="text-black/35 text-xs tabular-nums">{s.level ?? 80}%</span>
                     </div>
                     <div className="h-px bg-black/10 rounded-full overflow-hidden">
                       <motion.div
@@ -74,9 +88,9 @@ export default function Skills({ skills }: Props) {
                 );
               })}
             </div>
-          </div>
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
     </section>
   );
 }

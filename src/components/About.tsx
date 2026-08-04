@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import type { AboutBlockDoc } from "@/types/portfolio";
 import ReadMore from "./ReadMore";
+import SectionTitle from "./SectionTitle";
 
 const FALLBACK: AboutBlockDoc[] = [
   { $id: "f1", type: "text", body: "Ingénieur généraliste diplômé de l'École Centrale Casablanca, spécialisé en Data & Transformation Digitale. J'accompagne les entreprises dans la structuration de leurs données, l'optimisation de leurs processus et la mise en place d'outils de pilotage.", order: 0 },
@@ -32,6 +33,15 @@ function groupBlocks(blocks: AboutBlockDoc[]): Group[] {
   return groups;
 }
 
+const container = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.1 } },
+};
+const fadeItem = {
+  hidden: { opacity: 0 },
+  show: { opacity: 1, transition: { duration: 0.5 } },
+};
+
 interface Props { blocks: AboutBlockDoc[] }
 
 export default function About({ blocks }: Props) {
@@ -39,7 +49,7 @@ export default function About({ blocks }: Props) {
   const groups = groupBlocks(data);
 
   return (
-    <section id="about" className="relative bg-[var(--bg-alt)] slant-top slant-bottom py-24 md:py-36 px-5 md:px-10">
+    <section id="about" className="relative bg-[var(--bg-alt)] slant-top slant-bottom py-20 md:py-28 px-5 md:px-10">
       <div className="max-w-6xl mx-auto">
         <div className="grid lg:grid-cols-[1fr_1.3fr] gap-10 lg:gap-16 items-start">
           {/* Colonne sticky */}
@@ -59,27 +69,25 @@ export default function About({ blocks }: Props) {
 
           {/* Contenu */}
           <div>
-            <h2 className="font-bold text-[#14161A] mb-6 leading-tight"
-              style={{ fontSize: "clamp(1.8rem, 4vw, 2.8rem)" }}>
+            <SectionTitle>
               La data,{" "}
               <span className="text-[var(--accent-light)]">c&apos;est mon terrain.</span>
-            </h2>
+            </SectionTitle>
 
-            <div className="space-y-6">
+            <motion.div
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, amount: 0.2 }}
+              variants={container}
+              className="space-y-5"
+            >
               {groups.map((g, i) => {
-                const anim = {
-                  initial: { opacity: 0, y: 20 },
-                  whileInView: { opacity: 1, y: 0 },
-                  viewport: { once: true, amount: 0.2 },
-                  transition: { duration: 0.5, delay: (i % 5) * 0.06 },
-                };
-
                 if (g.kind === "stat") {
                   return (
-                    <motion.div key={`stat-${i}`} {...anim} className="grid sm:grid-cols-3 gap-3">
+                    <motion.div key={`stat-${i}`} variants={fadeItem} className="grid grid-cols-3 gap-6 border-t border-black/[0.08] pt-4">
                       {g.blocks.map((s) => (
-                        <div key={s.$id} className="glass rounded-xl px-4 py-4">
-                          <span className="block text-2xl font-bold text-[var(--accent-light)] tabular-nums">{s.value}</span>
+                        <div key={s.$id}>
+                          <span className="block text-3xl font-bold text-[var(--accent-light)] tabular-nums">{s.value}</span>
                           <span className="text-black/50 text-xs">{s.title}</span>
                         </div>
                       ))}
@@ -89,7 +97,7 @@ export default function About({ blocks }: Props) {
 
                 if (g.kind === "tags") {
                   return (
-                    <motion.div key={g.block.$id} {...anim} className="flex gap-2 flex-wrap">
+                    <motion.div key={g.block.$id} variants={fadeItem} className="flex gap-2 flex-wrap">
                       {(g.block.items ?? []).map((t) => (
                         <span key={t} className="text-[11px] text-black/60 border border-black/[0.1] rounded-full px-3 py-1">
                           {t}
@@ -103,7 +111,7 @@ export default function About({ blocks }: Props) {
                   return (
                     <motion.blockquote
                       key={g.block.$id}
-                      {...anim}
+                      variants={fadeItem}
                       className="border-l-2 border-[var(--accent)] pl-4 text-lg md:text-xl font-semibold text-[var(--accent-light)] leading-snug"
                     >
                       {g.block.body}
@@ -115,19 +123,19 @@ export default function About({ blocks }: Props) {
                 const block = g.block;
                 if (block.title) {
                   return (
-                    <motion.div key={block.$id} {...anim} className="glass rounded-xl px-5 py-4">
+                    <motion.div key={block.$id} variants={fadeItem} className="border-t border-black/[0.08] pt-4">
                       <p className="text-[10px] tracking-widest uppercase text-black/40 mb-2">{block.title}</p>
                       {block.body && <ReadMore text={block.body} lines={3} className="text-black/60 text-sm leading-relaxed" />}
                     </motion.div>
                   );
                 }
                 return (
-                  <motion.div key={block.$id} {...anim}>
-                    {block.body && <ReadMore text={block.body} lines={4} className="text-black/60 leading-relaxed text-sm" />}
+                  <motion.div key={block.$id} variants={fadeItem}>
+                    {block.body && <ReadMore text={block.body} lines={4} className="text-black/60 leading-relaxed text-base" />}
                   </motion.div>
                 );
               })}
-            </div>
+            </motion.div>
           </div>
         </div>
       </div>

@@ -77,6 +77,27 @@ main, [class*="section"] { position: relative; z-index: 2; }
   box-shadow: 0 0 24px var(--accent-glow);
 }
 
+/* Bouton discret — bordure seule, sans flou/fond (alternative à .glass
+   pour les actions secondaires, moins "carte SaaS") */
+.btn-ghost {
+  border: 1px solid var(--border);
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+.btn-ghost:hover { border-color: var(--border-hover); }
+
+/* Soulignement animé au survol — remplace le simple changement de
+   couleur sur les liens texte (email, réseaux, GitHub/Live, DOI/PDF...) */
+.link-underline {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0% 1px;
+  transition: background-size 0.3s ease, color 0.2s ease;
+}
+.link-underline:hover {
+  background-size: 100% 1px;
+}
+
 /* Scrollbar dans les sections */
 * {
   scrollbar-width: thin;

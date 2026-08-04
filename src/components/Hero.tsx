@@ -30,7 +30,7 @@ export default function Hero({ onNavigate, profilePhotoUrl, cvUrl, name, locatio
   const secondLine = (nameParts.slice(1).join(" ") || nameParts[0] || "").toUpperCase();
 
   return (
-    <section id="hero" className="relative min-h-[90svh] flex flex-col justify-between px-5 md:px-10 pt-8 pb-6 md:pt-14 overflow-hidden">
+    <section id="hero" className="relative min-h-[90svh] flex flex-col justify-between px-5 md:px-10 pt-6 pb-5 md:pt-10 overflow-hidden">
 
       {/* Halo accent */}
       <motion.div
@@ -138,14 +138,14 @@ export default function Hero({ onNavigate, profilePhotoUrl, cvUrl, name, locatio
               <a
                 href={cvUrl}
                 download
-                className="px-5 py-2.5 glass text-black/60 text-xs rounded-full hover:text-black transition-all"
+                className="btn-ghost px-5 py-2.5 text-black/60 text-xs rounded-full hover:text-black transition-colors"
               >
                 Télécharger le CV ↓
               </a>
             )}
             <button
               onClick={() => onNavigate("contact")}
-              className="px-5 py-2.5 glass text-black/60 text-xs rounded-full hover:text-black transition-all"
+              className="btn-ghost px-5 py-2.5 text-black/60 text-xs rounded-full hover:text-black transition-colors"
             >
               Me contacter
             </button>
@@ -153,7 +153,7 @@ export default function Hero({ onNavigate, profilePhotoUrl, cvUrl, name, locatio
               href={linkedinUrl || DEFAULTS.linkedinUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-5 py-2.5 glass text-black/60 text-xs rounded-full hover:text-black transition-all"
+              className="btn-ghost px-5 py-2.5 text-black/60 text-xs rounded-full hover:text-black transition-colors"
             >
               LinkedIn ↗
             </a>

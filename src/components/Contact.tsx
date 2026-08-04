@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import SectionHeading from "./SectionHeading";
+import SectionTitle from "./SectionTitle";
 
 interface Props {
   cvUrl: string | null;
@@ -15,6 +16,15 @@ const DEFAULTS = {
   email: "soumaila.niampa@centrale-casablanca.ma",
   phone: "+212 708-778-658",
   linkedinUrl: "https://linkedin.com/in/souma%C3%AFla-niampa",
+};
+
+const container = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.08 } },
+};
+const item = {
+  hidden: { opacity: 0 },
+  show: { opacity: 1, transition: { duration: 0.4 } },
 };
 
 export default function Contact({ cvUrl, email, phone, linkedinUrl }: Props) {
@@ -42,63 +52,53 @@ export default function Contact({ cvUrl, email, phone, linkedinUrl }: Props) {
     }
   };
 
+  const rows = [
+    { label: "Email", value: mail, href: `mailto:${mail}` },
+    { label: "Téléphone", value: tel, href: `tel:${tel.replace(/[\s-]/g, "")}` },
+    { label: "LinkedIn", value: linkedin.replace(/^https?:\/\//, ""), href: linkedin, external: true },
+    ...(cvUrl ? [{ label: "CV", value: "Télécharger le CV complet", href: cvUrl, download: true }] : []),
+  ];
+
   return (
-    <section id="contact" className="px-5 md:px-10 py-16 md:py-24 max-w-6xl mx-auto">
+    <section id="contact" className="px-5 md:px-10 py-14 md:py-20 max-w-6xl mx-auto">
       <SectionHeading number="07" label="Contact" />
 
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.2 }}
-        transition={{ duration: 0.5 }}
-        className="grid md:grid-cols-2 gap-8 md:gap-16 items-start"
-      >
+      <div className="grid md:grid-cols-2 gap-8 md:gap-16 items-start">
         <div>
-          <h2 className="font-bold text-[#14161A] mb-4" style={{ fontSize: "clamp(1.8rem, 4vw, 2.8rem)" }}>
-            Travaillons ensemble.
-          </h2>
+          <SectionTitle>Travaillons ensemble.</SectionTitle>
           <p className="text-black/55 text-sm leading-relaxed mb-6">
             Un projet, une opportunité, une question ? Je lis tous les messages.
           </p>
 
-          <div className="space-y-2.5">
-            <a href={`mailto:${mail}`}
-              className="glass rounded-xl p-4 flex items-center justify-between group hover:border-[var(--accent)]/40 transition-all">
-              <div>
-                <p className="text-[10px] tracking-widest uppercase text-black/40 mb-0.5">Email</p>
-                <p className="text-black/65 text-xs group-hover:text-[var(--accent-light)] transition-colors break-all">
-                  {mail}
-                </p>
-              </div>
-              <span className="text-black/35 group-hover:text-[var(--accent-light)] transition-colors ml-3">↗</span>
-            </a>
-            <a href={`tel:${tel.replace(/[\s-]/g, "")}`}
-              className="glass rounded-xl p-4 flex items-center justify-between group hover:border-[var(--accent)]/40 transition-all">
-              <div>
-                <p className="text-[10px] tracking-widest uppercase text-black/40 mb-0.5">Téléphone</p>
-                <p className="text-black/65 text-xs group-hover:text-[var(--accent-light)] transition-colors">{tel}</p>
-              </div>
-              <span className="text-black/35 group-hover:text-[var(--accent-light)] transition-colors ml-3">↗</span>
-            </a>
-            <a href={linkedin} target="_blank" rel="noopener noreferrer"
-              className="glass rounded-xl p-4 flex items-center justify-between group hover:border-[var(--accent)]/40 transition-all">
-              <div>
-                <p className="text-[10px] tracking-widest uppercase text-black/40 mb-0.5">LinkedIn</p>
-                <p className="text-black/65 text-xs group-hover:text-[var(--accent-light)] transition-colors break-all">{linkedin.replace(/^https?:\/\//, "")}</p>
-              </div>
-              <span className="text-black/35 group-hover:text-[var(--accent-light)] transition-colors ml-3">↗</span>
-            </a>
-            {cvUrl && (
-              <a href={cvUrl} download
-                className="glass rounded-xl p-4 flex items-center justify-between group hover:border-[var(--accent)]/40 transition-all">
+          <motion.div
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={container}
+            className="divide-y divide-black/[0.08] border-t border-black/[0.08]"
+          >
+            {rows.map((r) => (
+              <motion.a
+                key={r.label}
+                variants={item}
+                href={r.href}
+                download={"download" in r ? r.download : undefined}
+                target={"external" in r ? "_blank" : undefined}
+                rel={"external" in r ? "noopener noreferrer" : undefined}
+                className="group flex items-center justify-between py-4"
+              >
                 <div>
-                  <p className="text-[10px] tracking-widest uppercase text-black/40 mb-0.5">CV</p>
-                  <p className="text-black/65 text-xs group-hover:text-[var(--accent-light)] transition-colors">Télécharger le CV complet</p>
+                  <p className="text-[10px] tracking-widest uppercase text-black/40 mb-0.5">{r.label}</p>
+                  <p className="text-black/65 text-sm group-hover:text-[var(--accent-light)] transition-colors break-all">
+                    {r.value}
+                  </p>
                 </div>
-                <span className="text-black/35 group-hover:text-[var(--accent-light)] transition-colors ml-3">↓</span>
-              </a>
-            )}
-          </div>
+                <span className="text-black/30 group-hover:text-[var(--accent-light)] group-hover:translate-x-0.5 transition-all ml-3 shrink-0">
+                  {"download" in r ? "↓" : "↗"}
+                </span>
+              </motion.a>
+            ))}
+          </motion.div>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-2.5">
@@ -119,9 +119,9 @@ export default function Contact({ cvUrl, email, phone, linkedinUrl }: Props) {
           </button>
           {status === "error" && <p className="text-center text-xs text-red-600/80">Une erreur s&apos;est produite.</p>}
         </form>
-      </motion.div>
+      </div>
 
-      <div className="mt-12 pt-5 rule flex items-center justify-between">
+      <div className="mt-10 pt-5 rule flex items-center justify-between">
         <p className="text-black/35 text-xs">© 2026 Soumaïla Niampa</p>
       </div>
     </section>

@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import type { ExperienceDoc } from "@/types/portfolio";
+import SectionTitle from "./SectionTitle";
 
 const FALLBACK: ExperienceDoc[] = [
   {
@@ -33,13 +34,22 @@ const FALLBACK: ExperienceDoc[] = [
   },
 ];
 
+const container = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.12 } },
+};
+const item = {
+  hidden: { opacity: 0, y: 16 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.45 } },
+};
+
 interface Props { experience: ExperienceDoc[] }
 
 export default function Experience({ experience }: Props) {
   const data = experience.length > 0 ? experience : FALLBACK;
 
   return (
-    <section id="experience" className="relative bg-[var(--bg-alt)] slant-top slant-bottom py-24 md:py-36 px-5 md:px-10">
+    <section id="experience" className="relative bg-[var(--bg-alt)] slant-top slant-bottom py-20 md:py-28 px-5 md:px-10">
       <div className="max-w-6xl mx-auto">
         <div className="grid lg:grid-cols-[1fr_1.3fr] gap-10 lg:gap-16 items-start">
           {/* Colonne sticky */}
@@ -55,46 +65,47 @@ export default function Experience({ experience }: Props) {
               04
             </span>
             <p className="text-[10px] tracking-[0.3em] uppercase text-black/40 mt-2 mb-6">Experience</p>
-            <h2 className="font-bold text-[#14161A] leading-tight hidden lg:block" style={{ fontSize: "clamp(1.6rem, 3vw, 2.2rem)" }}>
-              Mon parcours.
-            </h2>
+            <div className="hidden lg:block">
+              <SectionTitle className="!text-3xl">Mon parcours.</SectionTitle>
+            </div>
           </div>
 
           {/* Timeline */}
-          <div className="space-y-3">
-            <h2 className="font-bold text-[#14161A] mb-2 lg:hidden" style={{ fontSize: "clamp(1.8rem, 4vw, 2.8rem)" }}>
-              Mon parcours.
-            </h2>
-            {data.map((e, i) => (
-              <motion.div
-                key={e.$id}
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.3 }}
-                transition={{ duration: 0.45, delay: i * 0.1 }}
-                className="glass rounded-2xl p-5 md:p-6"
-              >
-                <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-4">
-                  <div>
-                    <div className="flex items-center gap-2 flex-wrap mb-0.5">
-                      <h3 className="text-[#14161A] font-semibold text-sm">{e.role}</h3>
-                      {e.current && (
-                        <span className="text-[9px] tracking-[0.25em] uppercase text-[var(--accent-light)] border border-[var(--accent)]/40 rounded-full px-2 py-0.5">
-                          Actuel
-                        </span>
-                      )}
+          <div>
+            <div className="lg:hidden">
+              <SectionTitle>Mon parcours.</SectionTitle>
+            </div>
+            <motion.div
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, amount: 0.15 }}
+              variants={container}
+              className="divide-y divide-black/[0.08]"
+            >
+              {data.map((e) => (
+                <motion.div key={e.$id} variants={item} className="py-5 first:pt-0">
+                  <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-3">
+                    <div>
+                      <div className="flex items-center gap-2 flex-wrap mb-0.5">
+                        <h3 className="text-[#14161A] font-semibold text-base">{e.role}</h3>
+                        {e.current && (
+                          <span className="text-[9px] tracking-[0.25em] uppercase text-[var(--accent-light)] border border-[var(--accent)]/40 rounded-full px-2 py-0.5">
+                            Actuel
+                          </span>
+                        )}
+                      </div>
+                      <p className="text-black/55 text-sm">{e.company} · {e.location}</p>
                     </div>
-                    <p className="text-black/55 text-xs">{e.company} · {e.location}</p>
+                    <p className="text-black/35 text-xs sm:text-right shrink-0">
+                      {e.startDate}{e.endDate ? ` — ${e.endDate}` : e.current ? " — Présent" : ""}
+                    </p>
                   </div>
-                  <p className="text-black/40 text-xs sm:text-right shrink-0">
-                    {e.startDate}{e.endDate ? ` — ${e.endDate}` : e.current ? " — Présent" : ""}
+                  <p className="text-black/55 text-sm leading-relaxed">
+                    {e.description}
                   </p>
-                </div>
-                <p className="text-black/55 text-sm leading-relaxed border-t border-black/[0.08] pt-3">
-                  {e.description}
-                </p>
-              </motion.div>
-            ))}
+                </motion.div>
+              ))}
+            </motion.div>
           </div>
         </div>
       </div>

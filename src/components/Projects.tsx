@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import type { ProjectDoc } from "@/types/portfolio";
 import SectionHeading from "./SectionHeading";
+import SectionTitle from "./SectionTitle";
 import ReadMore from "./ReadMore";
 
 const FALLBACK: ProjectDoc[] = [
@@ -39,16 +40,18 @@ function previewUrl(fileId: string) {
   return `${ENDPOINT}/storage/buckets/${BUCKET_ID}/files/${fileId}/preview?project=${PROJECT_ID}&width=900&height=500&gravity=center&quality=80`;
 }
 
-function Card({ p, i }: { p: ProjectDoc; i: number }) {
+const item = {
+  hidden: { opacity: 0, y: 16 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+};
+
+function Card({ p }: { p: ProjectDoc }) {
   const [imgError, setImgError] = useState(false);
 
   return (
     <motion.article
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.5, delay: (i % 3) * 0.08 }}
-      className={`glass rounded-2xl overflow-hidden group hover:scale-[1.01] transition-transform duration-300 ${
+      variants={item}
+      className={`btn-ghost rounded-2xl overflow-hidden group hover:scale-[1.01] transition-transform duration-300 ${
         p.featured ? "md:col-span-2 border-[var(--accent)]/40" : ""
       }`}
     >
@@ -77,7 +80,7 @@ function Card({ p, i }: { p: ProjectDoc; i: number }) {
             Projet phare
           </span>
         )}
-        <h3 className="text-[#14161A] font-semibold text-sm mb-1.5 leading-snug">{p.title}</h3>
+        <h3 className="text-[#14161A] font-semibold text-base mb-1.5 leading-snug">{p.title}</h3>
         <div className="mb-4">
           <ReadMore text={p.description} lines={3} className="text-black/55 text-xs leading-relaxed" />
         </div>
@@ -89,8 +92,8 @@ function Card({ p, i }: { p: ProjectDoc; i: number }) {
             ))}
           </div>
           <div className="flex gap-3 shrink-0">
-            {p.githubUrl && <a href={p.githubUrl} target="_blank" rel="noopener noreferrer" className="text-[11px] text-black/45 hover:text-[var(--accent-light)] transition-colors">GitHub ↗</a>}
-            {p.liveUrl   && <a href={p.liveUrl}   target="_blank" rel="noopener noreferrer" className="text-[11px] text-black/45 hover:text-[var(--accent-light)] transition-colors">Live ↗</a>}
+            {p.githubUrl && <a href={p.githubUrl} target="_blank" rel="noopener noreferrer" className="link-underline text-[11px] text-black/45 hover:text-[var(--accent-light)] transition-colors">GitHub ↗</a>}
+            {p.liveUrl   && <a href={p.liveUrl}   target="_blank" rel="noopener noreferrer" className="link-underline text-[11px] text-black/45 hover:text-[var(--accent-light)] transition-colors">Live ↗</a>}
           </div>
         </div>
       </div>
@@ -104,16 +107,20 @@ export default function Projects({ projects }: Props) {
   const data = projects.length > 0 ? projects : FALLBACK;
 
   return (
-    <section id="projects" className="px-5 md:px-10 py-16 md:py-24 max-w-6xl mx-auto">
+    <section id="projects" className="px-5 md:px-10 py-14 md:py-20 max-w-6xl mx-auto">
       <SectionHeading number="03" label="Projects" />
 
-      <h2 className="font-bold text-[#14161A] mb-8" style={{ fontSize: "clamp(1.8rem, 4vw, 2.8rem)" }}>
-        Ce que j&apos;ai construit.
-      </h2>
+      <SectionTitle>Ce que j&apos;ai construit.</SectionTitle>
 
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {data.map((p, i) => <Card key={p.$id} p={p} i={i} />)}
-      </div>
+      <motion.div
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.15 }}
+        variants={{ hidden: {}, show: { transition: { staggerChildren: 0.1 } } }}
+        className="grid md:grid-cols-2 lg:grid-cols-3 gap-5"
+      >
+        {data.map((p) => <Card key={p.$id} p={p} />)}
+      </motion.div>
     </section>
   );
 }
