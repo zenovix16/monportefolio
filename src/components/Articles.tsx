@@ -50,7 +50,7 @@ export default function Articles({ articles }: Props) {
                   {a.featured && (
                     <span className="text-[9px] tracking-[0.25em] uppercase text-[var(--accent-light)] border border-[var(--accent)]/40 rounded-full px-2 py-0.5">Featured</span>
                   )}
-                  {a.publishedDate && <span className="text-black/35 text-xs">{a.publishedDate}</span>}
+                  {a.publishedDate && <span className="mono text-black/35 text-xs">{a.publishedDate}</span>}
                 </div>
                 <h3 className="text-[#14161A] font-semibold text-base mb-1 leading-snug">{a.title}</h3>
                 {a.journal && <p className="text-black/50 text-xs italic mb-2">{a.journal}</p>}

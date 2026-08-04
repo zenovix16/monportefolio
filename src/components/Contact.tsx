@@ -105,16 +105,16 @@ export default function Contact({ cvUrl, email, phone, linkedinUrl }: Props) {
           <div className="grid grid-cols-2 gap-2.5">
             <input type="text" placeholder="Nom" required value={form.name}
               onChange={(e) => setForm({ ...form, name: e.target.value })}
-              className="glass rounded-xl px-4 py-3 text-sm text-[#14161A] placeholder:text-black/35 outline-none focus:border-[var(--accent)]/50 transition-colors w-full" />
+              className="glass rounded-lg px-4 py-3 text-sm text-[#14161A] placeholder:text-black/35 outline-none focus:border-[var(--accent)]/50 transition-colors w-full" />
             <input type="email" placeholder="Email" required value={form.email}
               onChange={(e) => setForm({ ...form, email: e.target.value })}
-              className="glass rounded-xl px-4 py-3 text-sm text-[#14161A] placeholder:text-black/35 outline-none focus:border-[var(--accent)]/50 transition-colors w-full" />
+              className="glass rounded-lg px-4 py-3 text-sm text-[#14161A] placeholder:text-black/35 outline-none focus:border-[var(--accent)]/50 transition-colors w-full" />
           </div>
           <textarea placeholder="Message" required rows={5} value={form.message}
             onChange={(e) => setForm({ ...form, message: e.target.value })}
-            className="glass rounded-xl px-4 py-3 text-sm text-[#14161A] placeholder:text-black/35 outline-none focus:border-[var(--accent)]/50 transition-colors w-full resize-none" />
+            className="glass rounded-lg px-4 py-3 text-sm text-[#14161A] placeholder:text-black/35 outline-none focus:border-[var(--accent)]/50 transition-colors w-full resize-none" />
           <button type="submit" disabled={status === "loading" || status === "success"}
-            className="glow w-full py-3 bg-[var(--accent)] text-white text-sm font-medium rounded-xl hover:bg-[var(--accent-light)] transition-colors disabled:opacity-50">
+            className="glow w-full py-3 bg-[var(--accent)] text-white text-sm font-medium rounded-lg hover:bg-[var(--accent-light)] transition-colors disabled:opacity-50">
             {status === "loading" ? "Envoi..." : status === "success" ? "Message envoyé ✓" : "Envoyer"}
           </button>
           {status === "error" && <p className="text-center text-xs text-red-600/80">Une erreur s&apos;est produite.</p>}

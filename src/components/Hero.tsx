@@ -71,7 +71,7 @@ export default function Hero({ onNavigate, profilePhotoUrl, cvUrl, name, locatio
       >
         <div>
           <p className="text-black/70 text-xs font-medium">{fullName}</p>
-          <p className="text-black/40 text-[11px]">{location || DEFAULTS.location}</p>
+          <p className="mono text-black/40 text-[11px]">{location || DEFAULTS.location}</p>
         </div>
         <div className="flex items-center gap-2">
           <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent)] animate-pulse" />
@@ -119,7 +119,7 @@ export default function Hero({ onNavigate, profilePhotoUrl, cvUrl, name, locatio
         <div className="rule mb-5" />
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-5">
           <div className="max-w-xs">
-            <p className="text-[10px] tracking-[0.25em] uppercase text-black/45 mb-1.5">
+            <p className="mono text-[10px] tracking-[0.25em] uppercase text-black/45 mb-1.5">
               {tagline || DEFAULTS.tagline}
             </p>
             <p className="text-black/60 text-sm leading-relaxed">
@@ -130,7 +130,7 @@ export default function Hero({ onNavigate, profilePhotoUrl, cvUrl, name, locatio
           <div className="flex items-center gap-2.5 flex-wrap">
             <button
               onClick={() => onNavigate("projects")}
-              className="glow px-5 py-2.5 bg-[var(--accent)] text-white text-xs font-semibold rounded-full hover:bg-[var(--accent-light)] transition-colors"
+              className="glow px-5 py-2.5 bg-[var(--accent)] text-white text-xs font-semibold rounded-lg hover:bg-[var(--accent-light)] transition-colors"
             >
               Voir les projets
             </button>
@@ -138,14 +138,14 @@ export default function Hero({ onNavigate, profilePhotoUrl, cvUrl, name, locatio
               <a
                 href={cvUrl}
                 download
-                className="btn-ghost px-5 py-2.5 text-black/60 text-xs rounded-full hover:text-black transition-colors"
+                className="btn-ghost px-5 py-2.5 text-black/60 text-xs rounded-lg hover:text-black transition-colors"
               >
                 Télécharger le CV ↓
               </a>
             )}
             <button
               onClick={() => onNavigate("contact")}
-              className="btn-ghost px-5 py-2.5 text-black/60 text-xs rounded-full hover:text-black transition-colors"
+              className="btn-ghost px-5 py-2.5 text-black/60 text-xs rounded-lg hover:text-black transition-colors"
             >
               Me contacter
             </button>
@@ -153,7 +153,7 @@ export default function Hero({ onNavigate, profilePhotoUrl, cvUrl, name, locatio
               href={linkedinUrl || DEFAULTS.linkedinUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-ghost px-5 py-2.5 text-black/60 text-xs rounded-full hover:text-black transition-colors"
+              className="btn-ghost px-5 py-2.5 text-black/60 text-xs rounded-lg hover:text-black transition-colors"
             >
               LinkedIn ↗
             </a>

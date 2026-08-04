@@ -49,22 +49,13 @@ export default function About({ blocks }: Props) {
   const groups = groupBlocks(data);
 
   return (
-    <section id="about" className="relative bg-[var(--bg-alt)] slant-top slant-bottom py-16 md:py-24 px-5 md:px-10">
+    <section id="about" className="relative bg-[var(--bg-alt)] border-y border-black/[0.08] py-16 md:py-24 px-5 md:px-10">
       <div className="max-w-6xl mx-auto">
         <div className="grid lg:grid-cols-[1fr_1.3fr] gap-10 lg:gap-16 items-start">
           {/* Colonne sticky */}
           <div className="lg:sticky lg:top-24 self-start">
-            <span
-              className="block font-bold leading-none select-none"
-              style={{
-                fontSize: "clamp(5.5rem, 12vw, 10rem)",
-                color: "transparent",
-                WebkitTextStroke: "1.5px var(--accent-light)",
-              }}
-            >
-              01
-            </span>
-            <p className="text-[10px] tracking-[0.3em] uppercase text-black/40 mt-2">About</p>
+            <span className="mono block text-sm text-[var(--accent-light)] mb-1">01</span>
+            <p className="text-[10px] tracking-[0.3em] uppercase text-black/40">About</p>
           </div>
 
           {/* Contenu */}
@@ -87,7 +78,7 @@ export default function About({ blocks }: Props) {
                     <motion.div key={`stat-${i}`} variants={fadeItem} className="grid grid-cols-3 gap-6 border-t border-black/[0.08] pt-4">
                       {g.blocks.map((s) => (
                         <div key={s.$id}>
-                          <span className="block text-3xl font-bold text-[var(--accent-light)] tabular-nums">{s.value}</span>
+                          <span className="mono block text-3xl font-bold text-[var(--accent-light)] tabular-nums">{s.value}</span>
                           <span className="text-black/50 text-xs">{s.title}</span>
                         </div>
                       ))}

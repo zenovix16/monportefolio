@@ -51,7 +51,7 @@ function Card({ p, onOpen }: { p: ProjectDoc; onOpen: () => void }) {
   return (
     <motion.article
       variants={item}
-      className={`btn-ghost rounded-2xl overflow-hidden shrink-0 snap-start w-[85%] sm:w-[65%] ${
+      className={`btn-ghost rounded-lg overflow-hidden shrink-0 snap-start w-[85%] sm:w-[65%] ${
         p.featured ? "lg:w-[440px] border-[var(--accent)]/40" : "lg:w-[360px]"
       }`}
     >
@@ -135,8 +135,8 @@ export default function Projects({ projects }: Props) {
           <SectionTitle>Ce que j&apos;ai construit.</SectionTitle>
         </div>
         <div className="hidden sm:flex gap-2 mb-6 shrink-0">
-          <button onClick={() => scroll(-1)} aria-label="Précédent" className="btn-ghost w-9 h-9 rounded-full flex items-center justify-center text-black/50 hover:text-black transition-colors">←</button>
-          <button onClick={() => scroll(1)} aria-label="Suivant" className="btn-ghost w-9 h-9 rounded-full flex items-center justify-center text-black/50 hover:text-black transition-colors">→</button>
+          <button onClick={() => scroll(-1)} aria-label="Précédent" className="btn-ghost w-9 h-9 rounded-lg flex items-center justify-center text-black/50 hover:text-black transition-colors">←</button>
+          <button onClick={() => scroll(1)} aria-label="Suivant" className="btn-ghost w-9 h-9 rounded-lg flex items-center justify-center text-black/50 hover:text-black transition-colors">→</button>
         </div>
       </div>
 

@@ -75,27 +75,18 @@ export default function Experience({ experience }: Props) {
   } : null;
 
   return (
-    <section id="experience" className="relative bg-[var(--bg-alt)] slant-top slant-bottom py-16 md:py-24 px-5 md:px-10">
+    <section id="experience" className="relative bg-[var(--bg-alt)] border-y border-black/[0.08] py-16 md:py-24 px-5 md:px-10">
       <div className="max-w-6xl mx-auto">
         <div className="grid lg:grid-cols-[1fr_1.3fr] gap-10 lg:gap-16 items-start">
           {/* Colonne sticky */}
           <div className="lg:sticky lg:top-24 self-start">
-            <span
-              className="block font-bold leading-none select-none"
-              style={{
-                fontSize: "clamp(5.5rem, 12vw, 10rem)",
-                color: "transparent",
-                WebkitTextStroke: "1.5px var(--accent-light)",
-              }}
-            >
-              04
-            </span>
-            <p className="text-[10px] tracking-[0.3em] uppercase text-black/40 mt-2 mb-6">Experience</p>
+            <span className="mono block text-sm text-[var(--accent-light)] mb-1">04</span>
+            <p className="text-[10px] tracking-[0.3em] uppercase text-black/40 mb-6">Experience</p>
             <div className="hidden lg:flex items-center gap-3">
               <SectionTitle className="!text-3xl" noMargin>Mon parcours.</SectionTitle>
               <div className="flex gap-2 shrink-0">
-                <button onClick={() => scroll(-1)} aria-label="Précédent" className="btn-ghost w-9 h-9 rounded-full flex items-center justify-center text-black/50 hover:text-black transition-colors">←</button>
-                <button onClick={() => scroll(1)} aria-label="Suivant" className="btn-ghost w-9 h-9 rounded-full flex items-center justify-center text-black/50 hover:text-black transition-colors">→</button>
+                <button onClick={() => scroll(-1)} aria-label="Précédent" className="btn-ghost w-9 h-9 rounded-lg flex items-center justify-center text-black/50 hover:text-black transition-colors">←</button>
+                <button onClick={() => scroll(1)} aria-label="Suivant" className="btn-ghost w-9 h-9 rounded-lg flex items-center justify-center text-black/50 hover:text-black transition-colors">→</button>
               </div>
             </div>
           </div>
@@ -119,7 +110,7 @@ export default function Experience({ experience }: Props) {
                 <motion.div
                   key={e.$id}
                   variants={item}
-                  className="btn-ghost rounded-2xl p-5 shrink-0 snap-start w-[80%] sm:w-[55%] lg:w-[320px]"
+                  className="btn-ghost rounded-lg p-5 shrink-0 snap-start w-[80%] sm:w-[55%] lg:w-[320px]"
                 >
                   <div className="flex items-center gap-2 flex-wrap mb-0.5">
                     <h3 className="text-[#14161A] font-semibold text-base">{e.role}</h3>
@@ -130,7 +121,7 @@ export default function Experience({ experience }: Props) {
                     )}
                   </div>
                   <p className="text-black/55 text-sm mb-1">{e.company} · {e.location}</p>
-                  <p className="text-black/35 text-xs mb-3">{dateRange(e)}</p>
+                  <p className="mono text-black/35 text-xs mb-3">{dateRange(e)}</p>
                   <p className="text-black/55 text-sm leading-relaxed line-clamp-3 mb-3">
                     {e.description}
                   </p>

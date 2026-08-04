@@ -58,7 +58,7 @@ export default function Education({ education }: Props) {
       >
         {data.map((e) => (
           <motion.div key={e.$id} variants={item} className="py-5 first:pt-0">
-            <div className="flex justify-between text-[10px] tracking-widest uppercase text-black/40 mb-2">
+            <div className="mono flex justify-between text-[10px] tracking-widest uppercase text-black/40 mb-2">
               <span>{e.period}</span>
               <span className="text-right">{e.location}</span>
             </div>

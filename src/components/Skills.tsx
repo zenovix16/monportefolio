@@ -73,7 +73,7 @@ export default function Skills({ skills }: Props) {
                   <div key={s.$id}>
                     <div className="flex justify-between mb-1.5">
                       <span className="text-black/80 text-sm">{s.name}</span>
-                      <span className="text-black/35 text-xs tabular-nums">{s.level ?? 80}%</span>
+                      <span className="mono text-black/35 text-xs tabular-nums">{s.level ?? 80}%</span>
                     </div>
                     <div className="h-px bg-black/10 rounded-full overflow-hidden">
                       <motion.div

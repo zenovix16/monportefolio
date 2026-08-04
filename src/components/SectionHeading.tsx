@@ -10,7 +10,7 @@ interface Props {
 export default function SectionHeading({ number, label }: Props) {
   return (
     <div className="flex items-center gap-4 mb-6">
-      <span className="text-[10px] tracking-[0.3em] uppercase text-black/40 shrink-0">{number}</span>
+      <span className="mono text-[10px] tracking-[0.3em] uppercase text-black/40 shrink-0">{number}</span>
       <div className="flex-1 h-px bg-black/10 overflow-hidden">
         <motion.div
           initial={{ scaleX: 0 }}

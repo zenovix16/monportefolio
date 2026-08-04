@@ -44,7 +44,7 @@ export default function Footer({ onNavigate, name, tagline, email, phone, linked
 
           {/* Navigation */}
           <div>
-            <p className="text-[10px] tracking-[0.25em] uppercase text-black/40 mb-3">Navigation</p>
+            <p className="mono text-[10px] tracking-[0.25em] uppercase text-black/40 mb-3">Navigation</p>
             <ul className="space-y-2">
               {LINKS.map((l) => (
                 <li key={l.id}>
@@ -61,7 +61,7 @@ export default function Footer({ onNavigate, name, tagline, email, phone, linked
 
           {/* Contact */}
           <div>
-            <p className="text-[10px] tracking-[0.25em] uppercase text-black/40 mb-3">Contact</p>
+            <p className="mono text-[10px] tracking-[0.25em] uppercase text-black/40 mb-3">Contact</p>
             <ul className="space-y-2">
               <li>
                 <a href={`mailto:${email || DEFAULTS.email}`} className="link-underline text-black/60 hover:text-[var(--accent-light)] text-sm transition-colors break-all">
@@ -86,7 +86,7 @@ export default function Footer({ onNavigate, name, tagline, email, phone, linked
           <p className="text-black/35 text-xs">© {year} {name || DEFAULTS.name}</p>
           <button
             onClick={() => onNavigate("hero")}
-            className="btn-ghost text-black/55 hover:text-black text-xs rounded-full px-4 py-2 transition-colors"
+            className="btn-ghost text-black/55 hover:text-black text-xs rounded-lg px-4 py-2 transition-colors"
           >
             Retour en haut ↑
           </button>

@@ -60,12 +60,12 @@ export default function DetailModal({ item, onClose }: Props) {
             exit={{ opacity: 0, scale: 0.96, y: 12 }}
             transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
             onClick={(e) => e.stopPropagation()}
-            className="relative w-full max-w-xl max-h-[85vh] overflow-y-auto rounded-2xl bg-[#F1F2F4] border border-black/[0.08] shadow-2xl"
+            className="relative w-full max-w-xl max-h-[85vh] overflow-y-auto rounded-lg bg-[#F1F2F4] border border-black/[0.08] shadow-2xl"
           >
             <button
               onClick={onClose}
               aria-label="Fermer"
-              className="absolute top-4 right-4 w-8 h-8 rounded-full flex items-center justify-center border border-black/[0.1] text-black/50 hover:text-black hover:border-black/25 transition-colors bg-[#F1F2F4] z-10"
+              className="absolute top-4 right-4 w-8 h-8 rounded-lg flex items-center justify-center border border-black/[0.1] text-black/50 hover:text-black hover:border-black/25 transition-colors bg-[#F1F2F4] z-10"
             >
               ✕
             </button>
@@ -106,7 +106,7 @@ export default function DetailModal({ item, onClose }: Props) {
                   )}
                 </div>
                 <p className="text-black/55 text-sm mb-1">{item.company}{item.location ? ` · ${item.location}` : ""}</p>
-                <p className="text-black/35 text-xs mb-5">{item.dateRange}</p>
+                <p className="mono text-black/35 text-xs mb-5">{item.dateRange}</p>
                 <p className="text-black/60 text-sm leading-relaxed whitespace-pre-line">{item.description}</p>
               </div>
             )}
