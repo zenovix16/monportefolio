@@ -44,7 +44,7 @@ export default function Education({ education }: Props) {
   const data = education.length > 0 ? education : FALLBACK;
 
   return (
-    <section id="education" className="px-5 md:px-10 py-14 md:py-20 max-w-6xl mx-auto">
+    <section id="education" className="px-5 md:px-10 py-10 md:py-16 max-w-6xl mx-auto">
       <SectionHeading number="05" label="Formation" />
 
       <SectionTitle>Parcours académique.</SectionTitle>

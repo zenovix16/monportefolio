@@ -60,7 +60,7 @@ export default function Contact({ cvUrl, email, phone, linkedinUrl }: Props) {
   ];
 
   return (
-    <section id="contact" className="px-5 md:px-10 py-14 md:py-20 max-w-6xl mx-auto">
+    <section id="contact" className="px-5 md:px-10 py-10 md:py-16 max-w-6xl mx-auto">
       <SectionHeading number="07" label="Contact" />
 
       <div className="grid md:grid-cols-2 gap-8 md:gap-16 items-start">
@@ -119,10 +119,6 @@ export default function Contact({ cvUrl, email, phone, linkedinUrl }: Props) {
           </button>
           {status === "error" && <p className="text-center text-xs text-red-600/80">Une erreur s&apos;est produite.</p>}
         </form>
-      </div>
-
-      <div className="mt-10 pt-5 rule flex items-center justify-between">
-        <p className="text-black/35 text-xs">© 2026 Soumaïla Niampa</p>
       </div>
     </section>
   );

@@ -46,7 +46,7 @@ export default function Skills({ skills }: Props) {
   let globalIdx = 0;
 
   return (
-    <section id="skills" className="px-5 md:px-10 py-14 md:py-20 max-w-6xl mx-auto">
+    <section id="skills" className="px-5 md:px-10 py-10 md:py-16 max-w-6xl mx-auto">
       <SectionHeading number="02" label="Skills" />
 
       <SectionTitle>Ce que je maîtrise.</SectionTitle>

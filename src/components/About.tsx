@@ -49,7 +49,7 @@ export default function About({ blocks }: Props) {
   const groups = groupBlocks(data);
 
   return (
-    <section id="about" className="relative bg-[var(--bg-alt)] slant-top slant-bottom py-20 md:py-28 px-5 md:px-10">
+    <section id="about" className="relative bg-[var(--bg-alt)] slant-top slant-bottom py-16 md:py-24 px-5 md:px-10">
       <div className="max-w-6xl mx-auto">
         <div className="grid lg:grid-cols-[1fr_1.3fr] gap-10 lg:gap-16 items-start">
           {/* Colonne sticky */}

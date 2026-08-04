@@ -20,7 +20,7 @@ interface Props { articles: ArticleDoc[] }
 export default function Articles({ articles }: Props) {
   if (articles.length === 0) {
     return (
-      <section id="articles" className="px-5 md:px-10 py-14 md:py-20 max-w-6xl mx-auto">
+      <section id="articles" className="px-5 md:px-10 py-10 md:py-16 max-w-6xl mx-auto">
         <SectionHeading number="06" label="Articles" />
         <div className="border-t border-black/[0.08] pt-6 text-center text-black/40 text-sm">
           Aucun article publié pour le moment.
@@ -30,7 +30,7 @@ export default function Articles({ articles }: Props) {
   }
 
   return (
-    <section id="articles" className="px-5 md:px-10 py-14 md:py-20 max-w-6xl mx-auto">
+    <section id="articles" className="px-5 md:px-10 py-10 md:py-16 max-w-6xl mx-auto">
       <SectionHeading number="06" label="Publications" />
 
       <SectionTitle>Articles scientifiques.</SectionTitle>

@@ -1,12 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import type { ProjectDoc } from "@/types/portfolio";
 import SectionHeading from "./SectionHeading";
 import SectionTitle from "./SectionTitle";
-import ReadMore from "./ReadMore";
+import DetailModal, { type DetailItem } from "./DetailModal";
 
 const FALLBACK: ProjectDoc[] = [
   {
@@ -45,24 +45,24 @@ const item = {
   show: { opacity: 1, y: 0, transition: { duration: 0.5 } },
 };
 
-function Card({ p }: { p: ProjectDoc }) {
+function Card({ p, onOpen }: { p: ProjectDoc; onOpen: () => void }) {
   const [imgError, setImgError] = useState(false);
 
   return (
     <motion.article
       variants={item}
-      className={`btn-ghost rounded-2xl overflow-hidden group hover:scale-[1.01] transition-transform duration-300 ${
-        p.featured ? "md:col-span-2 border-[var(--accent)]/40" : ""
+      className={`btn-ghost rounded-2xl overflow-hidden shrink-0 snap-start w-[85%] sm:w-[65%] ${
+        p.featured ? "lg:w-[440px] border-[var(--accent)]/40" : "lg:w-[360px]"
       }`}
     >
-      <div className={`relative w-full ${p.featured ? "h-48 md:h-56" : "h-40"} bg-black/[0.02] border-b border-black/[0.07] overflow-hidden`}>
+      <div className="relative w-full h-48 bg-black/[0.02] border-b border-black/[0.07] overflow-hidden">
         {p.imageId && !imgError ? (
           <>
             <Image
               src={previewUrl(p.imageId)}
               alt={p.title}
               fill
-              className="object-cover group-hover:scale-105 transition-transform duration-700"
+              className="object-cover"
               onError={() => setImgError(true)}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
@@ -81,20 +81,17 @@ function Card({ p }: { p: ProjectDoc }) {
           </span>
         )}
         <h3 className="text-[#14161A] font-semibold text-base mb-1.5 leading-snug">{p.title}</h3>
-        <div className="mb-4">
-          <ReadMore text={p.description} lines={3} className="text-black/55 text-xs leading-relaxed" />
-        </div>
+        <p className="text-black/55 text-xs leading-relaxed mb-4 line-clamp-2">{p.description}</p>
 
-        <div className="flex items-end justify-between gap-2">
+        <div className="flex items-center justify-between gap-2">
           <div className="flex flex-wrap gap-1.5">
-            {(p.tags ?? []).map((t) => (
+            {(p.tags ?? []).slice(0, 2).map((t) => (
               <span key={t} className="text-[10px] text-black/45 border border-black/[0.08] rounded-full px-2.5 py-1">{t}</span>
             ))}
           </div>
-          <div className="flex gap-3 shrink-0">
-            {p.githubUrl && <a href={p.githubUrl} target="_blank" rel="noopener noreferrer" className="link-underline text-[11px] text-black/45 hover:text-[var(--accent-light)] transition-colors">GitHub ↗</a>}
-            {p.liveUrl   && <a href={p.liveUrl}   target="_blank" rel="noopener noreferrer" className="link-underline text-[11px] text-black/45 hover:text-[var(--accent-light)] transition-colors">Live ↗</a>}
-          </div>
+          <button onClick={onOpen} className="link-underline text-[12px] font-medium text-[var(--accent-light)] shrink-0">
+            Voir plus →
+          </button>
         </div>
       </div>
     </motion.article>
@@ -105,22 +102,66 @@ interface Props { projects: ProjectDoc[] }
 
 export default function Projects({ projects }: Props) {
   const data = projects.length > 0 ? projects : FALLBACK;
+  const [selected, setSelected] = useState<ProjectDoc | null>(null);
+  const [progress, setProgress] = useState(0);
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  const scroll = (dir: 1 | -1) => {
+    scrollRef.current?.scrollBy({ left: dir * 360, behavior: "smooth" });
+  };
+
+  const onScroll = () => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const max = el.scrollWidth - el.clientWidth;
+    setProgress(max > 0 ? el.scrollLeft / max : 0);
+  };
+
+  const detail: DetailItem | null = selected ? {
+    kind: "project",
+    title: selected.title,
+    description: selected.description,
+    tags: selected.tags,
+    imageUrl: selected.imageId ? previewUrl(selected.imageId) : null,
+    githubUrl: selected.githubUrl,
+    liveUrl: selected.liveUrl,
+  } : null;
 
   return (
-    <section id="projects" className="px-5 md:px-10 py-14 md:py-20 max-w-6xl mx-auto">
-      <SectionHeading number="03" label="Projects" />
-
-      <SectionTitle>Ce que j&apos;ai construit.</SectionTitle>
+    <section id="projects" className="px-5 md:px-10 py-10 md:py-16 max-w-6xl mx-auto">
+      <div className="flex items-end justify-between gap-4">
+        <div className="flex-1">
+          <SectionHeading number="03" label="Projects" />
+          <SectionTitle>Ce que j&apos;ai construit.</SectionTitle>
+        </div>
+        <div className="hidden sm:flex gap-2 mb-6 shrink-0">
+          <button onClick={() => scroll(-1)} aria-label="Précédent" className="btn-ghost w-9 h-9 rounded-full flex items-center justify-center text-black/50 hover:text-black transition-colors">←</button>
+          <button onClick={() => scroll(1)} aria-label="Suivant" className="btn-ghost w-9 h-9 rounded-full flex items-center justify-center text-black/50 hover:text-black transition-colors">→</button>
+        </div>
+      </div>
 
       <motion.div
+        ref={scrollRef}
+        onScroll={onScroll}
         initial="hidden"
         whileInView="show"
-        viewport={{ once: true, amount: 0.15 }}
+        viewport={{ once: true, amount: 0.1 }}
         variants={{ hidden: {}, show: { transition: { staggerChildren: 0.1 } } }}
-        className="grid md:grid-cols-2 lg:grid-cols-3 gap-5"
+        className="flex gap-5 overflow-x-auto snap-x snap-mandatory scrollbar-none pb-2"
       >
-        {data.map((p) => <Card key={p.$id} p={p} />)}
+        {data.map((p) => <Card key={p.$id} p={p} onOpen={() => setSelected(p)} />)}
       </motion.div>
+
+      {data.length > 1 && (
+        <div className="h-0.5 bg-black/[0.08] rounded-full mt-4 max-w-[160px] overflow-hidden">
+          <div
+            className="h-full bg-[var(--accent)] rounded-full"
+            style={{ width: `${Math.max(18, progress * 100)}%`, transition: "width 0.1s linear" }}
+          />
+        </div>
+      )}
+
+      <DetailModal item={detail} onClose={() => setSelected(null)} />
     </section>
   );
 }

@@ -10,6 +10,7 @@ import Experience from "./Experience";
 import Education from "./Education";
 import Articles from "./Articles";
 import Contact from "./Contact";
+import Footer from "./Footer";
 import type { ProjectDoc, SkillDoc, ExperienceDoc, ArticleDoc, AboutBlockDoc, EducationDoc } from "@/types/portfolio";
 
 export type SectionId =
@@ -71,7 +72,7 @@ export default function PortfolioClient({
 
   return (
     <>
-      <Navbar active={active} onNavigate={navigate} />
+      <Navbar active={active} onNavigate={navigate} email={email} />
       <main>
         <Hero
           onNavigate={navigate}
@@ -91,6 +92,14 @@ export default function PortfolioClient({
         <Articles articles={articles} />
         <Contact cvUrl={cvUrl} email={email} phone={phone} linkedinUrl={linkedinUrl} />
       </main>
+      <Footer
+        onNavigate={navigate}
+        name={heroName}
+        tagline={heroTagline}
+        email={email}
+        phone={phone}
+        linkedinUrl={linkedinUrl}
+      />
     </>
   );
 }

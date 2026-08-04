@@ -1,8 +1,10 @@
 "use client";
 
+import { useRef, useState } from "react";
 import { motion } from "framer-motion";
 import type { ExperienceDoc } from "@/types/portfolio";
 import SectionTitle from "./SectionTitle";
+import DetailModal, { type DetailItem } from "./DetailModal";
 
 const FALLBACK: ExperienceDoc[] = [
   {
@@ -34,22 +36,46 @@ const FALLBACK: ExperienceDoc[] = [
   },
 ];
 
-const container = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.12 } },
-};
 const item = {
   hidden: { opacity: 0, y: 16 },
   show: { opacity: 1, y: 0, transition: { duration: 0.45 } },
 };
 
+function dateRange(e: ExperienceDoc) {
+  return `${e.startDate}${e.endDate ? ` — ${e.endDate}` : e.current ? " — Présent" : ""}`;
+}
+
 interface Props { experience: ExperienceDoc[] }
 
 export default function Experience({ experience }: Props) {
   const data = experience.length > 0 ? experience : FALLBACK;
+  const [selected, setSelected] = useState<ExperienceDoc | null>(null);
+  const [progress, setProgress] = useState(0);
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  const scroll = (dir: 1 | -1) => {
+    scrollRef.current?.scrollBy({ left: dir * 320, behavior: "smooth" });
+  };
+
+  const onScroll = () => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const max = el.scrollWidth - el.clientWidth;
+    setProgress(max > 0 ? el.scrollLeft / max : 0);
+  };
+
+  const detail: DetailItem | null = selected ? {
+    kind: "experience",
+    role: selected.role,
+    company: selected.company,
+    location: selected.location,
+    dateRange: dateRange(selected),
+    current: selected.current,
+    description: selected.description,
+  } : null;
 
   return (
-    <section id="experience" className="relative bg-[var(--bg-alt)] slant-top slant-bottom py-20 md:py-28 px-5 md:px-10">
+    <section id="experience" className="relative bg-[var(--bg-alt)] slant-top slant-bottom py-16 md:py-24 px-5 md:px-10">
       <div className="max-w-6xl mx-auto">
         <div className="grid lg:grid-cols-[1fr_1.3fr] gap-10 lg:gap-16 items-start">
           {/* Colonne sticky */}
@@ -65,50 +91,69 @@ export default function Experience({ experience }: Props) {
               04
             </span>
             <p className="text-[10px] tracking-[0.3em] uppercase text-black/40 mt-2 mb-6">Experience</p>
-            <div className="hidden lg:block">
-              <SectionTitle className="!text-3xl">Mon parcours.</SectionTitle>
+            <div className="hidden lg:flex items-center gap-3">
+              <SectionTitle className="!text-3xl" noMargin>Mon parcours.</SectionTitle>
+              <div className="flex gap-2 shrink-0">
+                <button onClick={() => scroll(-1)} aria-label="Précédent" className="btn-ghost w-9 h-9 rounded-full flex items-center justify-center text-black/50 hover:text-black transition-colors">←</button>
+                <button onClick={() => scroll(1)} aria-label="Suivant" className="btn-ghost w-9 h-9 rounded-full flex items-center justify-center text-black/50 hover:text-black transition-colors">→</button>
+              </div>
             </div>
           </div>
 
-          {/* Timeline */}
+          {/* Carrousel */}
           <div>
             <div className="lg:hidden">
               <SectionTitle>Mon parcours.</SectionTitle>
             </div>
+
             <motion.div
+              ref={scrollRef}
+              onScroll={onScroll}
               initial="hidden"
               whileInView="show"
               viewport={{ once: true, amount: 0.15 }}
-              variants={container}
-              className="divide-y divide-black/[0.08]"
+              variants={{ hidden: {}, show: { transition: { staggerChildren: 0.12 } } }}
+              className="flex gap-4 overflow-x-auto snap-x snap-mandatory scrollbar-none pb-2"
             >
               {data.map((e) => (
-                <motion.div key={e.$id} variants={item} className="py-5 first:pt-0">
-                  <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-3">
-                    <div>
-                      <div className="flex items-center gap-2 flex-wrap mb-0.5">
-                        <h3 className="text-[#14161A] font-semibold text-base">{e.role}</h3>
-                        {e.current && (
-                          <span className="text-[9px] tracking-[0.25em] uppercase text-[var(--accent-light)] border border-[var(--accent)]/40 rounded-full px-2 py-0.5">
-                            Actuel
-                          </span>
-                        )}
-                      </div>
-                      <p className="text-black/55 text-sm">{e.company} · {e.location}</p>
-                    </div>
-                    <p className="text-black/35 text-xs sm:text-right shrink-0">
-                      {e.startDate}{e.endDate ? ` — ${e.endDate}` : e.current ? " — Présent" : ""}
-                    </p>
+                <motion.div
+                  key={e.$id}
+                  variants={item}
+                  className="btn-ghost rounded-2xl p-5 shrink-0 snap-start w-[80%] sm:w-[55%] lg:w-[320px]"
+                >
+                  <div className="flex items-center gap-2 flex-wrap mb-0.5">
+                    <h3 className="text-[#14161A] font-semibold text-base">{e.role}</h3>
+                    {e.current && (
+                      <span className="text-[9px] tracking-[0.25em] uppercase text-[var(--accent-light)] border border-[var(--accent)]/40 rounded-full px-2 py-0.5">
+                        Actuel
+                      </span>
+                    )}
                   </div>
-                  <p className="text-black/55 text-sm leading-relaxed">
+                  <p className="text-black/55 text-sm mb-1">{e.company} · {e.location}</p>
+                  <p className="text-black/35 text-xs mb-3">{dateRange(e)}</p>
+                  <p className="text-black/55 text-sm leading-relaxed line-clamp-3 mb-3">
                     {e.description}
                   </p>
+                  <button onClick={() => setSelected(e)} className="link-underline text-[12px] font-medium text-[var(--accent-light)]">
+                    Voir plus →
+                  </button>
                 </motion.div>
               ))}
             </motion.div>
+
+            {data.length > 1 && (
+              <div className="h-0.5 bg-black/[0.08] rounded-full mt-4 max-w-[160px] overflow-hidden">
+                <div
+                  className="h-full bg-[var(--accent)] rounded-full"
+                  style={{ width: `${Math.max(18, progress * 100)}%`, transition: "width 0.1s linear" }}
+                />
+              </div>
+            )}
           </div>
         </div>
       </div>
+
+      <DetailModal item={detail} onClose={() => setSelected(null)} />
     </section>
   );
 }
