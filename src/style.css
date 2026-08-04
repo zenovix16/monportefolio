@@ -34,15 +34,25 @@ body {
   background-size: 28px 28px;
   color: var(--fg);
   font-family: var(--font-sans);
+  overflow-x: hidden;
 }
 
+/* Décalage sous la nav fixe (h-14 = 3.5rem) lors des sauts d'ancre. */
 section[id] {
-  scroll-margin-top: 4rem;
+  scroll-margin-top: 4.5rem;
 }
 
 /* Stacking */
-header { position: relative; z-index: 10; }
-main, [class*="section"] { position: relative; z-index: 2; }
+main > section { position: relative; z-index: 2; }
+
+/* Nav fixe : léger relief une fois le contenu défilé sous elle — la nav ne
+   bouge jamais (position: fixed), seule sa profondeur visuelle change. */
+#navbar {
+  transition: box-shadow 0.25s ease-out, background-color 0.25s ease-out;
+}
+#navbar.nav-scrolled {
+  box-shadow: 0 8px 24px -14px rgba(0, 0, 0, 0.18);
+}
 
 /* Surface plate — bordure nette, sans flou (formulaire de contact) */
 .glass {
@@ -111,8 +121,8 @@ main, [class*="section"] { position: relative; z-index: 2; }
 /* --- Animations utilitaires (remplacent Framer Motion) --- */
 
 @keyframes fade-up {
-  from { opacity: 0; transform: translateY(16px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; transform: translateY(14px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
 }
 @keyframes fade-in {
   from { opacity: 0; }
@@ -138,7 +148,7 @@ main, [class*="section"] { position: relative; z-index: 2; }
   animation-delay: var(--delay, 0s);
 }
 [data-animate].in-view {
-  animation: fade-up 0.5s ease-out forwards;
+  animation: fade-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 [data-animate="fade"].in-view {
   animation: fade-in 0.5s ease-out forwards;
@@ -156,5 +166,26 @@ main, [class*="section"] { position: relative; z-index: 2; }
 
 .section-rule-fill {
   transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Cartes interactives (projets, expériences) : légère élévation au survol,
+   cohérente avec les micro-interactions du reste du site. */
+.card-hover {
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.15s ease-out;
+}
+.card-hover:hover {
+  transform: translateY(-3px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-animate],
+  [data-animate="fade"],
+  .reveal-line > * {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .card-hover:hover { transform: none; }
+  .scroll-cue { animation: none; }
 }
 

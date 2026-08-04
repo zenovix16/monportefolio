@@ -103,10 +103,18 @@ function initScrollSpy() {
   });
 }
 
+function initScrollShadow() {
+  const nav = document.getElementById("navbar");
+  const update = () => nav.classList.toggle("nav-scrolled", window.scrollY > 8);
+  window.addEventListener("scroll", update, { passive: true });
+  update();
+}
+
 export function initNav() {
   buildLinks();
   setActive("hero");
   initScrollSpy();
+  initScrollShadow();
 
   document.querySelectorAll("[data-nav]").forEach((el) => {
     el.addEventListener("click", () => navigate(el.dataset.nav));

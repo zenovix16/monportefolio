@@ -1,7 +1,7 @@
 import { esc } from "../utils.js";
 import { observeReveal } from "../reveal.js";
-import { openModal } from "../modal.js";
 import { initCarousel } from "../carousel.js";
+import { stashDetail } from "../detail-store.js";
 
 const FALLBACK = [
   {
@@ -42,7 +42,7 @@ export function renderExperience(experience) {
   const track = document.getElementById("experience-carousel");
 
   track.innerHTML = data.map((e, i) => `
-    <div data-animate style="--delay:${i * 0.12}s" class="btn-ghost rounded-lg p-5 shrink-0 snap-start w-[80%] sm:w-[55%] lg:w-[320px]">
+    <div data-animate style="--delay:${i * 0.12}s" class="card-hover btn-ghost rounded-lg p-5 shrink-0 snap-start w-[80%] sm:w-[55%] lg:w-[320px]">
       <div class="flex items-center gap-2 flex-wrap mb-0.5">
         <h3 class="text-[#14161A] font-semibold text-base">${esc(e.role)}</h3>
         ${e.current ? `<span class="text-[9px] tracking-[0.25em] uppercase text-[var(--accent-light)] border border-[var(--accent)]/40 rounded-full px-2 py-0.5">Actuel</span>` : ""}
@@ -50,23 +50,14 @@ export function renderExperience(experience) {
       <p class="text-black/55 text-sm mb-1">${esc(e.company)} · ${esc(e.location)}</p>
       <p class="mono text-black/35 text-xs mb-3">${esc(dateRange(e))}</p>
       <p class="text-black/55 text-sm leading-relaxed line-clamp-3 mb-3">${esc(e.description)}</p>
-      <button type="button" data-open-exp="${e.$id}" class="link-underline text-[12px] font-medium text-[var(--accent-light)]">Voir plus →</button>
+      <a href="/experience.html?id=${encodeURIComponent(e.$id)}" data-detail-exp="${e.$id}" class="link-underline text-[12px] font-medium text-[var(--accent-light)]">Voir plus →</a>
     </div>
   `).join("");
 
-  track.querySelectorAll("[data-open-exp]").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      const e = data.find((x) => x.$id === btn.dataset.openExp);
-      if (!e) return;
-      openModal({
-        kind: "experience",
-        role: e.role,
-        company: e.company,
-        location: e.location,
-        dateRange: dateRange(e),
-        current: e.current,
-        description: e.description,
-      });
+  track.querySelectorAll("[data-detail-exp]").forEach((link) => {
+    link.addEventListener("click", () => {
+      const e = data.find((x) => x.$id === link.dataset.detailExp);
+      if (e) stashDetail("experience", { ...e, dateRange: dateRange(e) });
     });
   });
 

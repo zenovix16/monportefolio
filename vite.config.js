@@ -8,6 +8,8 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: resolve(__dirname, "index.html"),
+        projectDetail: resolve(__dirname, "project.html"),
+        experienceDetail: resolve(__dirname, "experience.html"),
         adminLogin: resolve(__dirname, "admin/login.html"),
         adminIndex: resolve(__dirname, "admin/index.html"),
         adminProjects: resolve(__dirname, "admin/projects.html"),

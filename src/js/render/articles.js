@@ -29,7 +29,7 @@ export function renderArticles(articles) {
     `;
 
     return `
-      <div data-animate style="--delay:${i * 0.08}s" class="py-5 first:pt-0">
+      <div data-animate style="--delay:${i * 0.08}s" class="py-4 first:pt-0">
         <div class="flex items-start justify-between gap-4">
           <div class="flex-1 min-w-0">
             <div class="flex items-center gap-2.5 mb-1.5 flex-wrap">

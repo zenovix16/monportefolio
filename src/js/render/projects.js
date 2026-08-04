@@ -1,8 +1,8 @@
-import { esc, readMoreHtml, wireReadMores } from "../utils.js";
+import { esc } from "../utils.js";
 import { observeReveal } from "../reveal.js";
 import { getFilePreviewUrl } from "../appwrite.js";
-import { openModal } from "../modal.js";
 import { initCarousel } from "../carousel.js";
+import { stashDetail } from "../detail-store.js";
 
 const FALLBACK = [
   {
@@ -42,7 +42,7 @@ export function renderProjects(projects) {
 
     return `
       <article data-animate style="--delay:${(i % 3) * 0.08}s"
-        class="btn-ghost rounded-lg overflow-hidden shrink-0 snap-start w-[85%] sm:w-[65%] ${p.featured ? "lg:w-[440px] border-[var(--accent)]/40" : "lg:w-[360px]"}">
+        class="card-hover btn-ghost rounded-lg overflow-hidden shrink-0 snap-start w-[85%] sm:w-[65%] ${p.featured ? "lg:w-[440px] border-[var(--accent)]/40" : "lg:w-[360px]"}">
         <div class="relative w-full h-48 bg-black/[0.02] border-b border-black/[0.07] overflow-hidden">${img}</div>
         <div class="p-5">
           ${p.featured ? `<span class="inline-block text-[9px] tracking-[0.3em] uppercase text-[var(--accent-light)] border border-[var(--accent)]/40 rounded-full px-2.5 py-1 mb-3">Projet phare</span>` : ""}
@@ -50,26 +50,17 @@ export function renderProjects(projects) {
           <p class="text-black/55 text-xs leading-relaxed mb-4 line-clamp-2">${esc(p.description)}</p>
           <div class="flex items-center justify-between gap-2">
             <div class="flex flex-wrap gap-1.5">${tags}</div>
-            <button type="button" data-open-project="${p.$id}" class="link-underline text-[12px] font-medium text-[var(--accent-light)] shrink-0">Voir plus →</button>
+            <a href="/project.html?id=${encodeURIComponent(p.$id)}" data-detail-project="${p.$id}" class="link-underline text-[12px] font-medium text-[var(--accent-light)] shrink-0">Voir plus →</a>
           </div>
         </div>
       </article>
     `;
   }).join("");
 
-  track.querySelectorAll("[data-open-project]").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      const p = data.find((x) => x.$id === btn.dataset.openProject);
-      if (!p) return;
-      openModal({
-        kind: "project",
-        title: p.title,
-        description: p.description,
-        tags: p.tags,
-        imageUrl: p.imageId ? getFilePreviewUrl(p.imageId, 900, 500) : null,
-        githubUrl: p.githubUrl,
-        liveUrl: p.liveUrl,
-      });
+  track.querySelectorAll("[data-detail-project]").forEach((link) => {
+    link.addEventListener("click", () => {
+      const p = data.find((x) => x.$id === link.dataset.detailProject);
+      if (p) stashDetail("project", p);
     });
   });
 

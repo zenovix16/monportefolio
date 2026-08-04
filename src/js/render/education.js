@@ -35,7 +35,7 @@ export function renderEducation(education) {
       : "";
 
     return `
-      <div data-animate ${i === 0 ? 'style="--delay:0s"' : `style="--delay:${i * 0.1}s"`} class="py-5 first:pt-0">
+      <div data-animate ${i === 0 ? 'style="--delay:0s"' : `style="--delay:${i * 0.1}s"`} class="py-4 first:pt-0">
         <div class="mono flex justify-between text-[10px] tracking-widest uppercase text-black/40 mb-2">
           <span>${esc(e.period)}</span>
           <span class="text-right">${esc(e.location)}</span>

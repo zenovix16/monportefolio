@@ -48,10 +48,10 @@ async function init() {
   setMenuEmail(settings.email || "soumaila.niampa@centrale-casablanca.ma");
   renderHero(settings, profilePhotoUrl, cvUrl);
   renderAbout(aboutBlocks);
-  renderSkills(skills);
-  renderProjects(projects);
-  renderExperience(experience);
   renderEducation(education);
+  renderExperience(experience);
+  renderProjects(projects);
+  renderSkills(skills);
   renderArticles(articles);
   renderContactRows(settings, cvUrl);
   renderFooter(settings);
