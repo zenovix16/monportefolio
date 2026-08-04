@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Réglages — Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+<body class="min-h-full bg-[#F1F2F4] text-[#14161A] antialiased">
+  <div class="min-h-screen flex">
+    <aside id="admin-sidebar" class="w-56 shrink-0 border-r border-black/[0.08] flex flex-col py-8 px-4"></aside>
+    <main class="flex-1 overflow-auto p-8">
+      <div class="mb-10">
+        <p class="text-xs tracking-[0.3em] uppercase text-black/45 mb-2">Site public</p>
+        <h1 class="text-3xl font-bold text-[#14161A]">Réglages</h1>
+      </div>
+
+      <div class="space-y-4 max-w-xl">
+        <div class="glass rounded-lg p-6">
+          <p class="text-sm font-medium text-[#14161A] mb-1">Profil (Hero)</p>
+          <p class="text-xs text-black/50 mb-4">Nom, accroche et description affichés sur l'accueil.</p>
+          <div class="space-y-2.5">
+            <div class="grid grid-cols-2 gap-2.5">
+              <input id="heroName" placeholder="Nom complet" class="glass rounded-lg px-4 py-3 text-sm text-[#14161A] placeholder:text-black/35 outline-none w-full" />
+              <input id="heroLocation" placeholder="Localisation" class="glass rounded-lg px-4 py-3 text-sm text-[#14161A] placeholder:text-black/35 outline-none w-full" />
+            </div>
+            <input id="heroTagline" placeholder="Accroche (ex: Consultant Data...)" class="glass rounded-lg px-4 py-3 text-sm text-[#14161A] placeholder:text-black/35 outline-none w-full" />
+            <input id="heroDescription" placeholder="Description courte" class="glass rounded-lg px-4 py-3 text-sm text-[#14161A] placeholder:text-black/35 outline-none w-full" />
+          </div>
+        </div>
+
+        <div class="glass rounded-lg p-6">
+          <p class="text-sm font-medium text-[#14161A] mb-1">Contact</p>
+          <p class="text-xs text-black/50 mb-4">Coordonnées affichées dans la section Contact et le lien LinkedIn du Hero.</p>
+          <div class="space-y-2.5">
+            <input id="email" placeholder="Email" class="glass rounded-lg px-4 py-3 text-sm text-[#14161A] placeholder:text-black/35 outline-none w-full" />
+            <div class="grid grid-cols-2 gap-2.5">
+              <input id="phone" placeholder="Téléphone" class="glass rounded-lg px-4 py-3 text-sm text-[#14161A] placeholder:text-black/35 outline-none w-full" />
+              <input id="linkedinUrl" placeholder="URL LinkedIn" class="glass rounded-lg px-4 py-3 text-sm text-[#14161A] placeholder:text-black/35 outline-none w-full" />
+            </div>
+          </div>
+        </div>
+
+        <div class="glass rounded-lg p-6">
+          <p class="text-sm font-medium text-[#14161A] mb-1">Portrait (Hero)</p>
+          <p class="text-xs text-black/50 mb-4">Image affichée en arrière-plan de l'accueil. Idéalement une photo détourée (fond transparent).</p>
+          <img id="photo-preview" class="h-32 w-auto rounded-lg border border-black/10 mb-4 object-contain bg-black/[0.04] hidden" />
+          <label class="cursor-pointer inline-flex items-center gap-3">
+            <span id="photo-upload-label" class="text-xs text-black/60 border border-black/[0.1] rounded-lg px-3 py-2 hover:border-[var(--accent)]/50 transition-colors">Changer la photo</span>
+            <input type="file" id="photo-input" accept="image/*" class="hidden" />
+          </label>
+        </div>
+
+        <div class="glass rounded-lg p-6">
+          <p class="text-sm font-medium text-[#14161A] mb-1">CV (PDF)</p>
+          <p class="text-xs text-black/50 mb-4">Fichier proposé au téléchargement depuis l'accueil et la section Contact.</p>
+          <p id="cv-current" class="text-xs text-black/40 mb-4">Aucun CV en ligne pour le moment.</p>
+          <label class="cursor-pointer inline-flex items-center gap-3">
+            <span id="cv-upload-label" class="text-xs text-black/60 border border-black/[0.1] rounded-lg px-3 py-2 hover:border-[var(--accent)]/50 transition-colors">Changer le CV</span>
+            <input type="file" id="cv-input" accept="application/pdf" class="hidden" />
+          </label>
+        </div>
+
+        <button id="save-btn" class="glow w-full py-3 bg-[var(--accent)] text-white text-sm font-medium rounded-lg hover:bg-[var(--accent-light)] transition-colors disabled:opacity-50">Enregistrer</button>
+      </div>
+    </main>
+  </div>
+  <script type="module" src="/src/js/admin/settings.js"></script>
+</body>
+</html>

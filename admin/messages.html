@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Messages — Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+<body class="min-h-full bg-[#F1F2F4] text-[#14161A] antialiased">
+  <div class="min-h-screen flex">
+    <aside id="admin-sidebar" class="w-56 shrink-0 border-r border-black/[0.08] flex flex-col py-8 px-4"></aside>
+    <main class="flex-1 overflow-auto p-8">
+      <div class="flex items-center justify-between mb-10">
+        <div>
+          <p class="text-xs tracking-[0.3em] uppercase text-black/45 mb-2">Boîte de réception</p>
+          <h1 class="text-3xl font-bold text-[#14161A]">Messages</h1>
+        </div>
+        <button id="export-btn" class="px-4 py-2.5 glass text-black/65 text-sm rounded-lg hover:text-[var(--accent-light)] transition-colors">↓ Export Excel</button>
+      </div>
+      <div id="content"></div>
+    </main>
+  </div>
+  <script type="module" src="/src/js/admin/messages.js"></script>
+</body>
+</html>

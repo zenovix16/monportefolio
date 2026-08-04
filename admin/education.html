@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Formation — Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+<body class="min-h-full bg-[#F1F2F4] text-[#14161A] antialiased">
+  <div class="min-h-screen flex">
+    <aside id="admin-sidebar" class="w-56 shrink-0 border-r border-black/[0.08] flex flex-col py-8 px-4"></aside>
+    <main class="flex-1 overflow-auto p-8">
+      <div class="flex items-center justify-between mb-10">
+        <div>
+          <p class="text-xs tracking-[0.3em] uppercase text-black/45 mb-2">Contenu</p>
+          <h1 class="text-3xl font-bold text-[#14161A]">Formation</h1>
+        </div>
+        <button id="toggle-form" class="glow px-4 py-2.5 bg-[var(--accent)] text-white text-sm font-medium rounded-lg hover:bg-[var(--accent-light)] transition-colors">+ Ajouter</button>
+      </div>
+
+      <form id="edu-form" class="glass rounded-lg p-6 mb-6 space-y-3 hidden">
+        <div class="grid grid-cols-2 gap-3">
+          <input name="school" placeholder="École *" required class="glass rounded-lg px-4 py-3 text-sm text-[#14161A] placeholder:text-black/35 outline-none" />
+          <input name="degree" placeholder="Diplôme *" required class="glass rounded-lg px-4 py-3 text-sm text-[#14161A] placeholder:text-black/35 outline-none" />
+        </div>
+        <input name="speciality" placeholder="Spécialité" class="w-full glass rounded-lg px-4 py-3 text-sm text-[#14161A] placeholder:text-black/35 outline-none" />
+        <div class="grid grid-cols-2 gap-3">
+          <input name="location" placeholder="Localisation" class="glass rounded-lg px-4 py-3 text-sm text-[#14161A] placeholder:text-black/35 outline-none" />
+          <input name="period" placeholder="Période (ex: 2022 — 2025) *" required class="glass rounded-lg px-4 py-3 text-sm text-[#14161A] placeholder:text-black/35 outline-none" />
+        </div>
+        <textarea name="highlights" placeholder="Points forts (un par ligne)" rows="3" class="w-full glass rounded-lg px-4 py-3 text-sm text-[#14161A] placeholder:text-black/35 outline-none resize-none"></textarea>
+        <button type="submit" id="form-submit" class="glow w-full py-3 bg-[var(--accent)] text-white text-sm font-medium rounded-lg hover:bg-[var(--accent-light)] transition-colors">Ajouter</button>
+      </form>
+
+      <div id="items-list" class="space-y-3"></div>
+    </main>
+  </div>
+  <script type="module" src="/src/js/admin/education.js"></script>
+</body>
+</html>

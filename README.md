@@ -1,36 +1,46 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Portfolio — Soumaïla Niampa
 
-## Getting Started
+Site portfolio + espace admin, en HTML/CSS/JS vanilla (build via [Vite](https://vitejs.dev)), avec [Appwrite](https://appwrite.io) comme backend (base de données, stockage de fichiers, authentification), appelé **directement depuis le navigateur** — pas de serveur applicatif.
 
-First, run the development server:
+## Structure
+
+- `index.html` — site public (une seule page, sections chargées dynamiquement depuis Appwrite).
+- `admin/*.html` — espace d'administration (une page HTML par section : projets, skills, expérience, articles, formation, blocs About, réglages, messages).
+- `src/js/` — logique du site public (nav, carrousels, modale de détail, rendu des sections).
+- `src/js/admin/` — logique de chaque page admin (auth, CRUD).
+- `src/style.css` — Tailwind CSS v4 + utilitaires custom.
+- `scripts/` — scripts Node ponctuels (création des collections Appwrite, migrations de permissions) — **jamais livrés au navigateur**, utilisent une clé API serveur. Dossier gitignored (contient des secrets).
+
+## Développement local
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev      # serveur Vite, http://localhost:5173
+npm run build    # build de production dans dist/
+npm run preview  # sert le build de dist/
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Variables d'environnement (`.env.local`, non commité) :
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+VITE_APPWRITE_ENDPOINT=...
+VITE_APPWRITE_PROJECT_ID=...
+VITE_APPWRITE_DATABASE_ID=...
+VITE_APPWRITE_BUCKET_ID=...
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## ⚠️ Étape obligatoire côté Appwrite : enregistrer les Platforms Web
 
-## Learn More
+Le site et l'admin appellent Appwrite directement depuis le navigateur (authentification par session, écritures incluses). Pour des raisons de sécurité, **Appwrite refuse les requêtes authentifiées venant d'une origine non enregistrée** — sans ça, la connexion admin et toutes les actions d'écriture échouent silencieusement.
 
-To learn more about Next.js, take a look at the following resources:
+À faire une seule fois dans la [Console Appwrite](https://cloud.appwrite.io) → ton projet → **Overview → Add Platform → Web App** :
+- Hostname `localhost` (couvre le dev local, quel que soit le port)
+- Hostname `monportefolio-n7c3.vercel.app` (production)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Je n'ai pas pu le faire moi-même : la clé API serveur n'a pas le scope `platforms.write` (opération réservée à la Console, pas aux clés API).
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Déploiement
 
-## Deploy on Vercel
+Hébergé sur Vercel en tant que site statique (build Vite → `dist/`). Si Vercel ne détecte pas automatiquement le passage de Next.js à Vite après le premier déploiement, changer le "Framework Preset" sur "Vite" dans les réglages du projet Vercel.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Les variables d'environnement sur Vercel doivent utiliser le préfixe `VITE_` (pas `NEXT_PUBLIC_`) — à mettre à jour dans Vercel → Settings → Environment Variables.

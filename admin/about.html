@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About — Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+<body class="min-h-full bg-[#F1F2F4] text-[#14161A] antialiased">
+  <div class="min-h-screen flex">
+    <aside id="admin-sidebar" class="w-56 shrink-0 border-r border-black/[0.08] flex flex-col py-8 px-4"></aside>
+    <main class="flex-1 overflow-auto p-8">
+      <div class="flex items-center justify-between mb-10">
+        <div>
+          <p class="text-xs tracking-[0.3em] uppercase text-black/45 mb-2">Section About</p>
+          <h1 class="text-3xl font-bold text-[#14161A]">Blocs de contenu</h1>
+        </div>
+        <button id="toggle-form" class="glow px-4 py-2.5 bg-[var(--accent)] text-white text-sm font-medium rounded-lg hover:bg-[var(--accent-light)] transition-colors">+ Ajouter un bloc</button>
+      </div>
+
+      <form id="block-form" class="glass rounded-lg p-6 mb-6 hidden">
+        <p id="form-title" class="text-sm font-medium text-[#14161A] mb-5">Nouveau bloc</p>
+        <div class="space-y-3">
+          <select name="type" id="type-select" class="w-full glass rounded-lg px-4 py-3 text-sm text-[#14161A] outline-none bg-transparent">
+            <option value="text" class="bg-[#F1F2F4]">Texte</option>
+            <option value="stat" class="bg-[#F1F2F4]">Statistique</option>
+            <option value="tags" class="bg-[#F1F2F4]">Liste de tags</option>
+            <option value="quote" class="bg-[#F1F2F4]">Citation</option>
+          </select>
+
+          <div data-fields="stat" class="grid grid-cols-2 gap-3 hidden">
+            <input name="value" placeholder="Valeur (ex: 3+)" class="glass rounded-lg px-4 py-3 text-sm text-[#14161A] placeholder:text-black/35 outline-none" />
+            <input name="statTitle" placeholder="Libellé (ex: Années d'expérience)" class="glass rounded-lg px-4 py-3 text-sm text-[#14161A] placeholder:text-black/35 outline-none" />
+          </div>
+
+          <div data-fields="text" class="space-y-3">
+            <input name="textTitle" placeholder="Titre (optionnel, ex: Langues)" class="w-full glass rounded-lg px-4 py-3 text-sm text-[#14161A] placeholder:text-black/35 outline-none" />
+            <textarea name="body" placeholder="Texte *" rows="4" class="w-full glass rounded-lg px-4 py-3 text-sm text-[#14161A] placeholder:text-black/35 outline-none resize-none"></textarea>
+          </div>
+
+          <div data-fields="tags" class="hidden">
+            <input name="items" placeholder="Tags séparés par virgule (ex: Python, SQL, Power BI)" class="w-full glass rounded-lg px-4 py-3 text-sm text-[#14161A] placeholder:text-black/35 outline-none" />
+          </div>
+
+          <div data-fields="quote" class="hidden">
+            <textarea name="quoteBody" placeholder="Citation *" rows="3" class="w-full glass rounded-lg px-4 py-3 text-sm text-[#14161A] placeholder:text-black/35 outline-none resize-none"></textarea>
+          </div>
+
+          <input type="number" name="order" value="0" placeholder="Ordre" class="w-24 glass rounded-lg px-3 py-2 text-sm text-[#14161A] outline-none" />
+
+          <button type="submit" id="form-submit" class="glow w-full py-3 bg-[var(--accent)] text-white text-sm font-medium rounded-lg hover:bg-[var(--accent-light)] transition-colors">Ajouter le bloc</button>
+        </div>
+      </form>
+
+      <div id="items-list" class="space-y-3"></div>
+    </main>
+  </div>
+  <script type="module" src="/src/js/admin/about.js"></script>
+</body>
+</html>
