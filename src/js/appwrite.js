@@ -30,3 +30,4 @@ export function getFilePreviewUrl(fileId, width = 800, height = 600) {
 export function getFileViewUrl(fileId) {
   return `${ENDPOINT}/storage/buckets/${BUCKET_ID}/files/${fileId}/view?project=${PROJECT_ID}`;
 }
+// build: force redeploy avec VITE_APPWRITE_* 1785885944
