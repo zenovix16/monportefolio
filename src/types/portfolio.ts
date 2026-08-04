@@ -34,6 +34,34 @@ export interface SettingsDoc {
   $id?: string;
   profileFileId?: string;
   cvFileId?: string;
+  heroName?: string;
+  heroLocation?: string;
+  heroTagline?: string;
+  heroDescription?: string;
+  linkedinUrl?: string;
+  email?: string;
+  phone?: string;
+}
+
+export interface AboutBlockDoc {
+  $id: string;
+  type: "stat" | "text" | "tags" | "quote";
+  title?: string;
+  body?: string;
+  value?: string;
+  items?: string[];
+  order?: number;
+}
+
+export interface EducationDoc {
+  $id: string;
+  school: string;
+  degree: string;
+  speciality?: string;
+  location?: string;
+  period: string;
+  highlights?: string[];
+  order?: number;
 }
 
 export interface ArticleDoc {

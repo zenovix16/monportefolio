@@ -6,7 +6,16 @@ import { getFileViewUrl } from "@/lib/storage";
 interface Settings {
   profileFileId?: string;
   cvFileId?: string;
+  heroName?: string;
+  heroLocation?: string;
+  heroTagline?: string;
+  heroDescription?: string;
+  linkedinUrl?: string;
+  email?: string;
+  phone?: string;
 }
+
+const FIELD = "glass rounded-xl px-4 py-3 text-sm text-[#14161A] placeholder:text-black/35 outline-none w-full";
 
 export default function SettingsPage() {
   const [settings, setSettings] = useState<Settings>({});
@@ -54,6 +63,9 @@ export default function SettingsPage() {
     setTimeout(() => setSaved(false), 2000);
   };
 
+  const set = (key: keyof Settings) => (e: React.ChangeEvent<HTMLInputElement>) =>
+    setSettings((s) => ({ ...s, [key]: e.target.value }));
+
   return (
     <div>
       <div className="mb-10">
@@ -62,6 +74,37 @@ export default function SettingsPage() {
       </div>
 
       <div className="space-y-4 max-w-xl">
+        {/* Profil (Hero) */}
+        <div className="glass rounded-2xl p-6">
+          <p className="text-sm font-medium text-[#14161A] mb-1">Profil (Hero)</p>
+          <p className="text-xs text-black/50 mb-4">
+            Nom, accroche et description affichés sur l&apos;accueil.
+          </p>
+          <div className="space-y-2.5">
+            <div className="grid grid-cols-2 gap-2.5">
+              <input value={settings.heroName ?? ""} onChange={set("heroName")} placeholder="Nom complet" className={FIELD} />
+              <input value={settings.heroLocation ?? ""} onChange={set("heroLocation")} placeholder="Localisation" className={FIELD} />
+            </div>
+            <input value={settings.heroTagline ?? ""} onChange={set("heroTagline")} placeholder="Accroche (ex: Consultant Data...)" className={FIELD} />
+            <input value={settings.heroDescription ?? ""} onChange={set("heroDescription")} placeholder="Description courte" className={FIELD} />
+          </div>
+        </div>
+
+        {/* Contact */}
+        <div className="glass rounded-2xl p-6">
+          <p className="text-sm font-medium text-[#14161A] mb-1">Contact</p>
+          <p className="text-xs text-black/50 mb-4">
+            Coordonnées affichées dans la section Contact et le lien LinkedIn du Hero.
+          </p>
+          <div className="space-y-2.5">
+            <input value={settings.email ?? ""} onChange={set("email")} placeholder="Email" className={FIELD} />
+            <div className="grid grid-cols-2 gap-2.5">
+              <input value={settings.phone ?? ""} onChange={set("phone")} placeholder="Téléphone" className={FIELD} />
+              <input value={settings.linkedinUrl ?? ""} onChange={set("linkedinUrl")} placeholder="URL LinkedIn" className={FIELD} />
+            </div>
+          </div>
+        </div>
+
         {/* Photo */}
         <div className="glass rounded-2xl p-6">
           <p className="text-sm font-medium text-[#14161A] mb-1">Portrait (Hero)</p>

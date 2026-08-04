@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import type { ArticleDoc } from "@/types/portfolio";
 import SectionHeading from "./SectionHeading";
+import ReadMore from "./ReadMore";
 
 interface Props { articles: ArticleDoc[] }
 
@@ -49,7 +50,7 @@ export default function Articles({ articles }: Props) {
                 {a.authors && a.authors.length > 0 && (
                   <p className="text-black/45 text-xs mb-2">{a.authors.join(", ")}</p>
                 )}
-                <p className="text-black/55 text-xs leading-relaxed line-clamp-3">{a.abstract}</p>
+                <ReadMore text={a.abstract} lines={3} className="text-black/55 text-xs leading-relaxed" />
                 {a.tags && a.tags.length > 0 && (
                   <div className="flex flex-wrap gap-1.5 mt-3">
                     {a.tags.map((t) => (

@@ -8,9 +8,27 @@ interface Props {
   onNavigate: (id: SectionId) => void;
   profilePhotoUrl: string | null;
   cvUrl: string | null;
+  name?: string;
+  location?: string;
+  tagline?: string;
+  description?: string;
+  linkedinUrl?: string;
 }
 
-export default function Hero({ onNavigate, profilePhotoUrl, cvUrl }: Props) {
+const DEFAULTS = {
+  name: "Soumaïla Niampa",
+  location: "Casablanca · Maroc",
+  tagline: "Consultant Data & Transformation Digitale",
+  description: "Ingénieur École Centrale Casablanca · Data Analyst chez Attijariwafa Bank.",
+  linkedinUrl: "https://linkedin.com/in/souma%C3%AFla-niampa",
+};
+
+export default function Hero({ onNavigate, profilePhotoUrl, cvUrl, name, location, tagline, description, linkedinUrl }: Props) {
+  const fullName = name || DEFAULTS.name;
+  const nameParts = fullName.trim().split(/\s+/);
+  const firstLine = (nameParts[0] ?? "").toUpperCase();
+  const secondLine = (nameParts.slice(1).join(" ") || nameParts[0] || "").toUpperCase();
+
   return (
     <section id="hero" className="relative min-h-[90svh] flex flex-col justify-between px-5 md:px-10 pt-8 pb-6 md:pt-14 overflow-hidden">
 
@@ -52,8 +70,8 @@ export default function Hero({ onNavigate, profilePhotoUrl, cvUrl }: Props) {
         className="relative z-10 flex items-center justify-between"
       >
         <div>
-          <p className="text-black/70 text-xs font-medium">Soumaïla Niampa</p>
-          <p className="text-black/40 text-[11px]">Casablanca · Maroc</p>
+          <p className="text-black/70 text-xs font-medium">{fullName}</p>
+          <p className="text-black/40 text-[11px]">{location || DEFAULTS.location}</p>
         </div>
         <div className="flex items-center gap-2">
           <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent)] animate-pulse" />
@@ -71,7 +89,7 @@ export default function Hero({ onNavigate, profilePhotoUrl, cvUrl }: Props) {
             className="font-bold leading-[0.88] tracking-tighter text-[#14161A]"
             style={{ fontSize: "clamp(3.5rem, 13vw, 10rem)" }}
           >
-            SOUMAÏLA
+            {firstLine}
           </motion.h1>
         </div>
         <div className="overflow-hidden">
@@ -86,7 +104,7 @@ export default function Hero({ onNavigate, profilePhotoUrl, cvUrl }: Props) {
               WebkitTextStroke: "1px var(--accent-light)",
             }}
           >
-            NIAMPA.
+            {secondLine}.
           </motion.h1>
         </div>
       </div>
@@ -102,10 +120,10 @@ export default function Hero({ onNavigate, profilePhotoUrl, cvUrl }: Props) {
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-5">
           <div className="max-w-xs">
             <p className="text-[10px] tracking-[0.25em] uppercase text-black/45 mb-1.5">
-              Consultant Data & Transformation Digitale
+              {tagline || DEFAULTS.tagline}
             </p>
             <p className="text-black/60 text-sm leading-relaxed">
-              Ingénieur École Centrale Casablanca · Data Analyst chez Attijariwafa Bank.
+              {description || DEFAULTS.description}
             </p>
           </div>
 
@@ -132,7 +150,7 @@ export default function Hero({ onNavigate, profilePhotoUrl, cvUrl }: Props) {
               Me contacter
             </button>
             <a
-              href="https://linkedin.com/in/souma%C3%AFla-niampa"
+              href={linkedinUrl || DEFAULTS.linkedinUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="px-5 py-2.5 glass text-black/60 text-xs rounded-full hover:text-black transition-all"

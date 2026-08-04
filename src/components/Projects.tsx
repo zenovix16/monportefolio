@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import type { ProjectDoc } from "@/types/portfolio";
 import SectionHeading from "./SectionHeading";
+import ReadMore from "./ReadMore";
 
 const FALLBACK: ProjectDoc[] = [
   {
@@ -77,7 +78,9 @@ function Card({ p, i }: { p: ProjectDoc; i: number }) {
           </span>
         )}
         <h3 className="text-[#14161A] font-semibold text-sm mb-1.5 leading-snug">{p.title}</h3>
-        <p className="text-black/55 text-xs leading-relaxed mb-4">{p.description}</p>
+        <div className="mb-4">
+          <ReadMore text={p.description} lines={3} className="text-black/55 text-xs leading-relaxed" />
+        </div>
 
         <div className="flex items-end justify-between gap-2">
           <div className="flex flex-wrap gap-1.5">

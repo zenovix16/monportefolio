@@ -6,11 +6,24 @@ import SectionHeading from "./SectionHeading";
 
 interface Props {
   cvUrl: string | null;
+  email?: string;
+  phone?: string;
+  linkedinUrl?: string;
 }
 
-export default function Contact({ cvUrl }: Props) {
+const DEFAULTS = {
+  email: "soumaila.niampa@centrale-casablanca.ma",
+  phone: "+212 708-778-658",
+  linkedinUrl: "https://linkedin.com/in/souma%C3%AFla-niampa",
+};
+
+export default function Contact({ cvUrl, email, phone, linkedinUrl }: Props) {
   const [status, setStatus] = useState<"idle"|"loading"|"success"|"error">("idle");
   const [form, setForm] = useState({ name: "", email: "", message: "" });
+
+  const mail = email || DEFAULTS.email;
+  const tel = phone || DEFAULTS.phone;
+  const linkedin = linkedinUrl || DEFAULTS.linkedinUrl;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -49,29 +62,29 @@ export default function Contact({ cvUrl }: Props) {
           </p>
 
           <div className="space-y-2.5">
-            <a href="mailto:soumaila.niampa@centrale-casablanca.ma"
+            <a href={`mailto:${mail}`}
               className="glass rounded-xl p-4 flex items-center justify-between group hover:border-[var(--accent)]/40 transition-all">
               <div>
                 <p className="text-[10px] tracking-widest uppercase text-black/40 mb-0.5">Email</p>
                 <p className="text-black/65 text-xs group-hover:text-[var(--accent-light)] transition-colors break-all">
-                  soumaila.niampa@centrale-casablanca.ma
+                  {mail}
                 </p>
               </div>
               <span className="text-black/35 group-hover:text-[var(--accent-light)] transition-colors ml-3">↗</span>
             </a>
-            <a href="tel:+212708778658"
+            <a href={`tel:${tel.replace(/[\s-]/g, "")}`}
               className="glass rounded-xl p-4 flex items-center justify-between group hover:border-[var(--accent)]/40 transition-all">
               <div>
                 <p className="text-[10px] tracking-widest uppercase text-black/40 mb-0.5">Téléphone</p>
-                <p className="text-black/65 text-xs group-hover:text-[var(--accent-light)] transition-colors">+212 708-778-658</p>
+                <p className="text-black/65 text-xs group-hover:text-[var(--accent-light)] transition-colors">{tel}</p>
               </div>
               <span className="text-black/35 group-hover:text-[var(--accent-light)] transition-colors ml-3">↗</span>
             </a>
-            <a href="https://linkedin.com/in/souma%C3%AFla-niampa" target="_blank" rel="noopener noreferrer"
+            <a href={linkedin} target="_blank" rel="noopener noreferrer"
               className="glass rounded-xl p-4 flex items-center justify-between group hover:border-[var(--accent)]/40 transition-all">
               <div>
                 <p className="text-[10px] tracking-widest uppercase text-black/40 mb-0.5">LinkedIn</p>
-                <p className="text-black/65 text-xs group-hover:text-[var(--accent-light)] transition-colors">linkedin.com/in/soumaïla-niampa</p>
+                <p className="text-black/65 text-xs group-hover:text-[var(--accent-light)] transition-colors break-all">{linkedin.replace(/^https?:\/\//, "")}</p>
               </div>
               <span className="text-black/35 group-hover:text-[var(--accent-light)] transition-colors ml-3">↗</span>
             </a>

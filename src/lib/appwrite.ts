@@ -17,4 +17,6 @@ export const COLLECTIONS = {
   MESSAGES: "messages",
   ARTICLES: "articles",
   SETTINGS: "settings",
+  ABOUT_BLOCKS: "aboutBlocks",
+  EDUCATION: "education",
 };

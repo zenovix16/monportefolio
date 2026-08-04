@@ -1,10 +1,12 @@
 "use client";
 
 import { motion } from "framer-motion";
+import type { EducationDoc } from "@/types/portfolio";
 import SectionHeading from "./SectionHeading";
 
-const data = [
+const FALLBACK: EducationDoc[] = [
   {
+    $id: "f1",
     school: "École Centrale Casablanca",
     degree: "Ingénieur généraliste",
     speciality: "Spécialisation Data & Transformation Digitale",
@@ -16,6 +18,7 @@ const data = [
     ],
   },
   {
+    $id: "f2",
     school: "École Polytechnique de Ouagadougou",
     degree: "CPGE",
     speciality: "Génie informatique et télécommunications",
@@ -25,7 +28,11 @@ const data = [
   },
 ];
 
-export default function Education() {
+interface Props { education: EducationDoc[] }
+
+export default function Education({ education }: Props) {
+  const data = education.length > 0 ? education : FALLBACK;
+
   return (
     <section id="education" className="px-5 md:px-10 py-16 md:py-24 max-w-6xl mx-auto">
       <SectionHeading number="05" label="Formation" />
@@ -37,7 +44,7 @@ export default function Education() {
       <div className="grid md:grid-cols-2 gap-4">
         {data.map((e, i) => (
           <motion.div
-            key={i}
+            key={e.$id}
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.3 }}
@@ -50,8 +57,8 @@ export default function Education() {
             </div>
             <h3 className="text-[#14161A] font-bold mb-0.5">{e.school}</h3>
             <p className="text-black/60 text-sm font-medium mb-0.5">{e.degree}</p>
-            <p className="text-[var(--accent-light)] text-sm mb-4">{e.speciality}</p>
-            {e.highlights.length > 0 && (
+            {e.speciality && <p className="text-[var(--accent-light)] text-sm mb-4">{e.speciality}</p>}
+            {e.highlights && e.highlights.length > 0 && (
               <ul className="space-y-1.5 border-t border-black/[0.08] pt-4">
                 {e.highlights.map((h, j) => (
                   <li key={j} className="flex gap-2.5 text-black/50 text-xs leading-relaxed">

@@ -10,7 +10,7 @@ import Experience from "./Experience";
 import Education from "./Education";
 import Articles from "./Articles";
 import Contact from "./Contact";
-import type { ProjectDoc, SkillDoc, ExperienceDoc, ArticleDoc } from "@/types/portfolio";
+import type { ProjectDoc, SkillDoc, ExperienceDoc, ArticleDoc, AboutBlockDoc, EducationDoc } from "@/types/portfolio";
 
 export type SectionId =
   | "hero" | "about" | "skills" | "projects"
@@ -25,11 +25,24 @@ interface Props {
   skills: SkillDoc[];
   experience: ExperienceDoc[];
   articles: ArticleDoc[];
+  aboutBlocks: AboutBlockDoc[];
+  education: EducationDoc[];
   profilePhotoUrl: string | null;
   cvUrl: string | null;
+  heroName?: string;
+  heroLocation?: string;
+  heroTagline?: string;
+  heroDescription?: string;
+  linkedinUrl?: string;
+  email?: string;
+  phone?: string;
 }
 
-export default function PortfolioClient({ projects, skills, experience, articles, profilePhotoUrl, cvUrl }: Props) {
+export default function PortfolioClient({
+  projects, skills, experience, articles, aboutBlocks, education,
+  profilePhotoUrl, cvUrl, heroName, heroLocation, heroTagline, heroDescription,
+  linkedinUrl, email, phone,
+}: Props) {
   const [active, setActive] = useState<SectionId>("hero");
 
   useEffect(() => {
@@ -60,14 +73,23 @@ export default function PortfolioClient({ projects, skills, experience, articles
     <>
       <Navbar active={active} onNavigate={navigate} />
       <main>
-        <Hero onNavigate={navigate} profilePhotoUrl={profilePhotoUrl} cvUrl={cvUrl} />
-        <About />
+        <Hero
+          onNavigate={navigate}
+          profilePhotoUrl={profilePhotoUrl}
+          cvUrl={cvUrl}
+          name={heroName}
+          location={heroLocation}
+          tagline={heroTagline}
+          description={heroDescription}
+          linkedinUrl={linkedinUrl}
+        />
+        <About blocks={aboutBlocks} />
         <Skills skills={skills} />
         <Projects projects={projects} />
         <Experience experience={experience} />
-        <Education />
+        <Education education={education} />
         <Articles articles={articles} />
-        <Contact cvUrl={cvUrl} />
+        <Contact cvUrl={cvUrl} email={email} phone={phone} linkedinUrl={linkedinUrl} />
       </main>
     </>
   );

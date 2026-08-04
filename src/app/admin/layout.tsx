@@ -5,9 +5,11 @@ import { useRouter, usePathname } from "next/navigation";
 const navItems = [
   { label: "Dashboard", href: "/admin", icon: "◉" },
   { label: "Messages", href: "/admin/messages", icon: "✉" },
+  { label: "About", href: "/admin/about", icon: "●" },
   { label: "Projets", href: "/admin/projects", icon: "◈" },
   { label: "Articles", href: "/admin/articles", icon: "◇" },
   { label: "Expérience", href: "/admin/experience", icon: "◆" },
+  { label: "Formation", href: "/admin/education", icon: "▲" },
   { label: "Skills", href: "/admin/skills", icon: "◎" },
   { label: "Réglages", href: "/admin/settings", icon: "⚙" },
 ];
