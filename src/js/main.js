@@ -1,7 +1,7 @@
 import { databases, DB_ID, COLLECTIONS, Query, getFileViewUrl } from "./appwrite.js";
 import { initNav, setMenuEmail } from "./nav.js";
 import { renderHero } from "./render/hero.js";
-import { renderAbout } from "./render/about.js";
+import { renderAbout, renderAboutImage } from "./render/about.js";
 import { renderSkills } from "./render/skills.js";
 import { renderProjects } from "./render/projects.js";
 import { renderExperience } from "./render/experience.js";
@@ -43,11 +43,13 @@ async function init() {
   ]);
 
   const profilePhotoUrl = settings.profileFileId ? getFileViewUrl(settings.profileFileId) : null;
+  const aboutImageUrl = settings.aboutImageFileId ? getFileViewUrl(settings.aboutImageFileId) : profilePhotoUrl;
   const cvUrl = settings.cvFileId ? getFileViewUrl(settings.cvFileId) : null;
 
   setMenuEmail(settings.email || "soumaila.niampa@centrale-casablanca.ma");
   renderHero(settings, profilePhotoUrl, cvUrl);
   renderAbout(aboutBlocks);
+  renderAboutImage(aboutImageUrl);
   renderEducation(education);
   renderExperience(experience);
   renderProjects(projects);

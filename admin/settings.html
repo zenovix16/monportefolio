@@ -56,6 +56,16 @@
         </div>
 
         <div class="glass rounded-lg p-6">
+          <p class="text-sm font-medium text-[#14161A] mb-1">Photo (section About)</p>
+          <p class="text-xs text-black/50 mb-4">Image affichée à côté du texte de présentation. Reprend le portrait du Hero par défaut — tu peux la remplacer par une autre photo ici.</p>
+          <img id="about-photo-preview" class="h-32 w-auto rounded-lg border border-black/10 mb-4 object-cover bg-black/[0.04] hidden" />
+          <label class="cursor-pointer inline-flex items-center gap-3">
+            <span id="about-photo-upload-label" class="text-xs text-black/60 border border-black/[0.1] rounded-lg px-3 py-2 hover:border-[var(--accent)]/50 transition-colors">Changer la photo</span>
+            <input type="file" id="about-photo-input" accept="image/*" class="hidden" />
+          </label>
+        </div>
+
+        <div class="glass rounded-lg p-6">
           <p class="text-sm font-medium text-[#14161A] mb-1">CV (PDF)</p>
           <p class="text-xs text-black/50 mb-4">Fichier proposé au téléchargement depuis l'accueil et la section Contact.</p>
           <p id="cv-current" class="text-xs text-black/40 mb-4">Aucun CV en ligne pour le moment.</p>

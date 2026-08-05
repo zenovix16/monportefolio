@@ -17,6 +17,11 @@ async function load() {
     img.src = getFileViewUrl(settings.profileFileId);
     img.classList.remove("hidden");
   }
+  if (settings.aboutImageFileId) {
+    const img = document.getElementById("about-photo-preview");
+    img.src = getFileViewUrl(settings.aboutImageFileId);
+    img.classList.remove("hidden");
+  }
   if (settings.cvFileId) {
     document.getElementById("cv-current").innerHTML = `<a href="${getFileViewUrl(settings.cvFileId)}" target="_blank" rel="noopener noreferrer" class="text-[var(--accent-light)]">Voir le CV actuel ↗</a>`;
   }
@@ -31,6 +36,23 @@ document.getElementById("photo-input").addEventListener("change", async (e) => {
     const res = await storage.createFile(BUCKET_ID, ID.unique(), file);
     settings.profileFileId = res.$id;
     const img = document.getElementById("photo-preview");
+    img.src = getFileViewUrl(res.$id);
+    img.classList.remove("hidden");
+  } catch (err) {
+    alert("Échec de l'upload : " + err.message);
+  }
+  label.textContent = "Changer la photo";
+});
+
+document.getElementById("about-photo-input").addEventListener("change", async (e) => {
+  const file = e.target.files?.[0];
+  if (!file) return;
+  const label = document.getElementById("about-photo-upload-label");
+  label.textContent = "Upload en cours...";
+  try {
+    const res = await storage.createFile(BUCKET_ID, ID.unique(), file);
+    settings.aboutImageFileId = res.$id;
+    const img = document.getElementById("about-photo-preview");
     img.src = getFileViewUrl(res.$id);
     img.classList.remove("hidden");
   } catch (err) {
@@ -62,6 +84,7 @@ document.getElementById("save-btn").addEventListener("click", async () => {
   const body = {};
   FIELDS.forEach((f) => { body[f] = document.getElementById(f).value; });
   if (settings.profileFileId) body.profileFileId = settings.profileFileId;
+  if (settings.aboutImageFileId) body.aboutImageFileId = settings.aboutImageFileId;
   if (settings.cvFileId) body.cvFileId = settings.cvFileId;
 
   try {

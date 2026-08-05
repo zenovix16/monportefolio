@@ -1,6 +1,13 @@
 import { esc, readMoreHtml, wireReadMores } from "../utils.js";
 import { observeReveal } from "../reveal.js";
 
+export function renderAboutImage(url) {
+  if (!url) return;
+  const img = document.getElementById("about-image");
+  img.src = url;
+  img.classList.remove("hidden");
+}
+
 const FALLBACK = [
   { $id: "f1", type: "text", body: "Ingénieur généraliste diplômé de l'École Centrale Casablanca, spécialisé en Data & Transformation Digitale. J'accompagne les entreprises dans la structuration de leurs données, l'optimisation de leurs processus et la mise en place d'outils de pilotage.", order: 0 },
   { $id: "f2", type: "text", body: "Actuellement Data Analyst chez Attijariwafa Bank — Casablanca.", order: 1 },
