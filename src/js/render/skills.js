@@ -36,10 +36,10 @@ export function renderSkills(skills) {
       return `
         <div>
           <div class="flex justify-between mb-1.5">
-            <span class="text-black/80 text-sm">${esc(s.name)}</span>
-            <span class="mono text-black/35 text-xs tabular-nums">${level}%</span>
+            <span class="text-black/85 text-sm font-medium">${esc(s.name)}</span>
+            <span class="mono text-black/40 text-xs tabular-nums">${level}%</span>
           </div>
-          <div class="h-px bg-black/10 rounded-full overflow-hidden">
+          <div class="h-1 bg-black/10 rounded-full overflow-hidden">
             <div class="skill-bar h-full bg-[var(--accent)] rounded-full" style="width:0%; transition: width 0.9s ease-out ${delay}s;" data-level="${level}"></div>
           </div>
         </div>
@@ -47,8 +47,8 @@ export function renderSkills(skills) {
     }).join("");
 
     return `
-      <div data-animate="fade" class="border-t border-black/[0.08] pt-4 ${catIdx === 0 ? "lg:col-span-2" : ""}">
-        <p class="text-[10px] tracking-[0.25em] uppercase text-[var(--accent-light)] mb-4">${esc(cat)}</p>
+      <div data-animate="fade" class="border-t-2 border-black/[0.08] pt-4 ${catIdx === 0 ? "lg:col-span-2" : ""}">
+        <p class="text-xs font-bold tracking-[0.2em] uppercase text-[var(--accent-light)] mb-4">${esc(cat)}</p>
         <div class="space-y-3.5">${bars}</div>
       </div>
     `;

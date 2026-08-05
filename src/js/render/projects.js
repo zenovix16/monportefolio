@@ -1,8 +1,8 @@
 import { esc } from "../utils.js";
 import { observeReveal } from "../reveal.js";
 import { getFilePreviewUrl } from "../appwrite.js";
-import { initCarousel } from "../carousel.js";
 import { stashDetail } from "../detail-store.js";
+import { coverHTML } from "../cover.js";
 
 const FALLBACK = [
   {
@@ -30,48 +30,46 @@ const FALLBACK = [
 
 export function renderProjects(projects) {
   const data = projects.length > 0 ? projects : FALLBACK;
-  const track = document.getElementById("projects-carousel");
+  const list = document.getElementById("projects-list");
 
-  track.innerHTML = data.map((p, i) => {
-    const img = p.imageId
-      ? `<img src="${getFilePreviewUrl(p.imageId, 900, 500)}" alt="${esc(p.title)}" class="absolute inset-0 w-full h-full object-cover" />
-         <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>`
-      : `<div class="w-full h-full flex items-center justify-center"><span class="text-[10px] tracking-widest uppercase text-black/[0.2]">image</span></div>`;
+  list.innerHTML = data.map((p, i) => {
+    const flip = i % 2 === 1;
+    const cover = p.imageId
+      ? `<img src="${getFilePreviewUrl(p.imageId, 900, 650)}" alt="${esc(p.title)}" class="absolute inset-0 w-full h-full object-cover" />`
+      : coverHTML(p.$id + p.title, p.title);
 
-    const tags = (p.tags || []).slice(0, 2).map((t) => `<span class="text-[10px] text-black/45 border border-black/[0.08] rounded-full px-2.5 py-1">${esc(t)}</span>`).join("");
+    const tags = (p.tags || []).map((t) => `<span class="text-[11px] font-medium text-[var(--accent-light)] bg-[var(--accent-soft)] rounded-full px-3 py-1">${esc(t)}</span>`).join("");
+
+    const links = `
+      ${p.githubUrl ? `<a href="${esc(p.githubUrl)}" target="_blank" rel="noopener noreferrer" class="link-underline text-sm font-medium text-black/60 hover:text-[var(--accent-light)] transition-colors">GitHub ↗</a>` : ""}
+      ${p.liveUrl ? `<a href="${esc(p.liveUrl)}" target="_blank" rel="noopener noreferrer" class="link-underline text-sm font-medium text-black/60 hover:text-[var(--accent-light)] transition-colors">Démo ↗</a>` : ""}
+    `;
 
     return `
-      <article data-animate style="--delay:${(i % 3) * 0.08}s"
-        class="card-hover btn-ghost rounded-lg overflow-hidden shrink-0 snap-start w-[85%] sm:w-[65%] ${p.featured ? "lg:w-[440px] border-[var(--accent)]/40" : "lg:w-[360px]"}">
-        <div class="relative w-full h-48 bg-black/[0.02] border-b border-black/[0.07] overflow-hidden">${img}</div>
-        <div class="p-5">
-          ${p.featured ? `<span class="inline-block text-[9px] tracking-[0.3em] uppercase text-[var(--accent-light)] border border-[var(--accent)]/40 rounded-full px-2.5 py-1 mb-3">Projet phare</span>` : ""}
-          <h3 class="text-[#14161A] font-semibold text-base mb-1.5 leading-snug">${esc(p.title)}</h3>
-          <p class="text-black/55 text-xs leading-relaxed mb-4 line-clamp-2">${esc(p.description)}</p>
-          <div class="flex items-center justify-between gap-2">
-            <div class="flex flex-wrap gap-1.5">${tags}</div>
-            <a href="/project.html?id=${encodeURIComponent(p.$id)}" data-detail-project="${p.$id}" class="link-underline text-[12px] font-medium text-[var(--accent-light)] shrink-0">Voir plus →</a>
+      <article data-animate class="grid md:grid-cols-2 gap-6 md:gap-12 items-center py-8 md:py-12 border-t border-black/[0.08] first:border-t-0 first:pt-0">
+        <div class="card-hover relative w-full aspect-[16/11] rounded-xl overflow-hidden border border-black/[0.08] ${flip ? "md:order-2" : ""}">
+          ${cover}
+        </div>
+        <div class="${flip ? "md:order-1" : ""}">
+          ${p.featured ? `<span class="inline-block text-[10px] tracking-[0.25em] uppercase text-white bg-[var(--accent)] rounded-full px-3 py-1 mb-4">Projet phare</span>` : ""}
+          <h3 class="text-[#14161A] font-bold leading-tight mb-3" style="font-size: clamp(1.4rem, 2.6vw, 1.9rem);">${esc(p.title)}</h3>
+          <p class="text-black/65 text-sm md:text-base leading-relaxed mb-5">${esc(p.description)}</p>
+          <div class="flex flex-wrap gap-1.5 mb-5">${tags}</div>
+          <div class="flex items-center gap-5 flex-wrap">
+            <a href="/project.html?id=${encodeURIComponent(p.$id)}" data-detail-project="${p.$id}" class="link-underline text-sm font-semibold text-[var(--accent-light)]">Voir le détail →</a>
+            ${links}
           </div>
         </div>
       </article>
     `;
   }).join("");
 
-  track.querySelectorAll("[data-detail-project]").forEach((link) => {
+  list.querySelectorAll("[data-detail-project]").forEach((link) => {
     link.addEventListener("click", () => {
       const p = data.find((x) => x.$id === link.dataset.detailProject);
       if (p) stashDetail("project", p);
     });
   });
 
-  observeReveal(track);
-  initCarousel({
-    track,
-    prevBtn: document.getElementById("projects-prev"),
-    nextBtn: document.getElementById("projects-next"),
-    progressTrack: document.getElementById("projects-progress-track"),
-    progressFill: document.getElementById("projects-progress-fill"),
-    scrollAmount: 360,
-    showProgress: data.length > 1,
-  });
+  observeReveal(list);
 }

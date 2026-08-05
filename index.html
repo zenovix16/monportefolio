@@ -79,7 +79,7 @@
         <div class="flex flex-col md:flex-row md:items-end justify-between gap-5">
           <div class="max-w-xs">
             <p id="hero-tagline" class="mono text-[10px] tracking-[0.25em] uppercase text-black/45 mb-1.5">Consultant Data & Transformation Digitale</p>
-            <p id="hero-description" class="text-black/60 text-sm leading-relaxed">Ingénieur École Centrale Casablanca · Data Analyst chez Attijariwafa Bank.</p>
+            <p id="hero-description" class="text-black/65 text-base leading-relaxed">Ingénieur École Centrale Casablanca · Data Analyst chez Attijariwafa Bank.</p>
           </div>
           <div class="flex items-center gap-2.5 flex-wrap">
             <button data-nav="projects" class="glow px-5 py-2.5 bg-[var(--accent)] text-white text-xs font-semibold rounded-lg hover:bg-[var(--accent-light)] transition-colors">Voir les projets</button>
@@ -101,12 +101,12 @@
       <div class="max-w-6xl mx-auto">
         <div class="grid lg:grid-cols-[1fr_1.3fr] gap-8 lg:gap-12 items-start">
           <div class="lg:sticky lg:top-20 self-start">
-            <span class="mono block text-sm text-[var(--accent-light)] mb-1">01</span>
+            <span class="mono inline-flex items-center justify-center text-xs font-bold text-white bg-[var(--accent)] rounded-full w-7 h-7 mb-3">01</span>
             <p class="text-[10px] tracking-[0.3em] uppercase text-black/40">About</p>
           </div>
           <div>
             <div class="reveal-line mb-5">
-              <h2 class="font-bold text-[#14161A] leading-[0.95]" style="font-size: clamp(2.2rem, 5vw, 3.5rem);">
+              <h2 class="font-bold text-[#14161A] leading-[0.95]" style="font-size: clamp(2.3rem, 5vw, 3.75rem);">
                 La data, <span class="text-[var(--accent-light)]">c'est mon terrain.</span>
               </h2>
             </div>
@@ -117,83 +117,54 @@
     </section>
 
     <!-- ============ 02 · EDUCATION — ma formation ============ -->
-    <section id="education" class="px-5 md:px-10 py-9 md:py-14 max-w-6xl mx-auto">
+    <section id="education" class="px-5 md:px-10 py-9 md:py-14 max-w-4xl mx-auto">
       <div class="flex items-center gap-4 mb-5">
-        <span class="mono text-[10px] tracking-[0.3em] uppercase text-black/40 shrink-0">02</span>
-        <div class="flex-1 h-px bg-black/10 overflow-hidden"><div class="section-rule-fill h-full w-full bg-[var(--accent)] origin-left" style="transform: scaleX(0);"></div></div>
+        <span class="mono text-xs font-bold text-white bg-[var(--accent)] rounded-full w-7 h-7 flex items-center justify-center shrink-0">02</span>
         <span class="mono text-[10px] tracking-[0.3em] uppercase text-black/40 shrink-0">Formation</span>
       </div>
-      <div class="reveal-line mb-5"><h2 class="font-bold text-[#14161A] leading-[0.95]" style="font-size: clamp(2.2rem, 5vw, 3.5rem);">Parcours académique.</h2></div>
+      <div class="reveal-line mb-5"><h2 class="font-bold text-[#14161A] leading-[0.95]" style="font-size: clamp(2.3rem, 5vw, 3.75rem);">Parcours académique.</h2></div>
       <div id="education-list" class="divide-y divide-black/[0.08]"></div>
     </section>
 
     <!-- ============ 03 · EXPERIENCE — mon parcours ============ -->
     <section id="experience" class="relative bg-[var(--bg-alt)] border-y border-black/[0.08] py-12 md:py-20 px-5 md:px-10">
-      <div class="max-w-6xl mx-auto">
-        <div class="grid lg:grid-cols-[1fr_1.3fr] gap-8 lg:gap-12 items-start">
-          <div class="lg:sticky lg:top-20 self-start">
-            <span class="mono block text-sm text-[var(--accent-light)] mb-1">03</span>
-            <p class="text-[10px] tracking-[0.3em] uppercase text-black/40 mb-6">Experience</p>
-            <div class="hidden lg:flex items-center gap-3">
-              <h2 class="font-bold text-[#14161A] leading-[0.95] !text-3xl">Mon parcours.</h2>
-              <div class="flex gap-2 shrink-0">
-                <button id="experience-prev" aria-label="Précédent" class="btn-ghost w-9 h-9 rounded-lg flex items-center justify-center text-black/50 hover:text-black transition-colors">←</button>
-                <button id="experience-next" aria-label="Suivant" class="btn-ghost w-9 h-9 rounded-lg flex items-center justify-center text-black/50 hover:text-black transition-colors">→</button>
-              </div>
-            </div>
-          </div>
-          <div>
-            <div class="reveal-line mb-5 lg:hidden"><h2 class="font-bold text-[#14161A] leading-[0.95]" style="font-size: clamp(2.2rem, 5vw, 3.5rem);">Mon parcours.</h2></div>
-            <div id="experience-carousel" class="flex gap-4 overflow-x-auto snap-x snap-mandatory scrollbar-none pb-2"></div>
-            <div id="experience-progress-track" class="h-0.5 bg-black/[0.08] rounded-full mt-4 max-w-[160px] overflow-hidden hidden">
-              <div id="experience-progress-fill" class="h-full bg-[var(--accent)] rounded-full" style="width: 18%;"></div>
-            </div>
-          </div>
+      <div class="max-w-4xl mx-auto">
+        <div class="flex items-center gap-4 mb-5">
+          <span class="mono text-xs font-bold text-white bg-[var(--accent)] rounded-full w-7 h-7 flex items-center justify-center shrink-0">03</span>
+          <span class="mono text-[10px] tracking-[0.3em] uppercase text-black/40 shrink-0">Experience</span>
         </div>
+        <div class="reveal-line mb-8"><h2 class="font-bold text-[#14161A] leading-[0.95]" style="font-size: clamp(2.3rem, 5vw, 3.75rem);">Mon parcours.</h2></div>
+        <div id="experience-list"></div>
       </div>
     </section>
 
     <!-- ============ 04 · PROJECTS — ce que j'ai construit ============ -->
-    <section id="projects" class="px-5 md:px-10 py-9 md:py-14 max-w-6xl mx-auto">
-      <div class="flex items-end justify-between gap-4">
-        <div class="flex-1">
-          <div class="flex items-center gap-4 mb-5">
-            <span class="mono text-[10px] tracking-[0.3em] uppercase text-black/40 shrink-0">04</span>
-            <div class="flex-1 h-px bg-black/10 overflow-hidden"><div class="section-rule-fill h-full w-full bg-[var(--accent)] origin-left" style="transform: scaleX(0);"></div></div>
-            <span class="mono text-[10px] tracking-[0.3em] uppercase text-black/40 shrink-0">Projects</span>
-          </div>
-          <div class="reveal-line mb-5"><h2 class="font-bold text-[#14161A] leading-[0.95]" style="font-size: clamp(2.2rem, 5vw, 3.5rem);">Ce que j'ai construit.</h2></div>
-        </div>
-        <div class="hidden sm:flex gap-2 mb-5 shrink-0">
-          <button id="projects-prev" aria-label="Précédent" class="btn-ghost w-9 h-9 rounded-lg flex items-center justify-center text-black/50 hover:text-black transition-colors">←</button>
-          <button id="projects-next" aria-label="Suivant" class="btn-ghost w-9 h-9 rounded-lg flex items-center justify-center text-black/50 hover:text-black transition-colors">→</button>
-        </div>
+    <section id="projects" class="px-5 md:px-10 py-9 md:py-14 max-w-4xl mx-auto">
+      <div class="flex items-center gap-4 mb-5">
+        <span class="mono text-xs font-bold text-white bg-[var(--accent)] rounded-full w-7 h-7 flex items-center justify-center shrink-0">04</span>
+        <span class="mono text-[10px] tracking-[0.3em] uppercase text-black/40 shrink-0">Projects</span>
       </div>
-      <div id="projects-carousel" class="flex gap-5 overflow-x-auto snap-x snap-mandatory scrollbar-none pb-2"></div>
-      <div id="projects-progress-track" class="h-0.5 bg-black/[0.08] rounded-full mt-4 max-w-[160px] overflow-hidden hidden">
-        <div id="projects-progress-fill" class="h-full bg-[var(--accent)] rounded-full" style="width: 18%;"></div>
-      </div>
+      <div class="reveal-line mb-2"><h2 class="font-bold text-[#14161A] leading-[0.95]" style="font-size: clamp(2.3rem, 5vw, 3.75rem);">Ce que j'ai construit.</h2></div>
+      <div id="projects-list"></div>
     </section>
 
     <!-- ============ 05 · SKILLS — ce que je maîtrise ============ -->
     <section id="skills" class="px-5 md:px-10 py-9 md:py-14 max-w-6xl mx-auto">
       <div class="flex items-center gap-4 mb-5">
-        <span class="mono text-[10px] tracking-[0.3em] uppercase text-black/40 shrink-0">05</span>
-        <div class="flex-1 h-px bg-black/10 overflow-hidden"><div class="section-rule-fill h-full w-full bg-[var(--accent)] origin-left" style="transform: scaleX(0);"></div></div>
+        <span class="mono text-xs font-bold text-white bg-[var(--accent)] rounded-full w-7 h-7 flex items-center justify-center shrink-0">05</span>
         <span class="mono text-[10px] tracking-[0.3em] uppercase text-black/40 shrink-0">Skills</span>
       </div>
-      <div class="reveal-line mb-5"><h2 class="font-bold text-[#14161A] leading-[0.95]" style="font-size: clamp(2.2rem, 5vw, 3.5rem);">Ce que je maîtrise.</h2></div>
+      <div class="reveal-line mb-5"><h2 class="font-bold text-[#14161A] leading-[0.95]" style="font-size: clamp(2.3rem, 5vw, 3.75rem);">Ce que je maîtrise.</h2></div>
       <div id="skills-grid" class="grid sm:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-5" style="grid-auto-flow: dense;"></div>
     </section>
 
     <!-- ============ 06 · ARTICLES ============ -->
-    <section id="articles" class="px-5 md:px-10 py-9 md:py-14 max-w-6xl mx-auto">
+    <section id="articles" class="px-5 md:px-10 py-9 md:py-14 max-w-4xl mx-auto">
       <div class="flex items-center gap-4 mb-5">
-        <span class="mono text-[10px] tracking-[0.3em] uppercase text-black/40 shrink-0">06</span>
-        <div class="flex-1 h-px bg-black/10 overflow-hidden"><div class="section-rule-fill h-full w-full bg-[var(--accent)] origin-left" style="transform: scaleX(0);"></div></div>
+        <span class="mono text-xs font-bold text-white bg-[var(--accent)] rounded-full w-7 h-7 flex items-center justify-center shrink-0">06</span>
         <span id="articles-label" class="mono text-[10px] tracking-[0.3em] uppercase text-black/40 shrink-0">Articles</span>
       </div>
-      <div id="articles-title-wrap" class="reveal-line mb-5"><h2 class="font-bold text-[#14161A] leading-[0.95]" style="font-size: clamp(2.2rem, 5vw, 3.5rem);">Articles scientifiques.</h2></div>
+      <div id="articles-title-wrap" class="reveal-line mb-5"><h2 class="font-bold text-[#14161A] leading-[0.95]" style="font-size: clamp(2.3rem, 5vw, 3.75rem);">Articles scientifiques.</h2></div>
       <div id="articles-list" class="divide-y divide-black/[0.08]"></div>
       <div id="articles-empty" class="border-t border-black/[0.08] pt-6 text-center text-black/40 text-sm hidden">Aucun article publié pour le moment.</div>
     </section>
@@ -201,15 +172,14 @@
     <!-- ============ 07 · CONTACT ============ -->
     <section id="contact" class="px-5 md:px-10 py-9 md:py-14 max-w-6xl mx-auto">
       <div class="flex items-center gap-4 mb-5">
-        <span class="mono text-[10px] tracking-[0.3em] uppercase text-black/40 shrink-0">07</span>
-        <div class="flex-1 h-px bg-black/10 overflow-hidden"><div class="section-rule-fill h-full w-full bg-[var(--accent)] origin-left" style="transform: scaleX(0);"></div></div>
+        <span class="mono text-xs font-bold text-white bg-[var(--accent)] rounded-full w-7 h-7 flex items-center justify-center shrink-0">07</span>
         <span class="mono text-[10px] tracking-[0.3em] uppercase text-black/40 shrink-0">Contact</span>
       </div>
 
       <div class="grid md:grid-cols-2 gap-6 md:gap-12 items-start">
         <div>
-          <div class="reveal-line mb-4"><h2 class="font-bold text-[#14161A] leading-[0.95]" style="font-size: clamp(2.2rem, 5vw, 3.5rem);">Travaillons ensemble.</h2></div>
-          <p class="text-black/55 text-sm leading-relaxed mb-5">Un projet, une opportunité, une question ? Je lis tous les messages.</p>
+          <div class="reveal-line mb-4"><h2 class="font-bold text-[#14161A] leading-[0.95]" style="font-size: clamp(2.3rem, 5vw, 3.75rem);">Travaillons ensemble.</h2></div>
+          <p class="text-black/60 text-base leading-relaxed mb-5">Un projet, une opportunité, une question ? Je lis tous les messages.</p>
           <div id="contact-rows" class="divide-y divide-black/[0.08] border-t border-black/[0.08]"></div>
         </div>
 

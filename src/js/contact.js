@@ -27,7 +27,7 @@ export function renderContactRows(settings, cvUrl) {
       class="group flex items-center justify-between py-4">
       <div>
         <p class="text-[10px] tracking-widest uppercase text-black/40 mb-0.5">${esc(r.label)}</p>
-        <p class="text-black/65 text-sm group-hover:text-[var(--accent-light)] transition-colors break-all">${esc(r.value)}</p>
+        <p class="text-black/70 text-base font-medium group-hover:text-[var(--accent-light)] transition-colors break-all">${esc(r.value)}</p>
       </div>
       <span class="text-black/30 group-hover:text-[var(--accent-light)] group-hover:translate-x-0.5 transition-all ml-3 shrink-0">${r.download ? "↓" : "↗"}</span>
     </a>

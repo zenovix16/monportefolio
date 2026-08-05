@@ -31,17 +31,17 @@ export function renderEducation(education) {
 
   list.innerHTML = data.map((e, i) => {
     const highlights = (e.highlights || []).length
-      ? `<ul class="space-y-1.5">${(e.highlights || []).map((h) => `<li class="flex gap-2.5 text-black/50 text-xs leading-relaxed"><span class="text-black/30 mt-0.5 shrink-0">—</span>${esc(h)}</li>`).join("")}</ul>`
+      ? `<ul class="space-y-1.5">${(e.highlights || []).map((h) => `<li class="flex gap-2.5 text-black/55 text-sm leading-relaxed"><span class="text-black/30 mt-0.5 shrink-0">—</span>${esc(h)}</li>`).join("")}</ul>`
       : "";
 
     return `
-      <div data-animate ${i === 0 ? 'style="--delay:0s"' : `style="--delay:${i * 0.1}s"`} class="py-4 first:pt-0">
+      <div data-animate ${i === 0 ? 'style="--delay:0s"' : `style="--delay:${i * 0.1}s"`} class="py-5 first:pt-0">
         <div class="mono flex justify-between text-[10px] tracking-widest uppercase text-black/40 mb-2">
           <span>${esc(e.period)}</span>
           <span class="text-right">${esc(e.location)}</span>
         </div>
-        <h3 class="text-[#14161A] font-bold text-lg mb-0.5">${esc(e.school)}</h3>
-        <p class="text-black/60 text-sm font-medium mb-0.5">${esc(e.degree)}</p>
+        <h3 class="text-[#14161A] font-bold text-xl mb-0.5">${esc(e.school)}</h3>
+        <p class="text-black/65 text-base font-medium mb-0.5">${esc(e.degree)}</p>
         ${e.speciality ? `<p class="text-[var(--accent-light)] text-sm mb-3">${esc(e.speciality)}</p>` : ""}
         ${highlights}
       </div>

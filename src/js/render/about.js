@@ -36,15 +36,15 @@ export function renderAbout(blocks) {
     if (g.kind === "stat") {
       const tiles = g.blocks.map((s) => `
         <div>
-          <span class="mono block text-3xl font-bold text-[var(--accent-light)] tabular-nums">${esc(s.value)}</span>
-          <span class="text-black/50 text-xs">${esc(s.title)}</span>
+          <span class="mono block text-4xl font-bold text-[var(--accent-light)] tabular-nums">${esc(s.value)}</span>
+          <span class="text-black/55 text-xs">${esc(s.title)}</span>
         </div>
       `).join("");
       return `<div data-animate="fade" ${delay} class="grid grid-cols-3 gap-6 border-t border-black/[0.08] pt-4">${tiles}</div>`;
     }
 
     if (g.kind === "tags") {
-      const pills = (g.block.items || []).map((t) => `<span class="text-[11px] text-black/60 border border-black/[0.1] rounded-full px-3 py-1">${esc(t)}</span>`).join("");
+      const pills = (g.block.items || []).map((t) => `<span class="text-[11px] font-medium text-[var(--accent-light)] bg-[var(--accent-soft)] rounded-full px-3 py-1">${esc(t)}</span>`).join("");
       return `<div data-animate="fade" ${delay} class="flex gap-2 flex-wrap">${pills}</div>`;
     }
 
@@ -58,11 +58,11 @@ export function renderAbout(blocks) {
       return `
         <div data-animate="fade" ${delay} class="border-t border-black/[0.08] pt-4">
           <p class="text-[10px] tracking-widest uppercase text-black/40 mb-2">${esc(block.title)}</p>
-          ${block.body ? readMoreHtml(block.body, { lines: 3, className: "text-black/60 text-sm leading-relaxed" }) : ""}
+          ${block.body ? readMoreHtml(block.body, { lines: 3, className: "text-black/65 text-[15px] leading-relaxed" }) : ""}
         </div>
       `;
     }
-    return `<div data-animate="fade" ${delay}>${block.body ? readMoreHtml(block.body, { lines: 4, className: "text-black/60 leading-relaxed text-base" }) : ""}</div>`;
+    return `<div data-animate="fade" ${delay}>${block.body ? readMoreHtml(block.body, { lines: 4, className: "text-black/65 leading-relaxed text-base md:text-lg" }) : ""}</div>`;
   }).join("");
 
   wireReadMores(container);

@@ -1,7 +1,7 @@
 import { esc } from "../utils.js";
 import { observeReveal } from "../reveal.js";
-import { initCarousel } from "../carousel.js";
 import { stashDetail } from "../detail-store.js";
+import { badgeHTML } from "../cover.js";
 
 const FALLBACK = [
   {
@@ -39,36 +39,36 @@ function dateRange(e) {
 
 export function renderExperience(experience) {
   const data = experience.length > 0 ? experience : FALLBACK;
-  const track = document.getElementById("experience-carousel");
+  const list = document.getElementById("experience-list");
 
-  track.innerHTML = data.map((e, i) => `
-    <div data-animate style="--delay:${i * 0.12}s" class="card-hover btn-ghost rounded-lg p-5 shrink-0 snap-start w-[80%] sm:w-[55%] lg:w-[320px]">
-      <div class="flex items-center gap-2 flex-wrap mb-0.5">
-        <h3 class="text-[#14161A] font-semibold text-base">${esc(e.role)}</h3>
-        ${e.current ? `<span class="text-[9px] tracking-[0.25em] uppercase text-[var(--accent-light)] border border-[var(--accent)]/40 rounded-full px-2 py-0.5">Actuel</span>` : ""}
+  list.innerHTML = data.map((e, i) => {
+    const isLast = i === data.length - 1;
+    return `
+      <div data-animate style="--delay:${i * 0.08}s" class="relative flex gap-5 md:gap-6 pb-10 last:pb-0">
+        <div class="relative flex flex-col items-center shrink-0">
+          ${badgeHTML(e.$id + e.company, e.company, 44)}
+          ${isLast ? "" : `<div class="w-px flex-1 bg-black/[0.1] mt-3"></div>`}
+        </div>
+        <div class="flex-1 min-w-0 pt-1">
+          <div class="flex items-center gap-2.5 flex-wrap mb-0.5">
+            <h3 class="text-[#14161A] font-bold text-lg md:text-xl">${esc(e.role)}</h3>
+            ${e.current ? `<span class="text-[9px] tracking-[0.25em] uppercase text-white bg-[var(--accent)] rounded-full px-2.5 py-1">Actuel</span>` : ""}
+          </div>
+          <p class="text-black/60 text-sm md:text-base mb-1">${esc(e.company)}${e.location ? ` · ${esc(e.location)}` : ""}</p>
+          <p class="mono text-black/35 text-xs mb-3">${esc(dateRange(e))}</p>
+          <p class="text-black/65 text-sm md:text-base leading-relaxed mb-3 max-w-2xl">${esc(e.description)}</p>
+          <a href="/experience.html?id=${encodeURIComponent(e.$id)}" data-detail-exp="${e.$id}" class="link-underline text-sm font-semibold text-[var(--accent-light)]">Voir le détail →</a>
+        </div>
       </div>
-      <p class="text-black/55 text-sm mb-1">${esc(e.company)} · ${esc(e.location)}</p>
-      <p class="mono text-black/35 text-xs mb-3">${esc(dateRange(e))}</p>
-      <p class="text-black/55 text-sm leading-relaxed line-clamp-3 mb-3">${esc(e.description)}</p>
-      <a href="/experience.html?id=${encodeURIComponent(e.$id)}" data-detail-exp="${e.$id}" class="link-underline text-[12px] font-medium text-[var(--accent-light)]">Voir plus →</a>
-    </div>
-  `).join("");
+    `;
+  }).join("");
 
-  track.querySelectorAll("[data-detail-exp]").forEach((link) => {
+  list.querySelectorAll("[data-detail-exp]").forEach((link) => {
     link.addEventListener("click", () => {
       const e = data.find((x) => x.$id === link.dataset.detailExp);
       if (e) stashDetail("experience", { ...e, dateRange: dateRange(e) });
     });
   });
 
-  observeReveal(track);
-  initCarousel({
-    track,
-    prevBtn: document.getElementById("experience-prev"),
-    nextBtn: document.getElementById("experience-next"),
-    progressTrack: document.getElementById("experience-progress-track"),
-    progressFill: document.getElementById("experience-progress-fill"),
-    scrollAmount: 320,
-    showProgress: data.length > 1,
-  });
+  observeReveal(list);
 }
