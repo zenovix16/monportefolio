@@ -2,7 +2,7 @@ import { esc } from "../utils.js";
 import { observeReveal } from "../reveal.js";
 import { getFilePreviewUrl } from "../appwrite.js";
 import { stashDetail } from "../detail-store.js";
-import { coverHTML } from "../cover.js";
+import { stockPhotoUrl } from "../cover.js";
 
 const FALLBACK = [
   {
@@ -11,6 +11,7 @@ const FALLBACK = [
     description: "Création d'outils de suivi pour piloter l'activité et visualiser les performances en temps réel. Automatisation du reporting pour réduire les tâches manuelles.",
     tags: ["Power BI", "Excel", "KPI", "Reporting"],
     featured: true,
+    fallbackImage: "https://images.unsplash.com/photo-1551288049-bebda4e38f71",
   },
   {
     $id: "2",
@@ -18,6 +19,7 @@ const FALLBACK = [
     description: "Pipelines pour collecter, traiter et organiser les données. Structuration des flux pour faciliter leur exploitation.",
     tags: ["PySpark", "Spark", "Airflow", "Minio", "Nessie"],
     featured: false,
+    fallbackImage: "https://images.unsplash.com/photo-1695668548342-c0c1ad479aee",
   },
   {
     $id: "3",
@@ -25,6 +27,7 @@ const FALLBACK = [
     description: "Assistant pour automatiser les tâches et répondre aux utilisateurs. Intégration d'échanges vocal et texte.",
     tags: ["Python", "RASA", "NLP", "REST APIs"],
     featured: false,
+    fallbackImage: "https://images.unsplash.com/photo-1684369176170-463e84248b70",
   },
 ];
 
@@ -34,9 +37,12 @@ export function renderProjects(projects) {
 
   list.innerHTML = data.map((p, i) => {
     const flip = i % 2 === 1;
-    const cover = p.imageId
-      ? `<img src="${getFilePreviewUrl(p.imageId, 900, 650)}" alt="${esc(p.title)}" class="absolute inset-0 w-full h-full object-cover" />`
-      : coverHTML(p.$id + p.title, p.title);
+    const imgUrl = p.imageId
+      ? getFilePreviewUrl(p.imageId, 900, 650)
+      : p.fallbackImage
+        ? `${p.fallbackImage}?auto=format&fit=crop&w=900&h=650&q=80`
+        : stockPhotoUrl(p.$id + p.title);
+    const cover = `<img src="${imgUrl}" alt="${esc(p.title)}" loading="lazy" class="absolute inset-0 w-full h-full object-cover" />`;
 
     const tags = (p.tags || []).map((t) => `<span class="text-[11px] font-medium text-[var(--accent-light)] bg-[var(--accent-soft)] rounded-full px-3 py-1">${esc(t)}</span>`).join("");
 
