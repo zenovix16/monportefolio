@@ -23,10 +23,19 @@ export const COLLECTIONS = {
   EDUCATION: "education",
 };
 
+// Quand la base est en pause, les fichiers sont servis depuis la sauvegarde
+// locale (public/data/files, produite par tools/snapshot.mjs).
+let localFiles = null;
+export function useLocalFiles(map) {
+  localFiles = map || {};
+}
+
 export function getFilePreviewUrl(fileId, width = 800, height = 600) {
+  if (localFiles) return localFiles[fileId] || "";
   return `${ENDPOINT}/storage/buckets/${BUCKET_ID}/files/${fileId}/preview?project=${PROJECT_ID}&width=${width}&height=${height}&gravity=center&quality=80`;
 }
 
 export function getFileViewUrl(fileId) {
+  if (localFiles) return localFiles[fileId] || "";
   return `${ENDPOINT}/storage/buckets/${BUCKET_ID}/files/${fileId}/view?project=${PROJECT_ID}`;
 }

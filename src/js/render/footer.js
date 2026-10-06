@@ -1,6 +1,7 @@
 import { esc } from "../utils.js";
 import { FOOTER_LINKS } from "../sections.js";
 import { navigate } from "../nav.js";
+import { gsap, reduceMotion } from "../motion.js";
 
 const DEFAULTS = {
   name: "Soumaïla Niampa",
@@ -31,8 +32,22 @@ export function renderFooter(settings) {
   document.getElementById("footer-copyright").textContent = `© ${new Date().getFullYear()} ${name}`;
 
   const nav = document.getElementById("footer-nav");
-  nav.innerHTML = FOOTER_LINKS.map((l) => `<li><button class="link-underline text-black/60 hover:text-[var(--accent-light)] text-sm transition-colors" data-footer-nav="${l.id}">${esc(l.label)}</button></li>`).join("");
+  nav.innerHTML = FOOTER_LINKS.map((l) => `<li><button class="link-underline text-white/70 hover:text-white text-sm" data-footer-nav="${l.id}">${esc(l.label)}</button></li>`).join("");
   nav.querySelectorAll("[data-footer-nav]").forEach((btn) => {
     btn.addEventListener("click", () => navigate(btn.dataset.footerNav));
+  });
+}
+
+export function initFooterMotion() {
+  const ring = document.getElementById("to-top-progress");
+  if (ring) {
+    gsap.to(ring, { strokeDashoffset: 0, ease: "none", scrollTrigger: { start: 0, end: "max", scrub: 0.3 } });
+  }
+  if (reduceMotion) return;
+  gsap.from("#footer-giant", {
+    yPercent: 60,
+    opacity: 0,
+    ease: "none",
+    scrollTrigger: { trigger: "#site-footer", start: "top bottom", end: "bottom bottom", scrub: true },
   });
 }

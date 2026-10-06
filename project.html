@@ -1,47 +1,76 @@
 <!doctype html>
-<html lang="fr">
+<html lang="fr" class="site">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <title>Projet — Soumaïla Niampa</title>
+  <meta name="theme-color" content="#0A0C10" />
+  <script>
+    (function () {
+      var d = document.documentElement;
+      if (!matchMedia("(prefers-reduced-motion: reduce)").matches) d.classList.add("js-motion");
+      try { if (sessionStorage.getItem("pt:label")) d.classList.add("pt-enter"); } catch (e) {}
+    })();
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800;900&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/src/style.css" />
+  <link rel="stylesheet" href="/src/site.css" />
 </head>
-<body class="min-h-full bg-[#F1F2F4] text-[#14161A] antialiased">
+<body class="site text-[#0A0C10] antialiased">
 
-  <header class="fixed top-0 inset-x-0 h-14 border-b border-black/[0.08] bg-[#F1F2F4]/85 backdrop-blur-lg z-50 flex items-center justify-between px-5 md:px-10">
-    <a href="/" class="text-[11px] tracking-[0.3em] uppercase text-black/45 hover:text-black/75 transition-colors font-medium">SN</a>
-    <a href="/#projects" class="btn-ghost px-4 py-2 text-black/60 text-xs rounded-lg hover:text-black transition-colors">← Portfolio</a>
+  <div id="curtain" aria-hidden="true">
+    <div class="curtain-layer curtain-accent"></div>
+    <div class="curtain-layer curtain-ink"><p id="curtain-label" class="curtain-label"></p></div>
+  </div>
+  <div class="grain" aria-hidden="true"></div>
+  <div id="scroll-progress" aria-hidden="true"></div>
+  <div id="cursor" aria-hidden="true"><div class="cursor-ring"><span class="cursor-label"></span></div><div class="cursor-dot"></div></div>
+
+  <header class="fixed top-0 inset-x-0 z-[60] px-4 md:px-8 pt-4 flex items-center justify-between pointer-events-none">
+    <a href="/" data-transition="Soumaïla Niampa" data-magnetic="0.4" class="logo-mark pointer-events-auto" aria-label="Accueil">SN</a>
+    <a href="/#projects" data-transition="Projets" data-magnetic class="btn btn-outline h-11 pointer-events-auto"><span class="btn-fill"></span>← Projets</a>
   </header>
-  <div class="h-14" aria-hidden="true"></div>
 
-  <main class="px-5 md:px-10 py-10 md:py-16 max-w-3xl mx-auto">
-    <div id="state-loading" class="animate-pulse space-y-4">
-      <div class="h-56 md:h-72 rounded-lg bg-black/[0.05]"></div>
-      <div class="h-8 w-2/3 rounded bg-black/[0.05]"></div>
-      <div class="h-4 w-full rounded bg-black/[0.05]"></div>
-      <div class="h-4 w-5/6 rounded bg-black/[0.05]"></div>
+  <main class="relative">
+    <div class="aurora" aria-hidden="true" style="position:absolute; height:100vh;"><span class="blob b1"></span><span class="blob b2"></span></div>
+
+    <div id="state-loading" class="px-5 md:px-10 pt-32 max-w-6xl mx-auto animate-pulse space-y-5">
+      <div class="h-16 w-2/3 rounded-2xl bg-black/[0.05]"></div>
+      <div class="h-6 w-1/3 rounded-xl bg-black/[0.05]"></div>
+      <div class="h-72 rounded-[28px] bg-black/[0.05]"></div>
     </div>
 
-    <div id="state-notfound" class="hidden text-center py-16">
-      <p class="mono text-[10px] tracking-[0.3em] uppercase text-black/40 mb-3">404</p>
-      <h1 class="text-2xl font-bold text-[#14161A] mb-3">Projet introuvable.</h1>
-      <p class="text-black/55 text-sm mb-6">Ce projet n'existe pas ou a été retiré.</p>
-      <a href="/#projects" class="glow inline-block px-5 py-2.5 bg-[var(--accent)] text-white text-xs font-semibold rounded-lg hover:bg-[var(--accent-light)] transition-colors">Retour aux projets</a>
+    <div id="state-notfound" class="hidden min-h-[80vh] flex flex-col items-center justify-center text-center px-5">
+      <p class="mono text-[11px] tracking-[0.3em] uppercase text-black/40 mb-4">404</p>
+      <h1 class="sec-title mb-4">Projet introuvable.</h1>
+      <p class="text-black/55 mb-8">Ce projet n'existe pas ou a été retiré.</p>
+      <a href="/#projects" data-transition="Projets" data-magnetic class="btn btn-primary"><span class="btn-fill"></span>Retour <span class="arrow">→</span></a>
     </div>
 
-    <article id="state-content" class="hidden" data-animate="fade"></article>
+    <article id="state-content" class="hidden"></article>
   </main>
 
-  <footer class="border-t border-black/[0.08] px-5 md:px-10 py-8 mt-8">
-    <div class="max-w-3xl mx-auto flex flex-col-reverse sm:flex-row items-center justify-between gap-4">
-      <p class="text-black/35 text-xs">© <span id="footer-year"></span> Soumaïla Niampa</p>
-      <a href="/#projects" class="btn-ghost text-black/55 hover:text-black text-xs rounded-lg px-4 py-2 transition-colors">← Retour aux projets</a>
+  <section id="next" class="hidden panel-wrap">
+    <div class="panel on-dark">
+      <div class="panel-grid" aria-hidden="true"></div>
+      <a id="next-link" href="#" data-cursor="Suivant" class="relative block px-5 md:px-10 py-20 md:py-28 group">
+        <div class="max-w-6xl mx-auto">
+          <p class="mono text-[11px] tracking-[0.3em] uppercase text-white/45 mb-5">Suivant →</p>
+          <p id="next-title" class="font-extrabold tracking-[-0.045em] leading-[0.95] text-white transition-colors duration-500 group-hover:text-[var(--accent-bright)]" style="font-size: clamp(2.4rem, 8vw, 7rem);"></p>
+          <p id="next-sub" class="text-white/50 mt-4 text-lg"></p>
+        </div>
+      </a>
+      <footer class="relative border-t border-white/10 px-5 md:px-10 py-6">
+        <div class="max-w-6xl mx-auto flex flex-col-reverse sm:flex-row items-center justify-between gap-4 text-xs text-white/40">
+          <p>© <span id="footer-year"></span> Soumaïla Niampa</p>
+          <a href="/#projects" data-transition="Projets" class="link-underline text-white/70 hover:text-white">← Retour au portfolio</a>
+        </div>
+      </footer>
     </div>
-  </footer>
+  </section>
 
   <script type="module" src="/src/js/project-detail.js"></script>
 </body>

@@ -1,10 +1,9 @@
 import { esc, readMoreHtml, wireReadMores } from "../utils.js";
-import { observeReveal } from "../reveal.js";
 
 export function renderAboutImage(url) {
-  if (!url) return;
   const img = document.getElementById("about-image");
-  img.src = url;
+  img.onerror = () => { img.onerror = null; img.src = "/portrait.jpg"; };
+  img.src = url || "/portrait.jpg";
   img.classList.remove("hidden");
 }
 
@@ -17,6 +16,8 @@ const FALLBACK = [
   { $id: "f6", type: "stat", value: "2", title: "Grandes écoles", order: 5 },
   { $id: "f7", type: "text", title: "Langues", body: "Français — Niveau C1 · Anglais — Niveau B2", order: 6 },
 ];
+
+const STAT_COLORS = ["var(--accent)", "var(--violet)", "#0EA5E9", "#10B981"];
 
 function groupBlocks(blocks) {
   const groups = [];
@@ -36,42 +37,44 @@ export function renderAbout(blocks) {
   const data = blocks.length > 0 ? blocks : FALLBACK;
   const groups = groupBlocks(data);
   const container = document.getElementById("about-blocks");
+  let leadUsed = false;
 
-  container.innerHTML = groups.map((g, i) => {
-    const delay = `style="--delay:${(i % 5) * 0.06}s"`;
-
+  container.innerHTML = groups.map((g) => {
     if (g.kind === "stat") {
-      const tiles = g.blocks.map((s) => `
-        <div>
-          <span class="mono block text-4xl font-bold text-[var(--accent-light)] tabular-nums">${esc(s.value)}</span>
-          <span class="text-black/55 text-xs">${esc(s.title)}</span>
+      const cols = { 1: "sm:grid-cols-1", 2: "sm:grid-cols-2" }[g.blocks.length] || "sm:grid-cols-3";
+      const tiles = g.blocks.map((s, i) => `
+        <div class="stat-card spot" data-tilt>
+          <span class="stat-value" style="color:${STAT_COLORS[i % STAT_COLORS.length]}" data-count="${esc(s.value)}">${esc(s.value)}</span>
+          <span class="block mt-2 text-[#0A0C10]/55 text-sm">${esc(s.title)}</span>
         </div>
       `).join("");
-      return `<div data-animate="fade" ${delay} class="grid grid-cols-3 gap-6 border-t border-black/[0.08] pt-4">${tiles}</div>`;
+      return `<div class="grid grid-cols-2 ${cols} gap-3" data-stagger="0.1">${tiles}</div>`;
     }
 
     if (g.kind === "tags") {
-      const pills = (g.block.items || []).map((t) => `<span class="text-[11px] font-medium text-[var(--accent-light)] bg-[var(--accent-soft)] rounded-full px-3 py-1">${esc(t)}</span>`).join("");
-      return `<div data-animate="fade" ${delay} class="flex gap-2 flex-wrap">${pills}</div>`;
+      const pills = (g.block.items || []).map((t) => `<span class="pill">${esc(t)}</span>`).join("");
+      return `<div class="flex gap-2 flex-wrap" data-stagger="0.04">${pills}</div>`;
     }
 
     if (g.kind === "quote") {
-      return `<blockquote data-animate="fade" ${delay} class="border-l-2 border-[var(--accent)] pl-4 text-lg md:text-xl font-semibold text-[var(--accent-light)] leading-snug">${esc(g.block.body)}</blockquote>`;
+      return `<blockquote data-reveal class="relative pl-6 text-2xl md:text-3xl font-semibold tracking-tight leading-snug"><span class="absolute left-0 top-0 bottom-0 w-[3px] rounded-full bg-gradient-to-b from-[var(--accent)] to-[var(--violet)]"></span><span class="grad-text">${esc(g.block.body)}</span></blockquote>`;
     }
 
-    // text
     const block = g.block;
     if (block.title) {
       return `
-        <div data-animate="fade" ${delay} class="border-t border-black/[0.08] pt-4">
-          <p class="text-[10px] tracking-widest uppercase text-black/40 mb-2">${esc(block.title)}</p>
-          ${block.body ? readMoreHtml(block.body, { lines: 3, className: "text-black/65 text-[15px] leading-relaxed" }) : ""}
+        <div data-reveal class="border-t border-[#0A0C10]/10 pt-5 grid sm:grid-cols-[10rem_1fr] gap-2 sm:gap-6">
+          <p class="mono text-[10px] tracking-[0.25em] uppercase text-[#0A0C10]/45 pt-1">${esc(block.title)}</p>
+          ${block.body ? readMoreHtml(block.body, { lines: 3, className: "text-[#0A0C10]/70 text-base leading-relaxed" }) : ""}
         </div>
       `;
     }
-    return `<div data-animate="fade" ${delay}>${block.body ? readMoreHtml(block.body, { lines: 4, className: "text-black/65 leading-relaxed text-base md:text-lg" }) : ""}</div>`;
+    if (!leadUsed && block.body) {
+      leadUsed = true;
+      return `<p class="lead-text" data-scrub-words>${esc(block.body)}</p>`;
+    }
+    return `<div data-reveal>${block.body ? readMoreHtml(block.body, { lines: 4, className: "text-[#0A0C10]/65 leading-relaxed text-lg" }) : ""}</div>`;
   }).join("");
 
   wireReadMores(container);
-  observeReveal(container);
 }

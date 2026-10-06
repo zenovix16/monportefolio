@@ -1,7 +1,7 @@
 import { esc } from "../utils.js";
-import { observeReveal } from "../reveal.js";
+import { gsap, reduceMotion } from "../motion.js";
 
-const FALLBACK = [
+export const FALLBACK_SKILLS = [
   { $id: "1", name: "Python",               category: "Data & Analyse",    level: 88 },
   { $id: "2", name: "SQL",                  category: "Data & Analyse",    level: 82 },
   { $id: "3", name: "Power BI",             category: "Data & Analyse",    level: 85 },
@@ -20,51 +20,61 @@ const FALLBACK = [
 ];
 
 export function renderSkills(skills) {
-  const data = skills.length > 0 ? skills : FALLBACK;
+  const data = skills.length > 0 ? skills : FALLBACK_SKILLS;
   const byCategory = data.reduce((acc, s) => {
     (acc[s.category] = acc[s.category] || []).push(s);
     return acc;
   }, {});
 
   const grid = document.getElementById("skills-grid");
-  let globalIdx = 0;
-
+  const count = Object.keys(byCategory).length;
+  grid.classList.toggle("lg:grid-cols-3", count % 2 === 1 || count > 4);
+  grid.classList.toggle("lg:grid-cols-2", count % 2 === 0 && count <= 4);
   grid.innerHTML = Object.entries(byCategory).map(([cat, catSkills], catIdx) => {
-    const bars = catSkills.map((s) => {
+    const avg = Math.round(catSkills.reduce((n, s) => n + (s.level ?? 80), 0) / catSkills.length);
+    const rows = catSkills.map((s) => {
       const level = s.level ?? 80;
-      const delay = 0.05 + globalIdx++ * 0.03;
       return `
-        <div>
-          <div class="flex justify-between mb-1.5">
-            <span class="text-black/85 text-sm font-medium">${esc(s.name)}</span>
-            <span class="mono text-black/40 text-xs tabular-nums">${level}%</span>
+        <div class="skill-row">
+          <div class="flex justify-between items-baseline mb-2">
+            <span class="text-[15px] font-medium">${esc(s.name)}</span>
+            <span class="mono text-[#0A0C10]/45 text-xs tabular-nums" data-count="${level}%">${level}%</span>
           </div>
-          <div class="h-1 bg-black/10 rounded-full overflow-hidden">
-            <div class="skill-bar h-full bg-[var(--accent)] rounded-full" style="width:0%; transition: width 0.9s ease-out ${delay}s;" data-level="${level}"></div>
-          </div>
+          <div class="skill-track"><div class="skill-fill" data-level="${level}"></div></div>
         </div>
       `;
     }).join("");
 
     return `
-      <div data-animate="fade" class="border-t-2 border-black/[0.08] pt-4 ${catIdx === 0 ? "lg:col-span-2" : ""}">
-        <p class="text-xs font-bold tracking-[0.2em] uppercase text-[var(--accent-light)] mb-4">${esc(cat)}</p>
-        <div class="space-y-3.5">${bars}</div>
-      </div>
+      <article class="spot skill-card" data-tilt>
+        <div class="flex items-center justify-between mb-7">
+          <span class="skill-cat-icon">${String(catIdx + 1).padStart(2, "0")}</span>
+          <span class="mono text-xs text-[#0A0C10]/40">moy. <span class="text-[#0A0C10] font-medium" data-count="${avg}%">${avg}%</span></span>
+        </div>
+        <h3 class="text-xl font-bold tracking-tight mb-6">${esc(cat)}</h3>
+        ${rows}
+      </article>
     `;
   }).join("");
+}
 
-  observeReveal(grid);
-
-  // Barres de progression : remplies au scroll (une fois), indépendamment
-  // du fade du groupe parent.
-  const barObserver = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.style.width = `${entry.target.dataset.level}%`;
-        barObserver.unobserve(entry.target);
-      }
+export function initSkillsMotion() {
+  document.querySelectorAll("#skills-grid .skill-card").forEach((card) => {
+    const fills = card.querySelectorAll(".skill-fill");
+    if (reduceMotion) { fills.forEach((f) => gsap.set(f, { scaleX: f.dataset.level / 100 })); return; }
+    fills.forEach((f, i) => {
+      gsap.to(f, {
+        scaleX: f.dataset.level / 100,
+        duration: 1.6,
+        ease: "expo.out",
+        delay: 0.2 + i * 0.08,
+        scrollTrigger: { trigger: card, start: "top 80%" },
+      });
     });
-  }, { threshold: 0.4 });
-  grid.querySelectorAll(".skill-bar").forEach((bar) => barObserver.observe(bar));
+  });
+}
+
+export function skillNames(skills) {
+  const data = skills.length > 0 ? skills : FALLBACK_SKILLS;
+  return data.map((s) => s.name);
 }

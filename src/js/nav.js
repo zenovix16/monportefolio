@@ -1,11 +1,12 @@
 import { SECTION_LINKS } from "./sections.js";
+import { gsap, ScrollTrigger, scrollToTarget, lockScroll, reduceMotion } from "./motion.js";
 
-let activeId = "hero";
 let drawerOpen = false;
+let menuTl = null;
 
 export function navigate(id) {
-  document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-  closeDrawer();
+  if (drawerOpen) closeDrawer();
+  scrollToTarget(id === "hero" ? 0 : id);
 }
 
 export function setMenuEmail(email) {
@@ -14,49 +15,60 @@ export function setMenuEmail(email) {
   el.textContent = email;
 }
 
-function closeDrawer() {
-  drawerOpen = false;
-  document.getElementById("menu-backdrop").classList.add("hidden", "opacity-0");
-  const drawer = document.getElementById("menu-drawer");
-  drawer.classList.add("translate-x-full");
-  document.body.style.overflow = "";
-  document.getElementById("menu-toggle").setAttribute("aria-expanded", "false");
-  const bars = document.querySelectorAll(".menu-bar");
-  bars[0].style.transform = "";
-  bars[1].style.opacity = "1";
-  bars[2].style.transform = "";
+function buildMenuTimeline() {
+  menuTl?.kill();
+  const overlay = document.getElementById("menu-overlay");
+  const links = overlay.querySelectorAll(".m-link-inner");
+  const r = document.getElementById("menu-toggle").getBoundingClientRect();
+  const at = `${Math.round(r.left + r.width / 2)}px ${Math.round(r.top + r.height / 2)}px`;
+  const d = reduceMotion ? 0 : 1;
+  menuTl = gsap.timeline({ paused: true })
+    .set(overlay, { visibility: "visible" })
+    .fromTo(overlay, { clipPath: `circle(0px at ${at})` }, { clipPath: `circle(${Math.hypot(innerWidth, innerHeight) * 1.1}px at ${at})`, duration: 0.9 * d, ease: "expo.inOut" })
+    .fromTo(links, { yPercent: 120 }, { yPercent: 0, duration: 0.8 * d, ease: "expo.out", stagger: 0.05 * d }, "-=0.45")
+    .fromTo(overlay.lastElementChild, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5 * d }, "-=0.5");
+  menuTl.eventCallback("onReverseComplete", () => gsap.set(overlay, { visibility: "hidden" }));
 }
 
 function openDrawer() {
   drawerOpen = true;
-  const backdrop = document.getElementById("menu-backdrop");
-  backdrop.classList.remove("hidden");
-  requestAnimationFrame(() => backdrop.classList.remove("opacity-0"));
-  document.getElementById("menu-drawer").classList.remove("translate-x-full");
-  document.body.style.overflow = "hidden";
-  document.getElementById("menu-toggle").setAttribute("aria-expanded", "true");
-  const bars = document.querySelectorAll(".menu-bar");
-  bars[0].style.transform = "rotate(45deg) translateY(3px)";
-  bars[1].style.opacity = "0";
-  bars[2].style.transform = "rotate(-45deg) translateY(-3px)";
+  const btn = document.getElementById("menu-toggle");
+  btn.setAttribute("aria-expanded", "true");
+  btn.setAttribute("aria-label", "Fermer le menu");
+  document.getElementById("menu-overlay").setAttribute("aria-hidden", "false");
+  lockScroll(true);
+  buildMenuTimeline();
+  menuTl.play();
+}
+
+function closeDrawer() {
+  drawerOpen = false;
+  const btn = document.getElementById("menu-toggle");
+  btn.setAttribute("aria-expanded", "false");
+  btn.setAttribute("aria-label", "Ouvrir le menu");
+  document.getElementById("menu-overlay").setAttribute("aria-hidden", "true");
+  lockScroll(false);
+  menuTl.timeScale(1.6).reverse();
+}
+
+function moveIndicator(btn) {
+  const ind = document.getElementById("nav-indicator");
+  if (!btn) { ind.style.opacity = "0"; return; }
+  ind.style.opacity = "1";
+  ind.style.width = `${btn.offsetWidth}px`;
+  ind.style.transform = `translateX(${btn.offsetLeft}px)`;
 }
 
 function setActive(id) {
-  activeId = id;
+  let activeBtn = null;
   document.querySelectorAll("#nav-links-desktop [data-nav-link]").forEach((el) => {
     const isActive = el.dataset.navLink === id;
-    el.classList.toggle("bg-[var(--accent-soft)]", isActive);
-    el.classList.toggle("text-[var(--accent-light)]", isActive);
-    el.classList.toggle("text-black/45", !isActive);
+    el.classList.toggle("is-active", isActive);
+    if (isActive) activeBtn = el;
   });
+  moveIndicator(activeBtn);
   document.querySelectorAll("#nav-links-mobile [data-nav-link]").forEach((el) => {
-    const isActive = el.dataset.navLink === id;
-    const label = el.querySelector(".mobile-nav-label");
-    const num = el.querySelector(".mobile-nav-num");
-    label.classList.toggle("text-[var(--accent-light)]", isActive);
-    label.classList.toggle("text-black/75", !isActive);
-    num.classList.toggle("text-[var(--accent-light)]", isActive);
-    num.classList.toggle("text-black/30", !isActive);
+    el.classList.toggle("is-active", el.dataset.navLink === id);
   });
 }
 
@@ -68,7 +80,7 @@ function buildLinks() {
     const li = document.createElement("li");
     const btn = document.createElement("button");
     btn.dataset.navLink = l.id;
-    btn.className = "px-3.5 py-1.5 rounded-lg text-xs tracking-wide transition-all duration-200 text-black/45 hover:text-black/75";
+    btn.className = "nav-link";
     btn.textContent = l.label;
     btn.addEventListener("click", () => navigate(l.id));
     li.appendChild(btn);
@@ -78,43 +90,46 @@ function buildLinks() {
   SECTION_LINKS.forEach((l, i) => {
     const btn = document.createElement("button");
     btn.dataset.navLink = l.id;
-    btn.className = "flex items-baseline gap-3 py-2.5 text-left group";
-    btn.innerHTML = `
-      <span class="mobile-nav-num mono text-[11px] tabular-nums text-black/30">${String(i + 1).padStart(2, "0")}</span>
-      <span class="mobile-nav-label text-2xl font-bold tracking-tight transition-colors text-black/75 group-hover:text-black">${l.label}</span>
-    `;
+    btn.className = "m-link text-left";
+    btn.innerHTML = `<span class="m-link-inner"><span class="m-num">${String(i + 1).padStart(2, "0")}</span><span class="m-label">${l.label}</span></span>`;
     btn.addEventListener("click", () => navigate(l.id));
     mobile.appendChild(btn);
   });
 }
 
 function initScrollSpy() {
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) setActive(entry.target.id);
-      });
-    },
-    { rootMargin: "-45% 0px -45% 0px", threshold: 0 }
-  );
   SECTION_LINKS.forEach((l) => {
     const el = document.getElementById(l.id);
-    if (el) observer.observe(el);
+    if (!el) return;
+    ScrollTrigger.create({
+      trigger: el,
+      start: "top 50%",
+      end: "bottom 50%",
+      onToggle: (self) => { if (self.isActive) setActive(l.id); },
+    });
   });
 }
 
-function initScrollShadow() {
-  const nav = document.getElementById("navbar");
-  const update = () => nav.classList.toggle("nav-scrolled", window.scrollY > 8);
-  window.addEventListener("scroll", update, { passive: true });
-  update();
+// La nav passe en thème sombre quand elle survole un panneau noir.
+function initNavTheme() {
+  const navbar = document.getElementById("navbar");
+  document.querySelectorAll(".panel").forEach((panel) => {
+    ScrollTrigger.create({
+      trigger: panel,
+      start: "top 40px",
+      end: "bottom 40px",
+      onToggle: (self) => navbar.classList.toggle("nav-dark", self.isActive),
+    });
+  });
 }
 
 export function initNav() {
   buildLinks();
   setActive("hero");
   initScrollSpy();
-  initScrollShadow();
+  initNavTheme();
+  window.addEventListener("resize", () => moveIndicator(document.querySelector("#nav-links-desktop .is-active")));
+  document.fonts?.ready.then(() => moveIndicator(document.querySelector("#nav-links-desktop .is-active")));
 
   document.querySelectorAll("[data-nav]").forEach((el) => {
     el.addEventListener("click", () => navigate(el.dataset.nav));
@@ -123,7 +138,6 @@ export function initNav() {
   document.getElementById("menu-toggle").addEventListener("click", () => {
     drawerOpen ? closeDrawer() : openDrawer();
   });
-  document.getElementById("menu-backdrop").addEventListener("click", closeDrawer);
   window.addEventListener("keydown", (e) => {
     if (e.key === "Escape" && drawerOpen) closeDrawer();
   });

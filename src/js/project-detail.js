@@ -1,80 +1,91 @@
-import { databases, DB_ID, COLLECTIONS, getFilePreviewUrl } from "./appwrite.js";
+import { databases, DB_ID, COLLECTIONS, Query } from "./appwrite.js";
 import { esc } from "./utils.js";
+import { loadSnapshot } from "./snapshot.js";
 import { readStashedDetail } from "./detail-store.js";
+import { FALLBACK_PROJECTS, projectImageUrl } from "./render/projects.js";
+import { bootDetailPage, revealDetail, showNotFound, setNext } from "./detail-page.js";
 
-const FALLBACK = [
-  {
-    $id: "1",
-    title: "Tableaux de bord de pilotage",
-    description: "Création d'outils de suivi pour piloter l'activité et visualiser les performances en temps réel. Automatisation du reporting pour réduire les tâches manuelles.",
-    tags: ["Power BI", "Excel", "KPI", "Reporting"],
-    featured: true,
-  },
-  {
-    $id: "2",
-    title: "Gestion & automatisation des données",
-    description: "Pipelines pour collecter, traiter et organiser les données. Structuration des flux pour faciliter leur exploitation.",
-    tags: ["PySpark", "Spark", "Airflow", "Minio", "Nessie"],
-    featured: false,
-  },
-  {
-    $id: "3",
-    title: "Assistant virtuel IA",
-    description: "Assistant pour automatiser les tâches et répondre aux utilisateurs. Intégration d'échanges vocal et texte.",
-    tags: ["Python", "RASA", "NLP", "REST APIs"],
-    featured: false,
-  },
-];
-
-function render(p) {
-  document.getElementById("state-loading").classList.add("hidden");
-  document.title = `${p.title} — Soumaïla Niampa`;
-
-  const img = p.imageId
-    ? `<div class="w-full h-56 md:h-80 rounded-lg overflow-hidden border border-black/[0.08] mb-8"><img src="${getFilePreviewUrl(p.imageId, 1200, 675)}" alt="${esc(p.title)}" class="w-full h-full object-cover" /></div>`
-    : "";
-
-  const tags = (p.tags || []).map((t) => `<span class="text-[11px] text-black/55 border border-black/[0.1] rounded-full px-3 py-1">${esc(t)}</span>`).join("");
-
-  const links = `
-    ${p.githubUrl ? `<a href="${esc(p.githubUrl)}" target="_blank" rel="noopener noreferrer" class="btn-ghost px-5 py-2.5 text-black/70 text-xs rounded-lg hover:text-black transition-colors">GitHub ↗</a>` : ""}
-    ${p.liveUrl ? `<a href="${esc(p.liveUrl)}" target="_blank" rel="noopener noreferrer" class="glow px-5 py-2.5 bg-[var(--accent)] text-white text-xs font-semibold rounded-lg hover:bg-[var(--accent-light)] transition-colors">Voir le projet ↗</a>` : ""}
-  `;
-
-  const content = document.getElementById("state-content");
-  content.innerHTML = `
-    ${img}
-    ${p.featured ? `<span class="inline-block text-[9px] tracking-[0.3em] uppercase text-[var(--accent-light)] border border-[var(--accent)]/40 rounded-full px-2.5 py-1 mb-4">Projet phare</span>` : ""}
-    <h1 class="font-bold text-[#14161A] leading-[1.02] mb-5" style="font-size: clamp(1.9rem, 4.5vw, 3rem);">${esc(p.title)}</h1>
-    ${tags ? `<div class="flex flex-wrap gap-1.5 mb-6">${tags}</div>` : ""}
-    <p class="text-black/65 text-base leading-relaxed whitespace-pre-line mb-8">${esc(p.description)}</p>
-    ${links ? `<div class="flex flex-wrap gap-3">${links}</div>` : ""}
-  `;
-  content.classList.remove("hidden");
-  requestAnimationFrame(() => content.classList.add("in-view"));
+function paragraphs(text) {
+  return String(text || "").split(/\n\s*\n|\n/).map((t) => t.trim()).filter(Boolean);
 }
 
-function notFound() {
-  document.getElementById("state-loading").classList.add("hidden");
-  document.getElementById("state-notfound").classList.remove("hidden");
+function render(p, list) {
+  document.title = `${p.title} — Soumaïla Niampa`;
+  const idx = list.findIndex((x) => x.$id === p.$id);
+  const pos = idx >= 0 ? `${String(idx + 1).padStart(2, "0")} / ${String(list.length).padStart(2, "0")}` : "";
+  const [lead, ...rest] = paragraphs(p.description);
+
+  const tags = (p.tags || []).map((t) => `<span class="pill">${esc(t)}</span>`).join("");
+  const links = `
+    ${p.liveUrl ? `<a href="${esc(p.liveUrl)}" target="_blank" rel="noopener noreferrer" data-magnetic class="btn btn-primary"><span class="btn-fill"></span>Voir le projet <span class="arrow">→</span></a>` : ""}
+    ${p.githubUrl ? `<a href="${esc(p.githubUrl)}" target="_blank" rel="noopener noreferrer" data-magnetic class="btn btn-outline"><span class="btn-fill"></span>GitHub ↗</a>` : ""}
+  `;
+
+  document.getElementById("state-content").innerHTML = `
+    <header class="px-5 md:px-10 pt-32 md:pt-40 max-w-6xl mx-auto">
+      <div data-hero-fade class="flex items-center gap-3 mb-6">
+        ${pos ? `<span class="mono text-xs px-3 py-1.5 rounded-full bg-[#0A0C10] text-white">Projet ${pos}</span>` : ""}
+        ${p.featured ? `<span class="text-[10px] tracking-[0.25em] uppercase text-white bg-[var(--accent)] rounded-full px-3 py-1.5">Projet phare</span>` : ""}
+      </div>
+      <h1 data-hero-title class="font-extrabold tracking-[-0.05em] leading-[0.92]" style="font-size: clamp(2.6rem, 8vw, 7rem);">${esc(p.title)}</h1>
+      ${tags ? `<div data-hero-fade class="flex flex-wrap gap-2 mt-8">${tags}</div>` : ""}
+    </header>
+
+    <div class="px-3 md:px-6 mt-12 md:mt-16">
+      <div class="detail-hero-img max-w-[1400px] mx-auto" data-hero-media>
+        <img src="${projectImageUrl(p, 1800, 1000)}" alt="${esc(p.title)}" />
+      </div>
+    </div>
+
+    <section class="px-5 md:px-10 py-20 md:py-28 max-w-6xl mx-auto grid md:grid-cols-[1fr_2fr] gap-12 md:gap-20">
+      <aside class="space-y-8 md:sticky md:top-28 self-start" data-reveal>
+        ${(p.tags || []).length ? `
+        <div>
+          <p class="mono text-[10px] tracking-[0.25em] uppercase text-black/45 mb-3">Technologies</p>
+          <ul class="space-y-1.5">${p.tags.map((t) => `<li class="text-lg font-medium">${esc(t)}</li>`).join("")}</ul>
+        </div>` : ""}
+        ${links.trim() ? `<div class="flex flex-wrap gap-3">${links}</div>` : ""}
+      </aside>
+      <div>
+        <div class="sec-head"><span class="num">↘</span><span>Le projet</span><span class="rule"></span></div>
+        ${lead ? `<p class="lead-text mb-10" data-scrub-words>${esc(lead)}</p>` : ""}
+        <div class="space-y-5">${rest.map((t) => `<p data-reveal class="text-black/65 text-lg leading-relaxed">${esc(t)}</p>`).join("")}</div>
+      </div>
+    </section>
+  `;
+
+  if (list.length > 1) {
+    const next = list[(idx + 1) % list.length];
+    setNext(next, { href: `/project.html?id=${encodeURIComponent(next.$id)}`, title: next.title, sub: (next.tags || []).slice(0, 4).join(" · ") });
+  } else {
+    setNext(null, {});
+  }
+  return revealDetail();
+}
+
+async function loadList() {
+  try {
+    const res = await databases.listDocuments(DB_ID, COLLECTIONS.PROJECTS, [Query.orderAsc("order"), Query.limit(20)]);
+    return res.documents.length ? res.documents : FALLBACK_PROJECTS;
+  } catch {
+    const snap = await loadSnapshot();
+    return snap?.projects?.length ? snap.projects : FALLBACK_PROJECTS;
+  }
 }
 
 async function init() {
-  document.getElementById("footer-year").textContent = new Date().getFullYear();
-
+  bootDetailPage();
   const id = new URLSearchParams(location.search).get("id");
-  if (!id) return notFound();
+  if (!id) return showNotFound();
 
-  const stashed = readStashedDetail("project", id);
-  if (stashed) return render(stashed);
+  const list = await loadList();
+  const p = list.find((x) => x.$id === id) || readStashedDetail("project", id);
+  if (p) return render(p, list);
 
   try {
-    const doc = await databases.getDocument(DB_ID, COLLECTIONS.PROJECTS, id);
-    render(doc);
+    render(await databases.getDocument(DB_ID, COLLECTIONS.PROJECTS, id), list);
   } catch {
-    const fallback = FALLBACK.find((p) => p.$id === id);
-    if (fallback) render(fallback);
-    else notFound();
+    showNotFound();
   }
 }
 

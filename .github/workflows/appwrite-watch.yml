@@ -1,0 +1,82 @@
+# Surveillance quotidienne de la base Appwrite.
+#
+# Depuis février 2026, Appwrite met en pause les projets du plan gratuit
+# après 7 jours sans activité *dans la Console* — les appels API (pings)
+# ne comptent pas. Ce workflow ne peut donc pas empêcher la pause, mais :
+#   1. il sauvegarde le contenu public (textes + images) dans public/data/
+#      quand la base répond ; le site s'en sert si la base est en pause,
+#      il n'est donc jamais vide ;
+#   2. il échoue (→ e-mail GitHub) dès que le projet est en pause, avec le
+#      lien pour le réactiver en un clic ;
+#   3. il se réactive lui-même pour que GitHub ne le désactive pas après
+#      60 jours sans commit.
+name: Appwrite — sauvegarde & alerte de mise en veille
+
+on:
+  schedule:
+    - cron: "17 7 * * *" # tous les jours vers 08h17 (heure de Casablanca)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: appwrite-watch
+  cancel-in-progress: false
+
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Sauvegarde du contenu Appwrite
+        id: snap
+        run: |
+          set +e
+          node tools/snapshot.mjs
+          code=$?
+          echo "code=$code" >> "$GITHUB_OUTPUT"
+          if [ "$code" = "2" ]; then
+            {
+              echo "## ⚠️ Projet Appwrite en pause"
+              echo ""
+              echo "Le site affiche la dernière sauvegarde, mais le formulaire de contact ne fonctionne plus."
+              echo ""
+              echo "👉 Réactiver : https://cloud.appwrite.io/console (projet 69fa52a7000b29463580)"
+              echo ""
+              echo "Astuce : ouvrir la Console Appwrite au moins une fois par semaine évite la pause."
+            } >> "$GITHUB_STEP_SUMMARY"
+            echo "::error title=Appwrite en pause::Le projet Appwrite est en pause. Réactivez-le depuis la Console : https://cloud.appwrite.io/console (projet 69fa52a7000b29463580)"
+          fi
+          exit 0
+
+      - name: Commit de la sauvegarde si elle a changé
+        if: steps.snap.outputs.code == '0'
+        run: |
+          git add public/data
+          if git diff --cached --quiet; then
+            echo "Contenu inchangé."
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git commit -m "chore: sauvegarde automatique du contenu Appwrite"
+            git push
+          fi
+
+      - name: Garder ce workflow actif
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api -X PUT "repos/${{ github.repository }}/actions/workflows/appwrite-watch.yml/enable" || true
+
+      - name: Échouer si la base est en pause (déclenche l'e-mail)
+        if: steps.snap.outputs.code != '0'
+        run: |
+          echo "Snapshot impossible (code ${{ steps.snap.outputs.code }})."
+          exit 1
