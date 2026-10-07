@@ -407,7 +407,7 @@
     }
   ],
   "settings": {
-    "profileFileId": "profile-portrait",
+    "profileFileId": "6ac57fae000e5d5496c5",
     "cvFileId": "6a7365ae0000fcea0d30",
     "heroName": "Soumaïla Niampa",
     "heroLocation": "Casablanca · Maroc",
@@ -416,17 +416,18 @@
     "linkedinUrl": "https://linkedin.com/in/soumaila-niampa",
     "email": "soumaila.niampa@centrale-casablanca.ma",
     "phone": "+212 708-778-658",
-    "aboutImageFileId": "profile-portrait",
+    "aboutImageFileId": "6ac581830037cbfd7b74",
     "$sequence": "1",
     "$id": "main",
     "$createdAt": "2026-07-29T18:39:56.854+00:00",
-    "$updatedAt": "2026-08-05T16:32:48.939+00:00",
+    "$updatedAt": "2026-10-06T23:17:27.982+00:00",
     "$permissions": [],
     "$databaseId": "69fa53ff003d590321f1",
     "$collectionId": "settings"
   },
   "files": {
-    "profile-portrait": "/data/files/profile-portrait.png",
+    "6ac57fae000e5d5496c5": "/data/files/6ac57fae000e5d5496c5.png",
+    "6ac581830037cbfd7b74": "/data/files/6ac581830037cbfd7b74.jpg",
     "6a7365ae0000fcea0d30": "/data/files/6a7365ae0000fcea0d30.pdf",
     "6a7363cf002358b9c1b6": "/data/files/6a7363cf002358b9c1b6.jpg",
     "6a7363d300014e92d77c": "/data/files/6a7363d300014e92d77c.jpg",
