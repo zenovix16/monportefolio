@@ -1,12 +1,11 @@
-// Ordre narratif du site : qui je suis → ma formation → mon parcours →
-// ce que j'ai construit → ce que je maîtrise → publications → contact.
+// Ordre narratif du site : ce que j'ai construit → ce que je fais → qui je
+// suis → parcours en bref → publications → contact.
 export const SECTION_LINKS = [
   { id: "hero",       label: "Accueil"   },
-  { id: "about",      label: "About"     },
-  { id: "education",  label: "Formation" },
-  { id: "experience", label: "Parcours"  },
   { id: "projects",   label: "Projets"   },
-  { id: "skills",     label: "Skills"    },
+  { id: "skills",     label: "Expertise" },
+  { id: "about",      label: "À propos"  },
+  { id: "experience", label: "Parcours"  },
   { id: "articles",   label: "Articles"  },
   { id: "contact",    label: "Contact"   },
 ];

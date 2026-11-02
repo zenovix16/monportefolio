@@ -32,7 +32,7 @@ export function renderFooter(settings) {
   document.getElementById("footer-copyright").textContent = `© ${new Date().getFullYear()} ${name}`;
 
   const nav = document.getElementById("footer-nav");
-  nav.innerHTML = FOOTER_LINKS.map((l) => `<li><button class="link-underline text-white/70 hover:text-white text-sm" data-footer-nav="${l.id}">${esc(l.label)}</button></li>`).join("");
+  nav.innerHTML = FOOTER_LINKS.filter((l) => document.getElementById(l.id)).map((l) => `<li><button class="link-underline text-white/70 hover:text-white text-sm" data-footer-nav="${l.id}">${esc(l.label)}</button></li>`).join("");
   nav.querySelectorAll("[data-footer-nav]").forEach((btn) => {
     btn.addEventListener("click", () => navigate(btn.dataset.footerNav));
   });

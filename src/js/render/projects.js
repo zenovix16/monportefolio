@@ -32,7 +32,7 @@ export const FALLBACK_PROJECTS = [
 ];
 
 export function projectImageUrl(p, w = 1200, h = 900) {
-  const uploaded = p.imageId && getFilePreviewUrl(p.imageId, w, h);
+  const uploaded = p.imageId && getFilePreviewUrl(p.imageId);
   if (uploaded) return uploaded;
   if (p.fallbackImage) return `${p.fallbackImage}?auto=format&fit=crop&w=${w}&h=${h}&q=80`;
   return stockPhotoUrl(p.$id + p.title, w, h);
@@ -47,8 +47,8 @@ export function renderProjects(projects) {
     const href = `/project.html?id=${encodeURIComponent(p.$id)}`;
     const tags = (p.tags || []).map((t) => `<span class="pill">${esc(t)}</span>`).join("");
     const links = `
-      ${p.githubUrl ? `<a href="${esc(p.githubUrl)}" target="_blank" rel="noopener noreferrer" class="link-underline text-sm font-medium text-[#0A0C10]/60 hover:text-[#0A0C10]">GitHub ↗</a>` : ""}
-      ${p.liveUrl ? `<a href="${esc(p.liveUrl)}" target="_blank" rel="noopener noreferrer" class="link-underline text-sm font-medium text-[#0A0C10]/60 hover:text-[#0A0C10]">Démo ↗</a>` : ""}
+      ${p.githubUrl ? `<a href="${esc(p.githubUrl)}" target="_blank" rel="noopener noreferrer" class="link-underline text-sm font-medium text-white/60 hover:text-white">GitHub ↗</a>` : ""}
+      ${p.liveUrl ? `<a href="${esc(p.liveUrl)}" target="_blank" rel="noopener noreferrer" class="link-underline text-sm font-medium text-white/60 hover:text-white">Démo ↗</a>` : ""}
     `;
 
     return `
@@ -63,7 +63,7 @@ export function renderProjects(projects) {
               ${p.featured ? `<span class="text-[10px] tracking-[0.25em] uppercase text-white bg-[var(--accent)] rounded-full px-3 py-1">Projet phare</span>` : ""}
             </div>
             <h3 class="font-bold tracking-tight leading-[1.02] mb-4" style="font-size: clamp(1.7rem, 3.2vw, 2.6rem);">${esc(p.title)}</h3>
-            <p class="text-[#0A0C10]/65 text-base leading-relaxed mb-6 line-clamp-4">${esc(p.description)}</p>
+            <p class="text-white/65 text-base leading-relaxed mb-6 line-clamp-4">${esc(p.description)}</p>
             <div class="flex flex-wrap gap-2 mb-8">${tags}</div>
             <div class="mt-auto flex items-center gap-5 flex-wrap">
               <a href="${href}" data-detail-project="${p.$id}" data-transition="${esc(p.title)}" data-magnetic class="btn btn-primary"><span class="btn-fill"></span>Étude de cas <span class="arrow">→</span></a>

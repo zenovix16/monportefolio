@@ -24,19 +24,9 @@ export function stockPhotoUrl(seed, width = 900, height = 650) {
   return `${base}?auto=format&fit=crop&w=${width}&h=${height}&q=80`;
 }
 
-export function badgeHTML(seed, label, size = 44) {
-  const PALETTES = [
-    ["#2E6BFF", "#7C3AED"],
-    ["#0EA5E9", "#22D3EE"],
-    ["#F59E0B", "#EF4444"],
-    ["#10B981", "#2E6BFF"],
-    ["#7C3AED", "#EC4899"],
-    ["#0F172A", "#2E6BFF"],
-  ];
-  const h = hash(String(seed));
-  const [from, to] = PALETTES[h % PALETTES.length];
+export function badgeHTML(label, size = 44) {
   const initial = (label || "?").trim().charAt(0).toUpperCase();
   return `
-    <span class="inline-flex items-center justify-center rounded-full font-bold text-white shrink-0" style="width:${size}px;height:${size}px;font-size:${size * 0.4}px;background:linear-gradient(135deg, ${from}, ${to});">${initial}</span>
+    <span class="inline-flex items-center justify-center rounded-full font-bold text-white shrink-0" style="width:${size}px;height:${size}px;font-size:${size * 0.4}px;background:var(--accent);">${initial}</span>
   `;
 }

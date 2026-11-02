@@ -6,7 +6,7 @@
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <title>Soumaïla Niampa — Consultant Data & Transformation Digitale</title>
   <meta name="description" content="Ingénieur spécialisé en data, automatisation et transformation digitale. Structuration des données, KPI, reporting." />
-  <meta name="theme-color" content="#0A0C10" />
+  <meta name="theme-color" content="#05060A" />
   <meta property="og:title" content="Soumaïla Niampa — Consultant Data & Transformation Digitale" />
   <meta property="og:description" content="Ingénieur spécialisé en data, automatisation et transformation digitale." />
   <meta property="og:type" content="website" />
@@ -23,7 +23,7 @@
   <link rel="stylesheet" href="/src/style.css" />
   <link rel="stylesheet" href="/src/site.css" />
 </head>
-<body class="site text-[#0A0C10] antialiased">
+<body class="site text-white antialiased">
 
   <!-- ============ INTRO ============ -->
   <div id="loader" aria-hidden="true">
@@ -87,38 +87,36 @@
 
       <div class="hero-intro relative flex items-start justify-between gap-6">
         <div>
-          <p id="hero-name-top" class="text-[#0A0C10]/80 text-sm font-semibold">Soumaïla Niampa</p>
-          <p id="hero-location" class="mono text-[#0A0C10]/45 text-xs mt-0.5">Casablanca · Maroc</p>
+          <p id="hero-name-top" class="text-white/80 text-sm font-semibold">Soumaïla Niampa</p>
+          <p id="hero-location" class="mono text-white/45 text-xs mt-0.5">Casablanca · Maroc</p>
         </div>
-        <p class="hidden md:block mono text-xs text-[#0A0C10]/45 text-right leading-relaxed">Portfolio<br /><span id="hero-year"></span> ©</p>
+        <p class="hidden md:block mono text-xs text-white/45 text-right leading-relaxed">Portfolio<br /><span id="hero-year"></span> ©</p>
       </div>
 
       <div class="relative my-auto py-10" id="hero-title">
         <h1 class="sr-only" id="hero-h1">Soumaïla Niampa</h1>
         <div class="hero-line" aria-hidden="true"><p id="hero-name-1" class="hero-name">SOUMAÏLA</p></div>
-        <div class="hero-line md:pl-[12vw]" aria-hidden="true"><p id="hero-name-2" class="hero-name outline">NIAMPA.</p></div>
+        <div class="hero-line" aria-hidden="true"><p id="hero-name-2" class="hero-name outline">NIAMPA.</p></div>
       </div>
 
       <div class="hero-intro relative">
-        <div class="h-px bg-[#0A0C10]/10 mb-6 origin-left" id="hero-rule"></div>
+        <div class="h-px bg-white/10 mb-6 origin-left" id="hero-rule"></div>
         <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-8">
           <div class="max-w-md">
-            <p id="hero-tagline" class="mono text-[11px] tracking-[0.25em] uppercase text-[#0A0C10]/50 mb-3">Consultant Data & Transformation Digitale</p>
+            <p id="hero-tagline" class="mono text-[11px] tracking-[0.25em] uppercase text-white/50 mb-3">Consultant Data & Transformation Digitale</p>
             <p class="text-xl md:text-2xl font-semibold tracking-tight leading-snug mb-2">
               Je transforme la donnée en
               <span class="rotator" id="rotator"><span>décisions.</span><span>automatisation.</span><span>tableaux de bord.</span><span>impact.</span></span>
             </p>
-            <p id="hero-description" class="text-[#0A0C10]/60 text-base leading-relaxed">Ingénieur École Centrale Casablanca · Data Analyst chez Attijariwafa Bank.</p>
           </div>
           <div class="flex items-center gap-3 flex-wrap">
             <button data-nav="projects" data-magnetic class="btn btn-primary"><span class="btn-fill"></span>Voir les projets <span class="arrow">→</span></button>
             <button data-nav="contact" data-magnetic class="btn btn-outline"><span class="btn-fill"></span>Me contacter</button>
-            <a id="hero-cv-btn" href="#" download data-magnetic class="btn btn-outline hidden"><span class="btn-fill"></span>CV ↓</a>
             <a id="hero-linkedin" href="#" target="_blank" rel="noopener noreferrer" data-magnetic class="btn btn-outline"><span class="btn-fill"></span>LinkedIn ↗</a>
           </div>
         </div>
         <div class="flex justify-center mt-8">
-          <button data-nav="about" class="scroll-ind" aria-label="Défiler vers la section suivante">Scroll<span class="track"></span></button>
+          <button data-nav="projects" class="scroll-ind" aria-label="Défiler vers la section suivante">Scroll<span class="track"></span></button>
         </div>
       </div>
     </section>
@@ -126,92 +124,71 @@
     <!-- Bandeau défilant (réagit à la vitesse du scroll) -->
     <div class="marquee" aria-hidden="true"><div class="marquee-track" id="marquee-track"></div></div>
 
-    <!-- ============ 01 · ABOUT ============ -->
-    <section id="about" class="sec">
-      <div class="max-w-7xl mx-auto">
-        <div class="sec-head"><span class="num">01</span><span>About</span><span class="rule"></span></div>
-        <div class="grid lg:grid-cols-[0.9fr_1.4fr] gap-10 lg:gap-20 items-start">
-          <div class="lg:sticky lg:top-28">
-            <div class="about-photo" data-reveal="clip">
-              <img id="about-image" alt="Soumaïla Niampa" class="hidden" data-parallax="0.15" />
-              <span class="badge-float"><span class="live-dot"></span>Basé à Casablanca</span>
-            </div>
-          </div>
-          <div>
-            <h2 class="sec-title mb-10" data-split>La data, <span class="grad-text">c'est mon terrain.</span></h2>
-            <div id="about-blocks" class="space-y-8"></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ 02 · EDUCATION ============ -->
-    <section id="education" class="sec pt-0 md:pt-0">
-      <div class="max-w-7xl mx-auto">
-        <div class="sec-head"><span class="num">02</span><span>Formation</span><span class="rule"></span></div>
-        <h2 class="sec-title mb-12" data-split>Parcours <span class="grad-text">académique.</span></h2>
-        <div id="education-list" class="grid md:grid-cols-2 gap-5" data-stagger="0.12"></div>
-      </div>
-    </section>
-
-    <!-- ============ 03 · EXPERIENCE (panneau sombre) ============ -->
-    <section id="experience" class="panel-wrap">
-      <div class="panel on-dark">
-        <div class="panel-grid" aria-hidden="true"></div>
-        <div class="sec relative">
-          <div class="max-w-6xl mx-auto">
-            <div class="sec-head"><span class="num">03</span><span>Expérience</span><span class="rule"></span></div>
-            <h2 class="sec-title mb-16" data-split>Mon <span class="grad-text">parcours.</span></h2>
-            <div class="timeline" id="timeline">
-              <div class="timeline-line"><div class="timeline-fill" id="timeline-fill"></div></div>
-              <div id="experience-list"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ 04 · PROJECTS ============ -->
+    <!-- ============ PROJETS ============ -->
     <section id="projects" class="sec">
       <div class="max-w-6xl mx-auto">
-        <div class="sec-head"><span class="num">04</span><span>Projets</span><span class="rule"></span></div>
+        <div class="sec-head"><span class="num"></span><span>Projets</span><span class="rule"></span></div>
         <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-14">
           <h2 class="sec-title" data-split>Ce que j'ai <span class="grad-text">construit.</span></h2>
-          <p class="text-[#0A0C10]/55 max-w-xs text-sm leading-relaxed" data-reveal>Une sélection de projets data, automatisation et IA — du pipeline au tableau de bord.</p>
+          <p class="text-white/55 max-w-xs text-sm leading-relaxed" data-reveal>Une sélection de projets data, automatisation et IA — du pipeline au tableau de bord.</p>
         </div>
         <div id="projects-list" class="stack"></div>
       </div>
     </section>
 
-    <!-- ============ 05 · SKILLS ============ -->
+    <!-- ============ EXPERTISE ============ -->
     <section id="skills" class="sec pt-0 md:pt-0">
       <div class="max-w-7xl mx-auto">
-        <div class="sec-head"><span class="num">05</span><span>Compétences</span><span class="rule"></span></div>
-        <h2 class="sec-title mb-12" data-split>Ce que je <span class="grad-text">maîtrise.</span></h2>
-        <div id="skills-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5" data-stagger="0.1"></div>
+        <div class="sec-head"><span class="num"></span><span>Expertise</span><span class="rule"></span></div>
+        <h2 class="sec-title mb-12" data-split>Ce que je <span class="grad-text">fais.</span></h2>
+        <div id="skills-grid" class="grid sm:grid-cols-2 gap-5" data-stagger="0.1"></div>
       </div>
     </section>
 
-    <!-- ============ 06 · ARTICLES ============ -->
-    <section id="articles" class="sec pt-0 md:pt-0">
-      <div class="max-w-6xl mx-auto">
-        <div class="sec-head"><span class="num">06</span><span id="articles-label">Articles</span><span class="rule"></span></div>
-        <div id="articles-title-wrap"><h2 class="sec-title mb-10" data-split>Publications <span class="grad-text">scientifiques.</span></h2></div>
-        <div id="articles-list"></div>
-        <div id="articles-empty" class="hidden spot p-10 text-center" data-reveal>
-          <p class="text-2xl font-bold tracking-tight mb-2">Bientôt ici.</p>
-          <p class="text-[#0A0C10]/50 text-sm">Aucun article publié pour le moment.</p>
+    <!-- ============ À PROPOS ============ -->
+    <section id="about" class="sec pt-0 md:pt-0">
+      <div class="max-w-7xl mx-auto">
+        <div class="sec-head"><span class="num"></span><span>À propos</span><span class="rule"></span></div>
+        <div class="grid lg:grid-cols-[1fr_1.4fr] gap-10 lg:gap-20 items-start">
+          <h2 class="sec-title lg:sticky lg:top-28" data-split>La data, <span class="grad-text">c'est mon terrain.</span></h2>
+          <div id="about-blocks" class="space-y-8"></div>
         </div>
       </div>
     </section>
 
-    <!-- ============ 07 · CONTACT (panneau sombre) ============ -->
+    <!-- ============ PARCOURS (expérience + formation) ============ -->
+    <section id="experience" class="sec pt-0 md:pt-0">
+      <div class="max-w-7xl mx-auto">
+        <div class="sec-head"><span class="num"></span><span>Parcours</span><span class="rule"></span></div>
+        <div class="grid md:grid-cols-2 gap-12 lg:gap-20">
+          <div>
+            <p class="r-label">Expérience</p>
+            <div id="experience-list" data-stagger="0.08"></div>
+          </div>
+          <div id="education">
+            <p class="r-label">Formation</p>
+            <div id="education-list" data-stagger="0.08"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ ARTICLES (retirée s'il n'y a rien à publier) ============ -->
+    <section id="articles" class="sec pt-0 md:pt-0">
+      <div class="max-w-6xl mx-auto">
+        <div class="sec-head"><span class="num"></span><span>Publications</span><span class="rule"></span></div>
+        <h2 class="sec-title mb-10" data-split>Publications <span class="grad-text">scientifiques.</span></h2>
+        <div id="articles-list"></div>
+      </div>
+    </section>
+
+    <!-- ============ CONTACT (panneau) ============ -->
     <section id="contact" class="panel-wrap">
       <div class="panel on-dark">
         <div class="panel-grid" aria-hidden="true"></div>
         <div class="sec relative">
           <div class="max-w-7xl mx-auto">
-            <div class="sec-head"><span class="num">07</span><span>Contact</span><span class="rule"></span></div>
+            <div class="sec-head"><span class="num"></span><span>Contact</span><span class="rule"></span></div>
             <h2 class="sec-title mb-8" style="font-size: clamp(3rem, 10vw, 9rem);" data-split>Travaillons <span class="grad-text">ensemble.</span></h2>
             <div data-reveal class="mb-16"><a id="contact-big-mail" href="#" class="big-mail" data-cursor="Écrire"></a></div>
 
@@ -229,8 +206,8 @@
                 <div class="field"><textarea id="f-message" name="message" placeholder=" " required rows="4"></textarea><label for="f-message">Parlez-moi de votre projet</label><span class="field-line"></span></div>
                 <div class="flex items-center gap-4 flex-wrap pt-2">
                   <button type="submit" id="contact-submit" data-magnetic class="btn btn-light disabled:opacity-50"><span class="btn-fill"></span><span id="contact-submit-label">Envoyer le message</span> <span class="arrow">→</span></button>
-                  <p id="contact-error" class="text-sm text-red-400 hidden">Une erreur s'est produite. Réessayez.</p>
-                  <p id="contact-success" class="text-sm text-emerald-400 hidden">Merci ! Votre message est bien arrivé.</p>
+                  <p id="contact-error" class="text-sm text-[var(--neon)] hidden">Une erreur s'est produite. Réessayez.</p>
+                  <p id="contact-success" class="text-sm text-[var(--accent-bright)] hidden">Merci ! Votre message est bien arrivé.</p>
                 </div>
               </form>
             </div>

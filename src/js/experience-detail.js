@@ -59,7 +59,7 @@ function render(e, list) {
   document.getElementById("state-content").innerHTML = `
     <header class="px-5 md:px-10 pt-32 md:pt-40 max-w-6xl mx-auto">
       <div data-hero-fade class="flex items-center gap-3 mb-6">
-        ${badgeHTML(e.$id + e.company, e.company, 40)}
+        ${badgeHTML(e.company, 40)}
         <span class="text-lg font-semibold">${esc(e.company)}</span>
         ${e.current ? `<span class="text-[10px] tracking-[0.25em] uppercase text-white bg-[var(--accent)] rounded-full px-3 py-1.5">Actuel</span>` : ""}
       </div>
@@ -67,7 +67,7 @@ function render(e, list) {
       <div data-hero-fade class="grid sm:grid-cols-3 gap-3 mt-12">
         ${facts.map(([k, v]) => `
           <div class="spot p-6">
-            <p class="mono text-[10px] tracking-[0.25em] uppercase text-black/45 mb-2">${esc(k)}</p>
+            <p class="mono text-[10px] tracking-[0.25em] uppercase text-white/45 mb-2">${esc(k)}</p>
             <p class="text-xl font-semibold tracking-tight">${esc(v)}</p>
           </div>`).join("")}
       </div>
@@ -80,7 +80,7 @@ function render(e, list) {
         ${rest.map((t, i) => `
           <div class="spot p-7" data-tilt>
             <span class="mono text-xs text-[var(--accent)]">${String(i + 1).padStart(2, "0")}</span>
-            <p class="mt-3 text-black/70 text-lg leading-relaxed">${esc(t)}</p>
+            <p class="mt-3 text-white/70 text-lg leading-relaxed">${esc(t)}</p>
           </div>`).join("")}
       </div>
     </section>

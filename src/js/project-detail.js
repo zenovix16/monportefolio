@@ -24,7 +24,7 @@ function render(p, list) {
   document.getElementById("state-content").innerHTML = `
     <header class="px-5 md:px-10 pt-32 md:pt-40 max-w-6xl mx-auto">
       <div data-hero-fade class="flex items-center gap-3 mb-6">
-        ${pos ? `<span class="mono text-xs px-3 py-1.5 rounded-full bg-[#0A0C10] text-white">Projet ${pos}</span>` : ""}
+        ${pos ? `<span class="mono text-xs px-3 py-1.5 rounded-full bg-white/10 text-white">Projet ${pos}</span>` : ""}
         ${p.featured ? `<span class="text-[10px] tracking-[0.25em] uppercase text-white bg-[var(--accent)] rounded-full px-3 py-1.5">Projet phare</span>` : ""}
       </div>
       <h1 data-hero-title class="font-extrabold tracking-[-0.05em] leading-[0.92]" style="font-size: clamp(2.6rem, 8vw, 7rem);">${esc(p.title)}</h1>
@@ -41,7 +41,7 @@ function render(p, list) {
       <aside class="space-y-8 md:sticky md:top-28 self-start" data-reveal>
         ${(p.tags || []).length ? `
         <div>
-          <p class="mono text-[10px] tracking-[0.25em] uppercase text-black/45 mb-3">Technologies</p>
+          <p class="mono text-[10px] tracking-[0.25em] uppercase text-white/45 mb-3">Technologies</p>
           <ul class="space-y-1.5">${p.tags.map((t) => `<li class="text-lg font-medium">${esc(t)}</li>`).join("")}</ul>
         </div>` : ""}
         ${links.trim() ? `<div class="flex flex-wrap gap-3">${links}</div>` : ""}
@@ -49,7 +49,7 @@ function render(p, list) {
       <div>
         <div class="sec-head"><span class="num">↘</span><span>Le projet</span><span class="rule"></span></div>
         ${lead ? `<p class="lead-text mb-10" data-scrub-words>${esc(lead)}</p>` : ""}
-        <div class="space-y-5">${rest.map((t) => `<p data-reveal class="text-black/65 text-lg leading-relaxed">${esc(t)}</p>`).join("")}</div>
+        <div class="space-y-5">${rest.map((t) => `<p data-reveal class="text-white/65 text-lg leading-relaxed">${esc(t)}</p>`).join("")}</div>
       </div>
     </section>
   `;

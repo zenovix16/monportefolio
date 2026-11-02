@@ -30,9 +30,10 @@ export function useLocalFiles(map) {
   localFiles = map || {};
 }
 
-export function getFilePreviewUrl(fileId, width = 800, height = 600) {
-  if (localFiles) return localFiles[fileId] || "";
-  return `${ENDPOINT}/storage/buckets/${BUCKET_ID}/files/${fileId}/preview?project=${PROJECT_ID}&width=${width}&height=${height}&gravity=center&quality=80`;
+// Le plan Appwrite actuel bloque /preview (403) : on sert l'original, recadré
+// en CSS par object-fit.
+export function getFilePreviewUrl(fileId) {
+  return getFileViewUrl(fileId);
 }
 
 export function getFileViewUrl(fileId) {

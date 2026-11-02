@@ -87,11 +87,11 @@ function buildLinks() {
     desktop.appendChild(li);
   });
 
-  SECTION_LINKS.forEach((l, i) => {
+  SECTION_LINKS.forEach((l) => {
     const btn = document.createElement("button");
     btn.dataset.navLink = l.id;
     btn.className = "m-link text-left";
-    btn.innerHTML = `<span class="m-link-inner"><span class="m-num">${String(i + 1).padStart(2, "0")}</span><span class="m-label">${l.label}</span></span>`;
+    btn.innerHTML = `<span class="m-link-inner"><span class="m-num"></span><span class="m-label">${l.label}</span></span>`;
     btn.addEventListener("click", () => navigate(l.id));
     mobile.appendChild(btn);
   });
@@ -110,24 +110,19 @@ function initScrollSpy() {
   });
 }
 
-// La nav passe en thème sombre quand elle survole un panneau noir.
-function initNavTheme() {
-  const navbar = document.getElementById("navbar");
-  document.querySelectorAll(".panel").forEach((panel) => {
-    ScrollTrigger.create({
-      trigger: panel,
-      start: "top 40px",
-      end: "bottom 40px",
-      onToggle: (self) => navbar.classList.toggle("nav-dark", self.isActive),
-    });
+// À appeler une fois le contenu rendu : retire les liens des sections absentes
+// de la page, puis branche le suivi de la section active.
+export function syncNavSections() {
+  SECTION_LINKS.forEach((l) => {
+    if (document.getElementById(l.id)) return;
+    document.querySelectorAll(`[data-nav-link="${l.id}"]`).forEach((el) => (el.closest("li") || el).remove());
   });
+  initScrollSpy();
 }
 
 export function initNav() {
   buildLinks();
   setActive("hero");
-  initScrollSpy();
-  initNavTheme();
   window.addEventListener("resize", () => moveIndicator(document.querySelector("#nav-links-desktop .is-active")));
   document.fonts?.ready.then(() => moveIndicator(document.querySelector("#nav-links-desktop .is-active")));
 

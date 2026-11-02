@@ -1,10 +1,10 @@
 import { databases, DB_ID, COLLECTIONS, Query, getFileViewUrl } from "./appwrite.js";
-import { initNav, setMenuEmail } from "./nav.js";
+import { initNav, setMenuEmail, syncNavSections } from "./nav.js";
 import { renderHero, createHeroIntro, initHeroMotion } from "./render/hero.js";
-import { renderAbout, renderAboutImage } from "./render/about.js";
-import { renderSkills, initSkillsMotion, skillNames } from "./render/skills.js";
+import { renderAbout } from "./render/about.js";
+import { renderSkills, skillNames } from "./render/skills.js";
 import { renderProjects, initProjectsMotion } from "./render/projects.js";
-import { renderExperience, initExperienceMotion } from "./render/experience.js";
+import { renderExperience } from "./render/experience.js";
 import { renderEducation } from "./render/education.js";
 import { renderArticles } from "./render/articles.js";
 import { renderFooter, initFooterMotion } from "./render/footer.js";
@@ -173,13 +173,11 @@ async function init() {
   const [projects, skills, experience, articles, aboutBlocks, education, settings] = await loadData();
 
   const profilePhotoUrl = settings.profileFileId ? getFileViewUrl(settings.profileFileId) : null;
-  const aboutImageUrl = settings.aboutImageFileId ? getFileViewUrl(settings.aboutImageFileId) : profilePhotoUrl;
   const cvUrl = settings.cvFileId ? getFileViewUrl(settings.cvFileId) : null;
 
   setMenuEmail(settings.email || "soumaila.niampa@centrale-casablanca.ma");
-  renderHero(settings, profilePhotoUrl, cvUrl);
+  renderHero(settings, profilePhotoUrl);
   renderAbout(aboutBlocks);
-  renderAboutImage(aboutImageUrl);
   renderEducation(education);
   renderExperience(experience);
   renderProjects(projects);
@@ -187,6 +185,7 @@ async function init() {
   renderArticles(articles);
   renderContactRows(settings, cvUrl);
   renderFooter(settings);
+  syncNavSections();
   initMarquee(skillNames(skills));
 
   initReveals();
@@ -195,9 +194,7 @@ async function init() {
   initMagnetic();
   initSpotlight();
   initHeroMotion();
-  initExperienceMotion();
   initProjectsMotion();
-  initSkillsMotion();
   initFooterMotion();
   const heroTl = createHeroIntro();
 

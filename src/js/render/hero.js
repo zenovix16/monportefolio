@@ -4,11 +4,10 @@ const DEFAULTS = {
   name: "Soumaïla Niampa",
   location: "Casablanca · Maroc",
   tagline: "Consultant Data & Transformation Digitale",
-  description: "Ingénieur École Centrale Casablanca · Data Analyst chez Attijariwafa Bank.",
   linkedinUrl: "https://linkedin.com/in/souma%C3%AFla-niampa",
 };
 
-export function renderHero(settings, profilePhotoUrl, cvUrl) {
+export function renderHero(settings, profilePhotoUrl) {
   const fullName = settings.heroName || DEFAULTS.name;
   const parts = fullName.trim().split(/\s+/);
   const firstLine = (parts[0] || "").toUpperCase();
@@ -18,19 +17,12 @@ export function renderHero(settings, profilePhotoUrl, cvUrl) {
   document.getElementById("hero-name-top").textContent = fullName;
   document.getElementById("hero-location").textContent = settings.heroLocation || DEFAULTS.location;
   document.getElementById("hero-tagline").textContent = settings.heroTagline || DEFAULTS.tagline;
-  document.getElementById("hero-description").textContent = settings.heroDescription || DEFAULTS.description;
   document.getElementById("hero-name-1").textContent = firstLine;
   document.getElementById("hero-name-2").textContent = `${secondLine}.`;
   document.getElementById("hero-year").textContent = new Date().getFullYear();
   document.getElementById("footer-giant").textContent = (parts[parts.length - 1] || "").toUpperCase();
 
   document.getElementById("hero-linkedin").href = settings.linkedinUrl || DEFAULTS.linkedinUrl;
-
-  if (cvUrl) {
-    const btn = document.getElementById("hero-cv-btn");
-    btn.href = cvUrl;
-    btn.classList.remove("hidden");
-  }
 
   if (profilePhotoUrl) {
     document.getElementById("hero-portrait").src = profilePhotoUrl;
